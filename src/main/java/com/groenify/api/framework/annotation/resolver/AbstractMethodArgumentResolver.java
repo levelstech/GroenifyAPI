@@ -1,4 +1,4 @@
-package com.groenify.api.framework.resolver;
+package com.groenify.api.framework.annotation.resolver;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;

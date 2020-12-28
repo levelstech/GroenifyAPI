@@ -1,9 +1,8 @@
-package com.groenify.api.rest;
+package com.groenify.api.rest.epole;
 
-import com.groenify.api.database.EPoleBrand;
-import com.groenify.api.framework.resolver.EPoleBrandInPath;
-import com.groenify.api.repository.EPoleBrandRepository;
-import com.groenify.api.service.EPoleBrandService;
+import com.groenify.api.database.epole.EPoleBrand;
+import com.groenify.api.framework.annotation.EPoleBrandInPath;
+import com.groenify.api.service.epole.EPoleBrandService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;

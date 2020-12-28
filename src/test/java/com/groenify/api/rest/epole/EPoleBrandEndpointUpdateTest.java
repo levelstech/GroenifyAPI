@@ -1,10 +1,12 @@
-package com.groenify.api.rest;
+package com.groenify.api.rest.epole;
 
 import com.groenify.api.JsonTestUtil;
-import com.groenify.api.database.EPoleBrand;
-import com.groenify.api.framework.resolver.EPoleBrandInPathResolver;
-import com.groenify.api.repository.EPoleBrandRepository;
-import com.groenify.api.service.EPoleBrandService;
+import com.groenify.api.database.epole.EPoleBrand;
+import com.groenify.api.framework.annotation.resolver.EPoleBrandInPathResolver;
+import com.groenify.api.repository.epole.EPoleBrandRepository;
+import com.groenify.api.rest.EndpointTest;
+import com.groenify.api.rest.epole.EPoleBrandEndpoint;
+import com.groenify.api.service.epole.EPoleBrandService;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,10 +27,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @DataJpaTest(showSql = false)
 @EnableAutoConfiguration
-class EPoleBrandEndpointDeleteTest extends EndpointTest {
+class EPoleBrandEndpointUpdateTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/epole_brands";
     private static Long brandId;
+    private EPoleBrand testBrand;
 
     @Autowired
     private EPoleBrandRepository repository;
@@ -52,7 +55,7 @@ class EPoleBrandEndpointDeleteTest extends EndpointTest {
     protected void setUpData() {
         final EPoleBrand brandWahid = EPoleBrand.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"Brand-Wahid\"}");
-        final EPoleBrand testBrand = storeNew(brandWahid);
+        testBrand = storeNew(brandWahid);
         brandId = testBrand.getId();
     }
 
@@ -63,33 +66,43 @@ class EPoleBrandEndpointDeleteTest extends EndpointTest {
     }
 
     @Test
-    void deleteEPoleBrandDeleteValidateJsonKeyNames() throws Exception {
+    void putEPoleBrandUpdateValidateJsonKeyNames() throws Exception {
         final String resBody = getMockMvc()
-                .perform(delete(getEndpoint()))
-                .andExpect(status().isNoContent())
+                .perform(put(getEndpoint())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\":\"Brand-Wahid(1)\"}"))
+                .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        JsonTestUtil.test(resBody, "true");
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid")).isFalse();
+        JsonTestUtil.test(resBody, "{\"id\":1, \"name\":\"Brand-Wahid(1)\"}");
     }
 
     @Test
-    void deleteEPoleBrandDeleteValidateKeyValues() throws Exception {
+    void putEPoleBrandUpdateValidateKeyValues() throws Exception {
         getMockMvc()
-                .perform(delete(getEndpoint()))
-                .andExpect(status().isNoContent())
-                .andExpect(jsonPath("$", is(true)));
+                .perform(put(getEndpoint())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\":\"Brand-Wahid(1)\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", Matchers.greaterThanOrEqualTo(1)))
+                .andExpect(jsonPath("$.name", is("Brand-Wahid(1)")));
 
         Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid(1)")).isTrue();
+
+        Assertions.assertThat(testBrand.getName()).isEqualTo("Brand-Wahid(1)");
     }
 
     @Test
-    void deleteEPoleBrandCreateInvalid() throws Exception {
+    void putEPoleBrandUpdateInvalid() throws Exception {
         brandId = -1L;
         getMockMvc()
-                .perform(delete(getEndpoint()))
+                .perform(put(getEndpoint())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\":\"Brand-Wahid(1)\"}"))
                 .andExpect(status().isNotFound());
 
         Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid(1)")).isFalse();
     }
 }

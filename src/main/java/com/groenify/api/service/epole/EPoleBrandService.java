@@ -1,14 +1,11 @@
-package com.groenify.api.service;
+package com.groenify.api.service.epole;
 
-import com.groenify.api.database.EPoleBrand;
-import com.groenify.api.repository.CompanyRepository;
-import com.groenify.api.repository.EPoleBrandRepository;
+import com.groenify.api.database.epole.EPoleBrand;
+import com.groenify.api.repository.epole.EPoleBrandRepository;
 import com.groenify.api.util.ListUtil;
-import com.groenify.api.util.LongUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EPoleBrandService {

@@ -1,6 +1,6 @@
 package com.groenify.api.config;
 
-import com.groenify.api.framework.resolver.PathResolverContainer;
+import com.groenify.api.framework.annotation.resolver.PathResolverContainer;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

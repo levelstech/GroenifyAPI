@@ -1,10 +1,13 @@
-package com.groenify.api.rest;
+package com.groenify.api.rest.epole;
 
 import com.groenify.api.JsonTestUtil;
-import com.groenify.api.database.EPoleBrand;
-import com.groenify.api.framework.resolver.EPoleBrandInPathResolver;
-import com.groenify.api.repository.EPoleBrandRepository;
-import com.groenify.api.service.EPoleBrandService;
+import com.groenify.api.database.epole.EPoleBrand;
+import com.groenify.api.framework.annotation.resolver.EPoleBrandInPathResolver;
+import com.groenify.api.repository.epole.EPoleBrandRepository;
+import com.groenify.api.rest.EndpointTest;
+import com.groenify.api.rest.epole.EPoleBrandEndpoint;
+import com.groenify.api.service.epole.EPoleBrandService;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +16,18 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
-import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @DataJpaTest(showSql = false)
 @EnableAutoConfiguration
-class EPoleBrandEndpointGeyByIdTest extends EndpointTest {
+class EPoleBrandEndpointDeleteTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/epole_brands";
-    private static EPoleBrand testBrand;
     private static Long brandId;
 
     @Autowired
@@ -50,7 +52,7 @@ class EPoleBrandEndpointGeyByIdTest extends EndpointTest {
     protected void setUpData() {
         final EPoleBrand brandWahid = EPoleBrand.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"Brand-Wahid\"}");
-        testBrand = storeNew(brandWahid);
+        final EPoleBrand testBrand = storeNew(brandWahid);
         brandId = testBrand.getId();
     }
 
@@ -61,29 +63,33 @@ class EPoleBrandEndpointGeyByIdTest extends EndpointTest {
     }
 
     @Test
-    void getEPoleBrandByIdValidateJsonKeyNames() throws Exception {
+    void deleteEPoleBrandDeleteValidateJsonKeyNames() throws Exception {
         final String resBody = getMockMvc()
-                .perform(get(getEndpoint()))
-                .andExpect(status().isOk())
+                .perform(delete(getEndpoint()))
+                .andExpect(status().isNoContent())
                 .andReturn().getResponse().getContentAsString();
 
-        JsonTestUtil.test(resBody, "{\"id\":1, \"name\":\"Brand-Wahid\"}");
+        JsonTestUtil.test(resBody, "true");
+        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid")).isFalse();
     }
 
     @Test
-    void getEPoleBrandByIdValidateDatabaseValues() throws Exception {
+    void deleteEPoleBrandDeleteValidateKeyValues() throws Exception {
         getMockMvc()
-                .perform(get(getEndpoint()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPathIdOfModelId("$.id", testBrand))
-                .andExpect(jsonPath("$.name", is(testBrand.getName())));
+                .perform(delete(getEndpoint()))
+                .andExpect(status().isNoContent())
+                .andExpect(jsonPath("$", is(true)));
+
+        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid")).isFalse();
     }
 
     @Test
-    void getEPoleBrandByIdNotFound() throws Exception {
+    void deleteEPoleBrandDeleteInvalid() throws Exception {
         brandId = -1L;
         getMockMvc()
-                .perform(get(getEndpoint()))
+                .perform(delete(getEndpoint()))
                 .andExpect(status().isNotFound());
+
+        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid")).isTrue();
     }
 }

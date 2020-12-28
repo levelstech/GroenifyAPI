@@ -1,6 +1,7 @@
-package com.groenify.api.database;
+package com.groenify.api.database.epole;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.groenify.api.database.IdModel;
 import com.groenify.api.util.MapperUtil;
 
 import javax.persistence.Column;
@@ -9,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
