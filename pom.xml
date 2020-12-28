@@ -9,8 +9,8 @@
         <version>2.4.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>groenify_api</artifactId>
+    <groupId>com.groenify</groupId>
+    <artifactId>api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>groenify_api</name>
     <description>API for Groenify</description>
