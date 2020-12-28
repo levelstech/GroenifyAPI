@@ -1,11 +1,8 @@
-package com.example.groenify_api.rest;
+package com.groenify.api.rest;
 
-import com.example.groenify_api.JsonTestUtil;
-import com.example.groenify_api.database.EPoleBrand;
-import com.example.groenify_api.repository.EPoleBrandRepository;
-import com.example.groenify_api.util.JsonUtil;
-import com.google.gson.JsonArray;
-import org.assertj.core.api.Assertions;
+import com.groenify.api.JsonTestUtil;
+import com.groenify.api.database.EPoleBrand;
+import com.groenify.api.repository.EPoleBrandRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +13,6 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import java.util.List;
 
-import static com.example.groenify_api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -86,11 +82,11 @@ class EPoleBrandEndpointTest extends EndpointTest {
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(TEST_BRANDS.size())))
-                .andExpect(jsonPathIdOfModelId("$[0].id", brandWahid))
+                .andExpect(RestTestUtil.jsonPathIdOfModelId("$[0].id", brandWahid))
                 .andExpect(jsonPath("$[0].name", is(brandWahid.getName())))
-                .andExpect(jsonPathIdOfModelId("$[1].id", brandThanie))
+                .andExpect(RestTestUtil.jsonPathIdOfModelId("$[1].id", brandThanie))
                 .andExpect(jsonPath("$[1].name", is(brandThanie.getName())))
-                .andExpect(jsonPathIdOfModelId("$[2].id", brandThalith))
+                .andExpect(RestTestUtil.jsonPathIdOfModelId("$[2].id", brandThalith))
                 .andExpect(jsonPath("$[2].name", is(brandThalith.getName())));
     }
 }

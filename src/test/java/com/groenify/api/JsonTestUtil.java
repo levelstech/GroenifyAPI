@@ -1,6 +1,6 @@
-package com.example.groenify_api;
+package com.groenify.api;
 
-import com.example.groenify_api.util.JsonUtil;
+import com.groenify.api.util.JsonUtil;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

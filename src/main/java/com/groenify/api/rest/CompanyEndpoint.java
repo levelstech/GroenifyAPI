@@ -1,9 +1,9 @@
-package com.example.groenify_api.rest;
+package com.groenify.api.rest;
 
-import com.example.groenify_api.database.Company;
-import com.example.groenify_api.repository.CompanyRepository;
-import com.example.groenify_api.util.ListUtil;
-import com.example.groenify_api.util.LongUtil;
+import com.groenify.api.database.Company;
+import com.groenify.api.repository.CompanyRepository;
+import com.groenify.api.util.ListUtil;
+import com.groenify.api.util.LongUtil;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

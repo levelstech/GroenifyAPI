@@ -1,6 +1,6 @@
-package com.example.groenify_api.rest;
+package com.groenify.api.rest;
 
-import com.example.groenify_api.database.IdModel;
+import com.groenify.api.database.IdModel;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

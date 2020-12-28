@@ -1,4 +1,4 @@
-package com.example.groenify_api;
+package com.groenify.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

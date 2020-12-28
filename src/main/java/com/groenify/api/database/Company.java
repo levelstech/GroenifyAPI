@@ -1,4 +1,4 @@
-package com.example.groenify_api.database;
+package com.groenify.api.database;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
