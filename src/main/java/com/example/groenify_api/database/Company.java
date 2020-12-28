@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "`company`")
-public class Company {
+public class Company implements IdModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +26,12 @@ public class Company {
     @Column(name = "url", columnDefinition = "longtext")
     private String url;
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(final Long var) {
         this.id = var;
     }

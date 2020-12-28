@@ -1,6 +1,6 @@
 package com.example.groenify_api.util;
 
-public class LongUtil {
+public final class LongUtil {
 
     private LongUtil() {}
 
