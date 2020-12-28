@@ -58,7 +58,6 @@ public class EPoleBrandEndpoint {
     }
 
     @DeleteMapping(value = "/{brandId}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public final Boolean deleteEPoleBrandById(

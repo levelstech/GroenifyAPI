@@ -40,6 +40,6 @@ public class EPoleBrandService {
     public Boolean delete(final EPoleBrand brand) {
         final Long id = brand.getId();
         repository.delete(brand);
-        return repository.existsById(id);
+        return !repository.existsById(id);
     }
 }
