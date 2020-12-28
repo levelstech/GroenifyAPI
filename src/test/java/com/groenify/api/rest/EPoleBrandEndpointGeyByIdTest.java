@@ -2,6 +2,8 @@ package com.groenify.api.rest;
 
 import com.groenify.api.JsonTestUtil;
 import com.groenify.api.database.EPoleBrand;
+import com.groenify.api.exceptions.ExceptionCatcher;
+import com.groenify.api.framework.resolver.EPoleBrandInPathResolver;
 import com.groenify.api.repository.EPoleBrandRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,6 +42,9 @@ class EPoleBrandEndpointGeyByIdTest extends EndpointTest {
         final StandaloneMockMvcBuilder mvcBuilder =
                 MockMvcBuilders.standaloneSetup(endpoint);
 
+        mvcBuilder.setCustomArgumentResolvers(
+                new EPoleBrandInPathResolver(repository))
+                .setControllerAdvice(new ExceptionCatcher());
         setMockMvc(mvcBuilder.build());
     }
 
