@@ -1,0 +1,32 @@
+server:
+  servlet:
+    session:
+      timeout: 1s
+  port: 8080
+spring:
+#  flyway:
+#    enabled: true
+#    locations:
+#      - classpath:/data/migrations
+#      - classpath:/data/migrations-demo
+  datasource:
+    driverClassName: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/groenify?serverTimezone=UTC
+    username: groen
+    password: green
+  jpa:
+    hibernate.ddl-auto: validate
+    generate-ddl: true
+    show-sql: false
+    open-in-view: true
+  servlet:
+    multipart:
+      max-file-size: 1GB
+      max-request-size: 1GB
+
+logging:
+  level:
+    root: WARN
+    org.hibernate.SQL: OFF
+    org.hibernate.type.descriptor.sql.BasicBinder: OFF
+    org.springframework: WARN

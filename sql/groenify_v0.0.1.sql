@@ -20,11 +20,14 @@
 -- Schema creation for schem `groenify`
 --
 
-DROP DATABASE IF EXISTS `groenify`;
+DROP
+DATABASE IF EXISTS `groenify`;
 
-CREATE DATABASE IF NOT EXISTS `groenify`;
+CREATE
+DATABASE IF NOT EXISTS `groenify`;
 
-USE `groenify`;
+USE
+`groenify`;
 --
 -- Table structure for table `company`
 --
@@ -33,13 +36,14 @@ USE `groenify`;
 DROP TABLE IF EXISTS `company`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `company` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` mediumtext COLLATE utf8_bin NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `url` longtext COLLATE utf8_bin DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `company_UN` (`name`) USING HASH
+CREATE TABLE `company`
+(
+    `id`            bigint(20) NOT NULL AUTO_INCREMENT,
+    `name`          mediumtext COLLATE utf8_bin NOT NULL,
+    `creation_date` timestamp                   NOT NULL DEFAULT current_timestamp(),
+    `url`           longtext COLLATE utf8_bin            DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `company_UN` (`name`) USING HASH
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Contains the companies, delivering electric poles.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -47,11 +51,18 @@ CREATE TABLE `company` (
 -- Dumping data for table `company`
 --
 
-LOCK TABLES `company` WRITE;
+LOCK
+TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
-INSERT INTO `company` VALUES (1,'Vattenfall','2020-12-28 00:43:12','https://incharge.vattenfall.nl/openbare-laadpalen/'),(2,'Vandebron','2020-12-28 00:43:56','https://vandebron.nl/elektrisch-rijden/laadpalen/groenladen'),(3,'CoolBlue','2020-12-28 00:43:56','https://laadpalen.coolblue.nl/');
+INSERT INTO `company`
+VALUES (1, 'Vattenfall', '2020-12-28 00:43:12',
+        'https://incharge.vattenfall.nl/openbare-laadpalen/'),
+       (2, 'Vandebron', '2020-12-28 00:43:56',
+        'https://vandebron.nl/elektrisch-rijden/laadpalen/groenladen'),
+       (3, 'CoolBlue', '2020-12-28 00:43:56', 'https://laadpalen.coolblue.nl/');
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 
 --
 -- Table structure for table `company_to_epole`
@@ -60,11 +71,13 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `company_to_epole`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `company_to_epole` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `company_id` bigint(20) NOT NULL,
-  `epole_id` bigint(20) NOT NULL,
-  `base_price` double(6,2) NOT NULL,
+CREATE TABLE `company_to_epole`
+(
+    `id`         bigint(20) NOT NULL AUTO_INCREMENT,
+    `company_id` bigint(20) NOT NULL,
+    `epole_id`   bigint(20) NOT NULL,
+    `base_price` double(6, 2
+) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `company_to_epole_UN` (`company_id`,`epole_id`),
   KEY `company_to_epole_FK_1` (`epole_id`),
@@ -77,11 +90,19 @@ CREATE TABLE `company_to_epole` (
 -- Dumping data for table `company_to_epole`
 --
 
-LOCK TABLES `company_to_epole` WRITE;
+LOCK
+TABLES `company_to_epole` WRITE;
 /*!40000 ALTER TABLE `company_to_epole` DISABLE KEYS */;
-INSERT INTO `company_to_epole` VALUES (1,1,1,1240.00),(2,2,1,450.00),(3,3,1,1249.00),(4,3,2,699.00),(5,3,3,849.00),(6,3,4,1129.00);
+INSERT INTO `company_to_epole`
+VALUES (1, 1, 1, 1240.00),
+       (2, 2, 1, 450.00),
+       (3, 3, 1, 1249.00),
+       (4, 3, 2, 699.00),
+       (5, 3, 3, 849.00),
+       (6, 3, 4, 1129.00);
 /*!40000 ALTER TABLE `company_to_epole` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 
 --
 -- Table structure for table `company_to_epole_to_factor_answer`
@@ -90,11 +111,13 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `company_to_epole_to_factor_answer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `company_to_epole_to_factor_answer` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `company_to_epole_id` bigint(20) NOT NULL,
-  `factor_answer_id` bigint(20) NOT NULL,
-  `price` double(6,2) NOT NULL,
+CREATE TABLE `company_to_epole_to_factor_answer`
+(
+    `id`                  bigint(20) NOT NULL AUTO_INCREMENT,
+    `company_to_epole_id` bigint(20) NOT NULL,
+    `factor_answer_id`    bigint(20) NOT NULL,
+    `price`               double(6, 2
+) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `company_to_epole_to_factor_answer_UN` (`factor_answer_id`,`company_to_epole_id`),
   KEY `company_to_epole_to_factor_answer_FK` (`company_to_epole_id`),
@@ -107,11 +130,15 @@ CREATE TABLE `company_to_epole_to_factor_answer` (
 -- Dumping data for table `company_to_epole_to_factor_answer`
 --
 
-LOCK TABLES `company_to_epole_to_factor_answer` WRITE;
+LOCK
+TABLES `company_to_epole_to_factor_answer` WRITE;
 /*!40000 ALTER TABLE `company_to_epole_to_factor_answer` DISABLE KEYS */;
-INSERT INTO `company_to_epole_to_factor_answer` VALUES (1,1,1,20.00),(2,1,2,0.00);
+INSERT INTO `company_to_epole_to_factor_answer`
+VALUES (1, 1, 1, 20.00),
+       (2, 1, 2, 0.00);
 /*!40000 ALTER TABLE `company_to_epole_to_factor_answer` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 
 --
 -- Table structure for table `epole`
@@ -120,14 +147,15 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `epole`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `epole` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `brand` bigint(20) NOT NULL,
-  `type` mediumtext COLLATE utf8_bin NOT NULL,
-  `description` longtext COLLATE utf8_bin DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `epole_FK` (`brand`),
-  CONSTRAINT `epole_FK` FOREIGN KEY (`brand`) REFERENCES `epole_brand` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE `epole`
+(
+    `id`          bigint(20) NOT NULL AUTO_INCREMENT,
+    `brand`       bigint(20) NOT NULL,
+    `type`        mediumtext COLLATE utf8_bin NOT NULL,
+    `description` longtext COLLATE utf8_bin DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY           `epole_FK` (`brand`),
+    CONSTRAINT `epole_FK` FOREIGN KEY (`brand`) REFERENCES `epole_brand` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Contains the avaliable electrical poles.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -135,11 +163,17 @@ CREATE TABLE `epole` (
 -- Dumping data for table `epole`
 --
 
-LOCK TABLES `epole` WRITE;
+LOCK
+TABLES `epole` WRITE;
 /*!40000 ALTER TABLE `epole` DISABLE KEYS */;
-INSERT INTO `epole` VALUES (1,1,'Eve Single Pro Line',NULL),(2,1,'Eve Single S-Line',NULL),(3,2,'Elvi Compleet',NULL),(4,2,'Elvi Basis',NULL);
+INSERT INTO `epole`
+VALUES (1, 1, 'Eve Single Pro Line', NULL),
+       (2, 1, 'Eve Single S-Line', NULL),
+       (3, 2, 'Elvi Compleet', NULL),
+       (4, 2, 'Elvi Basis', NULL);
 /*!40000 ALTER TABLE `epole` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 
 --
 -- Table structure for table `epole_brand`
@@ -148,11 +182,12 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `epole_brand`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `epole_brand` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` mediumtext COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `epole_brand_UN` (`name`) USING HASH
+CREATE TABLE `epole_brand`
+(
+    `id`   bigint(20) NOT NULL AUTO_INCREMENT,
+    `name` mediumtext COLLATE utf8_bin NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `epole_brand_UN` (`name`) USING HASH
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -160,11 +195,15 @@ CREATE TABLE `epole_brand` (
 -- Dumping data for table `epole_brand`
 --
 
-LOCK TABLES `epole_brand` WRITE;
+LOCK
+TABLES `epole_brand` WRITE;
 /*!40000 ALTER TABLE `epole_brand` DISABLE KEYS */;
-INSERT INTO `epole_brand` VALUES (1,'Alfen'),(2,'EVBox');
+INSERT INTO `epole_brand`
+VALUES (1, 'Alfen'),
+       (2, 'EVBox');
 /*!40000 ALTER TABLE `epole_brand` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 
 --
 -- Table structure for table `factor`
@@ -173,16 +212,17 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `factor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `factor` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` mediumtext COLLATE utf8_bin NOT NULL,
-  `question` mediumtext COLLATE utf8_bin NOT NULL,
-  `factor_type` bigint(20) NOT NULL,
-  `description` longtext COLLATE utf8_bin DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `factor_UN` (`name`) USING HASH,
-  KEY `factor_FK` (`factor_type`),
-  CONSTRAINT `factor_FK` FOREIGN KEY (`factor_type`) REFERENCES `factor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE `factor`
+(
+    `id`          bigint(20) NOT NULL AUTO_INCREMENT,
+    `name`        mediumtext COLLATE utf8_bin NOT NULL,
+    `question`    mediumtext COLLATE utf8_bin NOT NULL,
+    `factor_type` bigint(20) NOT NULL,
+    `description` longtext COLLATE utf8_bin DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `factor_UN` (`name`) USING HASH,
+    KEY           `factor_FK` (`factor_type`),
+    CONSTRAINT `factor_FK` FOREIGN KEY (`factor_type`) REFERENCES `factor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -190,11 +230,22 @@ CREATE TABLE `factor` (
 -- Dumping data for table `factor`
 --
 
-LOCK TABLES `factor` WRITE;
+LOCK
+TABLES `factor` WRITE;
 /*!40000 ALTER TABLE `factor` DISABLE KEYS */;
-INSERT INTO `factor` VALUES (1,'soort_laadpunt','Welk soort laadpunt wilt u hebben?',2,NULL),(2,'vaste_laadkabel','Wilt u een vaste laadkabel?',1,NULL),(3,'lengte_laadkabel','Welke lengte zou u de laadkabel willen?',3,NULL),(4,'installatie_pakket','Wat is de lengte van uw meterkast tot aan de laadpaal? En hoeveel meter is ondergronds?',4,NULL),(5,'dynamic_load_balancing','Wilt u Dynamic Load Balancing?',1,NULL),(6,'verzwaren','Wilt u de meterkast verzwaren?',1,NULL);
+INSERT INTO `factor`
+VALUES (1, 'soort_laadpunt', 'Welk soort laadpunt wilt u hebben?', 2, NULL),
+       (2, 'vaste_laadkabel', 'Wilt u een vaste laadkabel?', 1, NULL),
+       (3, 'lengte_laadkabel', 'Welke lengte zou u de laadkabel willen?', 3,
+        NULL),
+       (4, 'installatie_pakket',
+        'Wat is de lengte van uw meterkast tot aan de laadpaal? En hoeveel meter is ondergronds?',
+        4, NULL),
+       (5, 'dynamic_load_balancing', 'Wilt u Dynamic Load Balancing?', 1, NULL),
+       (6, 'verzwaren', 'Wilt u de meterkast verzwaren?', 1, NULL);
 /*!40000 ALTER TABLE `factor` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 
 --
 -- Table structure for table `factor_answer`
@@ -203,15 +254,16 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `factor_answer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `factor_answer` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `factor_id` bigint(20) NOT NULL,
-  `factor_type` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `factor_answer_FK` (`factor_id`),
-  KEY `factor_answer_FK_1` (`factor_type`),
-  CONSTRAINT `factor_answer_FK` FOREIGN KEY (`factor_id`) REFERENCES `factor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `factor_answer_FK_1` FOREIGN KEY (`factor_type`) REFERENCES `factor_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE `factor_answer`
+(
+    `id`          bigint(20) NOT NULL AUTO_INCREMENT,
+    `factor_id`   bigint(20) NOT NULL,
+    `factor_type` bigint(20) NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY           `factor_answer_FK` (`factor_id`),
+    KEY           `factor_answer_FK_1` (`factor_type`),
+    CONSTRAINT `factor_answer_FK` FOREIGN KEY (`factor_id`) REFERENCES `factor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `factor_answer_FK_1` FOREIGN KEY (`factor_type`) REFERENCES `factor_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -219,11 +271,15 @@ CREATE TABLE `factor_answer` (
 -- Dumping data for table `factor_answer`
 --
 
-LOCK TABLES `factor_answer` WRITE;
+LOCK
+TABLES `factor_answer` WRITE;
 /*!40000 ALTER TABLE `factor_answer` DISABLE KEYS */;
-INSERT INTO `factor_answer` VALUES (1,2,1),(2,2,1);
+INSERT INTO `factor_answer`
+VALUES (1, 2, 1),
+       (2, 2, 1);
 /*!40000 ALTER TABLE `factor_answer` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 
 --
 -- Table structure for table `factor_answer_boolean`
@@ -232,11 +288,12 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `factor_answer_boolean`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `factor_answer_boolean` (
-  `factor_answer_id` bigint(20) NOT NULL,
-  `answer_boolean` tinyint(1) NOT NULL,
-  PRIMARY KEY (`factor_answer_id`),
-  CONSTRAINT `factor_answer_boolean_FK` FOREIGN KEY (`factor_answer_id`) REFERENCES `factor_answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE `factor_answer_boolean`
+(
+    `factor_answer_id` bigint(20) NOT NULL,
+    `answer_boolean`   tinyint(1) NOT NULL,
+    PRIMARY KEY (`factor_answer_id`),
+    CONSTRAINT `factor_answer_boolean_FK` FOREIGN KEY (`factor_answer_id`) REFERENCES `factor_answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -244,11 +301,15 @@ CREATE TABLE `factor_answer_boolean` (
 -- Dumping data for table `factor_answer_boolean`
 --
 
-LOCK TABLES `factor_answer_boolean` WRITE;
+LOCK
+TABLES `factor_answer_boolean` WRITE;
 /*!40000 ALTER TABLE `factor_answer_boolean` DISABLE KEYS */;
-INSERT INTO `factor_answer_boolean` VALUES (1,1),(2,0);
+INSERT INTO `factor_answer_boolean`
+VALUES (1, 1),
+       (2, 0);
 /*!40000 ALTER TABLE `factor_answer_boolean` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 
 --
 -- Table structure for table `factor_type`
@@ -257,12 +318,13 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `factor_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `factor_type` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_bin NOT NULL,
-  `description` mediumtext COLLATE utf8_bin DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `factor_type_UN` (`name`)
+CREATE TABLE `factor_type`
+(
+    `id`          bigint(20) NOT NULL AUTO_INCREMENT,
+    `name`        varchar(255) COLLATE utf8_bin NOT NULL,
+    `description` mediumtext COLLATE utf8_bin DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `factor_type_UN` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -270,11 +332,17 @@ CREATE TABLE `factor_type` (
 -- Dumping data for table `factor_type`
 --
 
-LOCK TABLES `factor_type` WRITE;
+LOCK
+TABLES `factor_type` WRITE;
 /*!40000 ALTER TABLE `factor_type` DISABLE KEYS */;
-INSERT INTO `factor_type` VALUES (1,'boolean_question',NULL),(2,'multiple_choice',NULL),(3,'number',NULL),(4,'doube_number',NULL);
+INSERT INTO `factor_type`
+VALUES (1, 'boolean_question', NULL),
+       (2, 'multiple_choice', NULL),
+       (3, 'number', NULL),
+       (4, 'doube_number', NULL);
 /*!40000 ALTER TABLE `factor_type` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
