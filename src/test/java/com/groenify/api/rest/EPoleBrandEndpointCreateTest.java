@@ -5,35 +5,36 @@ import com.groenify.api.database.EPoleBrand;
 import com.groenify.api.framework.resolver.EPoleBrandInPathResolver;
 import com.groenify.api.repository.EPoleBrandRepository;
 import com.groenify.api.service.EPoleBrandService;
+import org.assertj.core.api.Assertions;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @DataJpaTest(showSql = false)
 @EnableAutoConfiguration
-class EPoleBrandEndpointGeyByIdTest extends EndpointTest {
+class EPoleBrandEndpointCreateTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/epole_brands";
-    private static EPoleBrand testBrand;
-    private static Long brandId;
 
     @Autowired
     private EPoleBrandRepository repository;
 
     @Override
     protected String getEndpoint() {
-        return ENDPOINT + "/" + brandId;
+        return ENDPOINT;
     }
 
     protected void setUpMock() {
@@ -48,10 +49,6 @@ class EPoleBrandEndpointGeyByIdTest extends EndpointTest {
     }
 
     protected void setUpData() {
-        final EPoleBrand brandWahid = EPoleBrand.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Brand-Wahid\"}");
-        testBrand = storeNew(brandWahid);
-        brandId = testBrand.getId();
     }
 
     @BeforeEach
@@ -61,29 +58,38 @@ class EPoleBrandEndpointGeyByIdTest extends EndpointTest {
     }
 
     @Test
-    void getEPoleBrandByIdValidateJsonKeyNames() throws Exception {
+    void postEPoleBrandCreateValidateJsonKeyNames() throws Exception {
         final String resBody = getMockMvc()
-                .perform(get(getEndpoint()))
-                .andExpect(status().isOk())
+                .perform(post(getEndpoint())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\":\"Brand-Wahid\"}"))
+                .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
 
         JsonTestUtil.test(resBody, "{\"id\":1, \"name\":\"Brand-Wahid\"}");
+        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid")).isTrue();
     }
 
     @Test
-    void getEPoleBrandByIdValidateDatabaseValues() throws Exception {
+    void postEPoleBrandCreateValidateDatabaseValues() throws Exception {
         getMockMvc()
-                .perform(get(getEndpoint()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPathIdOfModelId("$.id", testBrand))
-                .andExpect(jsonPath("$.name", is(testBrand.getName())));
+                .perform(post(getEndpoint())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\":\"Brand-Thanie\"}"))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", Matchers.greaterThanOrEqualTo(1)))
+                .andExpect(jsonPath("$.name", is("Brand-Thanie")));
+
+        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Thanie")).isTrue();
     }
 
     @Test
-    void getEPoleBrandByIdNotFound() throws Exception {
-        brandId = -1L;
+    void postEPoleBrandCreateInvalidPost() throws Exception {
         getMockMvc()
-                .perform(get(getEndpoint()))
-                .andExpect(status().isNotFound());
+                .perform(post(getEndpoint())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"peter\":\"Brand-Thalith\"}"))
+                .andExpect(status().isBadRequest());
+        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Thalith")).isFalse();
     }
 }

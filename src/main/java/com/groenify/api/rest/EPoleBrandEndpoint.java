@@ -3,38 +3,42 @@ package com.groenify.api.rest;
 import com.groenify.api.database.EPoleBrand;
 import com.groenify.api.framework.resolver.EPoleBrandInPath;
 import com.groenify.api.repository.EPoleBrandRepository;
-import com.groenify.api.util.ListUtil;
+import com.groenify.api.service.EPoleBrandService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/epole_brands")
 public class EPoleBrandEndpoint {
 
-    private final EPoleBrandRepository repository;
+    private final EPoleBrandService service;
 
-    public EPoleBrandEndpoint(final EPoleBrandRepository repository) {
-        this.repository = repository;
+    public EPoleBrandEndpoint(final EPoleBrandService service) {
+        this.service = service;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<EPoleBrand> getAllEPoleBrands() {
-
-        final Iterable<EPoleBrand> allBrandsInIter = repository.findAll();
-        return ListUtil.iterableToList(allBrandsInIter);
+        return service.getAll();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<String> createEPoleBrand() {
-        return List.of("Test", "test", "t");
+    @ResponseStatus(HttpStatus.CREATED)
+    public final EPoleBrand createEPoleBrand(
+            final @Valid @RequestBody EPoleBrand ePoleBrand) {
+        return service.create(ePoleBrand);
     }
 
     @GetMapping(value = "/{brandId}",
@@ -44,18 +48,22 @@ public class EPoleBrandEndpoint {
         return ePoleBrand;
     }
 
-    @PutMapping(value = "/1",
+    @PutMapping(value = "/{brandId}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<String> updateEPoleBrandById() {
-        return List.of("Test", "test", "t");
+    public final EPoleBrand updateEPoleBrandById(
+            final @EPoleBrandInPath EPoleBrand ePoleBrand,
+            final @RequestBody EPoleBrand updated) {
+        return service.update(updated);
     }
 
-    @DeleteMapping(value = "/1",
+    @DeleteMapping(value = "/{brandId}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<String> deleteEPoleBrandById() {
-        return List.of("Test", "test", "t");
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public final Boolean deleteEPoleBrandById(
+            final @EPoleBrandInPath EPoleBrand ePoleBrand) {
+        return service.delete(ePoleBrand);
     }
 
 }

@@ -3,6 +3,7 @@ package com.groenify.api.rest;
 import com.groenify.api.JsonTestUtil;
 import com.groenify.api.database.EPoleBrand;
 import com.groenify.api.repository.EPoleBrandRepository;
+import com.groenify.api.service.EPoleBrandService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ class EPoleBrandEndpointTest extends EndpointTest {
 
     protected void setUpMock() {
         final EPoleBrandEndpoint endpoint =
-                new EPoleBrandEndpoint(repository);
+                new EPoleBrandEndpoint(new EPoleBrandService(repository));
         final StandaloneMockMvcBuilder mvcBuilder =
                 MockMvcBuilders.standaloneSetup(endpoint);
 
