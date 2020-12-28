@@ -1,10 +1,12 @@
-package com.groenify.api.rest;
+package com.groenify.api.rest.epole;
 
 import com.groenify.api.JsonTestUtil;
-import com.groenify.api.database.EPoleBrand;
-import com.groenify.api.exceptions.ExceptionCatcher;
-import com.groenify.api.framework.resolver.EPoleBrandInPathResolver;
-import com.groenify.api.repository.EPoleBrandRepository;
+import com.groenify.api.database.epole.EPoleBrand;
+import com.groenify.api.framework.annotation.resolver.EPoleBrandInPathResolver;
+import com.groenify.api.repository.epole.EPoleBrandRepository;
+import com.groenify.api.rest.EndpointTest;
+import com.groenify.api.rest.epole.EPoleBrandEndpoint;
+import com.groenify.api.service.epole.EPoleBrandService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +40,12 @@ class EPoleBrandEndpointGeyByIdTest extends EndpointTest {
 
     protected void setUpMock() {
         final EPoleBrandEndpoint endpoint =
-                new EPoleBrandEndpoint(repository);
+                new EPoleBrandEndpoint(new EPoleBrandService(repository));
         final StandaloneMockMvcBuilder mvcBuilder =
                 MockMvcBuilders.standaloneSetup(endpoint);
 
         mvcBuilder.setCustomArgumentResolvers(
-                new EPoleBrandInPathResolver(repository))
-                .setControllerAdvice(new ExceptionCatcher());
+                new EPoleBrandInPathResolver(repository));
         setMockMvc(mvcBuilder.build());
     }
 

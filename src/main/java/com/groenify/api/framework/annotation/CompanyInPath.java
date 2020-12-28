@@ -1,4 +1,4 @@
-package com.groenify.api.framework.resolver;
+package com.groenify.api.framework.annotation;
 
 import org.springframework.core.annotation.AliasFor;
 
@@ -11,9 +11,9 @@ import java.lang.annotation.Target;
 @Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface EPoleBrandInPath {
+public @interface CompanyInPath {
 
-    String DEFAULT_NAME = "brandId";
+    String DEFAULT_NAME = "companyId";
 
     @AliasFor("name")
     String value() default DEFAULT_NAME;

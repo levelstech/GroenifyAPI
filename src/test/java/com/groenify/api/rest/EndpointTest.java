@@ -39,16 +39,17 @@ public abstract class EndpointTest {
         return entityManager;
     }
 
-    abstract String getEndpoint();
+    protected abstract String getEndpoint();
 
     protected <T extends IdModel> T storeNew(final T model) {
         model.setId(null);
         return getEntityManager().persist(model);
     }
+
     protected <T extends IdModel> List<T> storeNews(final List<T> model) {
-       return model.stream()
-               .map(this::storeNew)
-               .collect(Collectors.toList());
+        return model.stream()
+                .map(this::storeNew)
+                .collect(Collectors.toList());
     }
 
     @Test

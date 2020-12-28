@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 
 public class PathException extends ApiException {
 
-    public PathException(final String msg, final HttpStatus status) {
-        super(msg, status);
+    public PathException(final HttpStatus status, final String msg) {
+        super(status, msg);
     }
 
     public static PathException notFoundWithId(
@@ -13,6 +13,6 @@ public class PathException extends ApiException {
             final Long id) {
         final String msg = String.format("'%s' not found with id = '%s'",
                 clazz.getSimpleName(), id);
-        return new PathException(msg, HttpStatus.NOT_FOUND);
+        return new PathException(HttpStatus.NOT_FOUND, msg);
     }
 }

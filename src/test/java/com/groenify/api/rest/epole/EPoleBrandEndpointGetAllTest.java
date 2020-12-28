@@ -1,8 +1,12 @@
-package com.groenify.api.rest;
+package com.groenify.api.rest.epole;
 
 import com.groenify.api.JsonTestUtil;
-import com.groenify.api.database.EPoleBrand;
-import com.groenify.api.repository.EPoleBrandRepository;
+import com.groenify.api.database.epole.EPoleBrand;
+import com.groenify.api.repository.epole.EPoleBrandRepository;
+import com.groenify.api.rest.EndpointTest;
+import com.groenify.api.rest.RestTestUtil;
+import com.groenify.api.rest.epole.EPoleBrandEndpoint;
+import com.groenify.api.service.epole.EPoleBrandService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @DataJpaTest(showSql = false)
 @EnableAutoConfiguration
-class EPoleBrandEndpointTest extends EndpointTest {
+class EPoleBrandEndpointGetAllTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/epole_brands";
 
@@ -36,7 +40,7 @@ class EPoleBrandEndpointTest extends EndpointTest {
 
     protected void setUpMock() {
         final EPoleBrandEndpoint endpoint =
-                new EPoleBrandEndpoint(repository);
+                new EPoleBrandEndpoint(new EPoleBrandService(repository));
         final StandaloneMockMvcBuilder mvcBuilder =
                 MockMvcBuilders.standaloneSetup(endpoint);
 

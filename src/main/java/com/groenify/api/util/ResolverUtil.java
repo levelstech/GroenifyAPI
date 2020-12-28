@@ -18,7 +18,9 @@ public final class ResolverUtil {
         return "";
     }
 
-    public static Long findLongInPath(final WebRequest var1, final String var2) {
+    public static Long findLongInPath(
+            final WebRequest var1,
+            final String var2) {
         final String userInput = findInPath(var1, var2);
         return LongUtil.parseOrDefault(userInput);
     }
