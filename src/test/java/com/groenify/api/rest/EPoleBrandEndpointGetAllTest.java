@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @DataJpaTest(showSql = false)
 @EnableAutoConfiguration
-class EPoleBrandEndpointTest extends EndpointTest {
+class EPoleBrandEndpointGetAllTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/epole_brands";
 

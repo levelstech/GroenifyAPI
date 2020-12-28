@@ -84,7 +84,7 @@ class EPoleBrandEndpointCreateTest extends EndpointTest {
     }
 
     @Test
-    void postEPoleBrandCreateInvalidPost() throws Exception {
+    void postEPoleBrandCreateInvalid() throws Exception {
         getMockMvc()
                 .perform(post(getEndpoint())
                         .contentType(MediaType.APPLICATION_JSON)

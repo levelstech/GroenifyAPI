@@ -54,4 +54,8 @@ public class EPoleBrand implements IdModel {
         this.name = var;
     }
 
+    public EPoleBrand update(final EPoleBrand updated) {
+        this.setName(updated.getName());
+        return this;
+    }
 }

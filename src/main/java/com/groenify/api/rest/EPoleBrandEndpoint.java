@@ -54,7 +54,7 @@ public class EPoleBrandEndpoint {
     public final EPoleBrand updateEPoleBrandById(
             final @EPoleBrandInPath EPoleBrand ePoleBrand,
             final @RequestBody EPoleBrand updated) {
-        return service.update(updated);
+        return service.update(ePoleBrand, updated);
     }
 
     @DeleteMapping(value = "/{brandId}",

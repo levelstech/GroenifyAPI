@@ -28,13 +28,15 @@ public class EPoleBrandService {
         return ListUtil.iterableToList(allBrandsInIter);
     }
 
-    public EPoleBrand create(final EPoleBrand ePoleBrand) {
-        ePoleBrand.setId(null);
-        return repository.save(ePoleBrand);
+    public EPoleBrand create(final EPoleBrand brand) {
+        brand.setId(null);
+        return repository.save(brand);
     }
 
-    public EPoleBrand update(final EPoleBrand updated) {
-        return repository.save(updated);
+    public EPoleBrand update(
+            final EPoleBrand original,
+            final EPoleBrand updated) {
+        return repository.save(original.update(updated));
     }
 
     public Boolean delete(final EPoleBrand brand) {
