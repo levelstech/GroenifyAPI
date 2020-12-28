@@ -62,4 +62,11 @@ public class EPole {
     public void setDescription(final String var) {
         this.description = var;
     }
+
+    public EPole update(final EPole updated) {
+        this.setBrand(updated.getBrand());
+        this.setType(updated.getType());
+        this.setDescription(updated.getDescription());
+        return this;
+    }
 }
