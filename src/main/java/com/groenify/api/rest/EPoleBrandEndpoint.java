@@ -1,9 +1,9 @@
-package com.example.groenify_api.rest;
+package com.groenify.api.rest;
 
-import com.example.groenify_api.database.EPoleBrand;
-import com.example.groenify_api.repository.EPoleBrandRepository;
-import com.example.groenify_api.util.ListUtil;
-import com.example.groenify_api.util.LongUtil;
+import com.groenify.api.database.EPoleBrand;
+import com.groenify.api.repository.EPoleBrandRepository;
+import com.groenify.api.util.ListUtil;
+import com.groenify.api.util.LongUtil;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;

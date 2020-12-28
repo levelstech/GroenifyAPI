@@ -1,4 +1,4 @@
-package com.example.groenify_api.util;
+package com.groenify.api.util;
 
 import java.util.List;
 import java.util.stream.Collectors;

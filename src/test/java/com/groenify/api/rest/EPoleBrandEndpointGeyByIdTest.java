@@ -1,8 +1,8 @@
-package com.example.groenify_api.rest;
+package com.groenify.api.rest;
 
-import com.example.groenify_api.JsonTestUtil;
-import com.example.groenify_api.database.EPoleBrand;
-import com.example.groenify_api.repository.EPoleBrandRepository;
+import com.groenify.api.JsonTestUtil;
+import com.groenify.api.database.EPoleBrand;
+import com.groenify.api.repository.EPoleBrandRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
-import java.util.List;
-
-import static com.example.groenify_api.rest.RestTestUtil.jsonPathIdOfModelId;
+import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

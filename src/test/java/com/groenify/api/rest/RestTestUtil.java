@@ -1,6 +1,6 @@
-package com.example.groenify_api.rest;
+package com.groenify.api.rest;
 
-import com.example.groenify_api.database.IdModel;
+import com.groenify.api.database.IdModel;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 import static org.hamcrest.Matchers.equalTo;

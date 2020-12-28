@@ -1,4 +1,4 @@
-package com.example.groenify_api.util;
+package com.groenify.api.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;

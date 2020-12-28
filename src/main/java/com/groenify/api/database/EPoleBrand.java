@@ -1,8 +1,6 @@
-package com.example.groenify_api.database;
+package com.groenify.api.database;
 
-import com.example.groenify_api.util.JsonUtil;
-import com.example.groenify_api.util.MapperUtil;
-import com.google.gson.JsonObject;
+import com.groenify.api.util.MapperUtil;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
