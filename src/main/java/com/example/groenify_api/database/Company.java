@@ -34,20 +34,20 @@ public class Company {
         this.id = var;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(final Date var) {
-        this.date = var;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(final String var) {
         this.name = var;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(final Date var) {
+        this.date = var;
     }
 
     public String getUrl() {
