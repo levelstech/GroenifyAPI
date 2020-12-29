@@ -68,7 +68,8 @@ public class EPoleEndpoint {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<EPoleResMo> getAllEPolesFromEPoleBrand(
             final @EPoleBrandInPath EPoleBrand ePoleBrand) {
-        return EPoleResMo.mapEPoleBrandToResMoList(ePoleBrand.getEPoles());
+        final List<EPole> poles = service.getAllFromBrand(ePoleBrand);
+        return EPoleResMo.mapEPoleBrandToResMoList(poles);
     }
 
     @PostMapping(value = "/epole_brands/{brandId}/epoles",
