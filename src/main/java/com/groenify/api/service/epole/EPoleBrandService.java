@@ -2,6 +2,7 @@ package com.groenify.api.service.epole;
 
 import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.repository.epole.EPoleBrandRepository;
+import com.groenify.api.rest.epole.__model.EPoleBrandReqMo;
 import com.groenify.api.util.ListUtil;
 import org.springframework.stereotype.Service;
 
@@ -25,15 +26,15 @@ public class EPoleBrandService {
         return ListUtil.iterableToList(allBrandsInIter);
     }
 
-    public EPoleBrand create(final EPoleBrand brand) {
-        brand.setId(null);
+    public EPoleBrand create(final EPoleBrandReqMo body) {
+        final EPoleBrand brand = EPoleBrand.ofReqMo(body);
         return repository.save(brand);
     }
 
     public EPoleBrand update(
-            final EPoleBrand original,
-            final EPoleBrand updated) {
-        return repository.save(original.update(updated));
+            final EPoleBrand brand,
+            final EPoleBrandReqMo body) {
+        return repository.save(brand.update(body));
     }
 
     public Boolean delete(final EPoleBrand brand) {

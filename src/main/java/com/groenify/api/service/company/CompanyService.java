@@ -2,6 +2,7 @@ package com.groenify.api.service.company;
 
 import com.groenify.api.database.company.Company;
 import com.groenify.api.repository.company.CompanyRepository;
+import com.groenify.api.rest.company.__model.CompanyReqMo;
 import com.groenify.api.util.ListUtil;
 import org.springframework.stereotype.Service;
 
@@ -25,15 +26,15 @@ public class CompanyService {
         return ListUtil.iterableToList(allCompaniesInIter);
     }
 
-    public Company create(final Company company) {
-        company.setId(null);
+    public Company create(final CompanyReqMo body) {
+        final Company company = Company.ofReqMo(body);
         return repository.save(company);
     }
 
     public Company update(
-            final Company original,
-            final Company updated) {
-        return repository.save(original.update(updated));
+            final Company company,
+            final CompanyReqMo body) {
+        return repository.save(company.update(body));
     }
 
     public Boolean delete(final Company company) {

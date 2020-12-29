@@ -2,6 +2,7 @@ package com.groenify.api.database.epole;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.groenify.api.database.IdModel;
+import com.groenify.api.rest.epole.__model.EPoleBrandReqMo;
 import com.groenify.api.util.MapperUtil;
 
 import javax.persistence.Column;
@@ -9,6 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -20,13 +24,13 @@ public class EPoleBrand implements IdModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    @JsonProperty("id")
     private Long id;
 
     @Column(name = "name", nullable = false, columnDefinition = "mediumtext")
-    @JsonProperty("name")
-    @NotNull(message = "'name' is a required field")
     private String name;
+
+    @OneToMany(mappedBy = "brand")
+    private List<EPole> ePoles;
 
     public static EPoleBrand ofJsonObjStr(final String jsonStr) {
         return MapperUtil.readObject(jsonStr, EPoleBrand.class);
@@ -34,6 +38,10 @@ public class EPoleBrand implements IdModel {
 
     public static List<EPoleBrand> ofJsonArrStr(final String jsonStr) {
         return MapperUtil.readArray(jsonStr, EPoleBrand.class);
+    }
+
+    public static EPoleBrand ofReqMo(final EPoleBrandReqMo body) {
+        return new EPoleBrand().update(body);
     }
 
     @Override
@@ -54,7 +62,15 @@ public class EPoleBrand implements IdModel {
         this.name = var;
     }
 
-    public EPoleBrand update(final EPoleBrand updated) {
+    public List<EPole> getEPoles() {
+        return ePoles;
+    }
+
+    public void setEPoles(final List<EPole> var) {
+        this.ePoles = var;
+    }
+
+    public EPoleBrand update(final EPoleBrandReqMo updated) {
         this.setName(updated.getName());
         return this;
     }

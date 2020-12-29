@@ -1,7 +1,9 @@
 package com.groenify.api.database.epole;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.groenify.api.rest.epole.__model.EPoleReqMo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,10 +20,9 @@ public class EPole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    @JsonProperty("id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "brand", nullable = false)
     private EPoleBrand brand;
 
@@ -30,6 +31,10 @@ public class EPole {
 
     @Column(name = "description", columnDefinition = "longtext")
     private String description;
+
+    public static EPole ofReqMo(final EPoleBrand brand, final EPoleReqMo body) {
+        return new EPole().update(brand, body);
+    }
 
     public Long getId() {
         return id;
@@ -63,8 +68,14 @@ public class EPole {
         this.description = var;
     }
 
-    public EPole update(final EPole updated) {
-        this.setBrand(updated.getBrand());
+    public EPole update(
+            final EPoleBrand brand,
+            final EPoleReqMo body) {
+        this.setBrand(brand);
+        return this.update(body);
+    }
+
+    public EPole update(final EPoleReqMo updated) {
         this.setType(updated.getType());
         this.setDescription(updated.getDescription());
         return this;

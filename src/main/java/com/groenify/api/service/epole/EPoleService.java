@@ -4,6 +4,8 @@ import com.groenify.api.database.epole.EPole;
 import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.repository.epole.EPoleBrandRepository;
 import com.groenify.api.repository.epole.EPoleRepository;
+import com.groenify.api.rest.epole.__model.EPoleReqMo;
+import com.groenify.api.rest.epole.__model.EPoleResMo;
 import com.groenify.api.util.ListUtil;
 import org.springframework.stereotype.Service;
 
@@ -27,20 +29,20 @@ public class EPoleService {
         return ListUtil.iterableToList(allBrandsInIter);
     }
 
-    public EPole create(final EPole brand) {
-        brand.setId(null);
-        return repository.save(brand);
+    public EPole create(final EPoleBrand brand, final EPoleReqMo body) {
+        final EPole pole = EPole.ofReqMo(brand, body);
+        return repository.save(pole);
     }
 
     public EPole update(
-            final EPole original,
-            final EPole updated) {
-        return repository.save(original.update(updated));
+            final EPole pole,
+            final EPoleReqMo body) {
+        return repository.save(pole.update(body));
     }
 
-    public Boolean delete(final EPole brand) {
-        final Long id = brand.getId();
-        repository.delete(brand);
+    public Boolean delete(final EPole pole) {
+        final Long id = pole.getId();
+        repository.delete(pole);
         return !repository.existsById(id);
     }
 }
