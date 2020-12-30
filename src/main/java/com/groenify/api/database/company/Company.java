@@ -3,6 +3,7 @@ package com.groenify.api.database.company;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.groenify.api.database.IdModel;
+import com.groenify.api.rest.company.__model.CompanyReqMo;
 import com.groenify.api.util.DateUtil;
 import com.groenify.api.util.MapperUtil;
 
@@ -25,8 +26,6 @@ public class Company implements IdModel {
     private Long id;
 
     @Column(name = "name", nullable = false, columnDefinition = "mediumtext")
-    @JsonProperty("name")
-    @NotNull(message = "'name' is a required field")
     private String name;
 
     @Column(name = "creation_date", nullable = false)
@@ -37,6 +36,10 @@ public class Company implements IdModel {
 
     public static Company ofJsonObjStr(final String jsonStr) {
         return MapperUtil.readObject(jsonStr, Company.class);
+    }
+
+    public static Company ofReqMo(final CompanyReqMo body) {
+        return new Company().update(body);
     }
 
     @Override
@@ -57,12 +60,10 @@ public class Company implements IdModel {
         this.name = var;
     }
 
-    @JsonIgnore
     public Date getDate() {
         return date;
     }
 
-    @JsonProperty("date")
     public String getDateString() {
         return DateUtil.toIsoNoMillis(getDate());
     }
@@ -71,7 +72,6 @@ public class Company implements IdModel {
         this.date = var;
     }
 
-    @JsonProperty("date")
     public void setDateString(final String var) {
         setDate(DateUtil.fromIsoNoMillis(var));
     }
@@ -84,9 +84,9 @@ public class Company implements IdModel {
         this.url = var;
     }
 
-    public Company update(final Company updated) {
+    public Company update(final CompanyReqMo updated) {
         this.setName(updated.getName());
-        this.setDate(updated.getDate());
+        this.setDate(DateUtil.fromIsoNoMillis(updated.getDate()));
         this.setUrl(updated.getUrl());
         return this;
     }
