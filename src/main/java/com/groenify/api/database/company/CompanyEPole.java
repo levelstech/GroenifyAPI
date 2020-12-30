@@ -1,6 +1,10 @@
 package com.groenify.api.database.company;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.groenify.api.database.IdModel;
 import com.groenify.api.database.epole.EPole;
+import com.groenify.api.rest.company.__model.CompanyEPoleReqMo;
+import com.groenify.api.util.MapperUtil;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "`company_to_epole`")
-public class CompanyEPole {
+public class CompanyEPole implements IdModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +33,19 @@ public class CompanyEPole {
     private EPole ePole;
 
     @Column(name = "base_price")
+    @JsonProperty("base_price")
     private Double basePrice;
+
+    public static CompanyEPole ofReqMo(
+            final Company company,
+            final EPole ePole,
+            final CompanyEPoleReqMo body) {
+        return new CompanyEPole().update(company, ePole, body);
+    }
+
+    public static CompanyEPole ofJsonObjStr(final String jsonStr) {
+        return MapperUtil.readObject(jsonStr, CompanyEPole.class);
+    }
 
     public Long getId() {
         return id;
@@ -47,7 +63,7 @@ public class CompanyEPole {
         this.company = var;
     }
 
-    public EPole getePole() {
+    public EPole getEPole() {
         return ePole;
     }
 
@@ -61,5 +77,20 @@ public class CompanyEPole {
 
     public void setBasePrice(final Double var) {
         this.basePrice = var;
+    }
+
+    public CompanyEPole update(
+            final Company company,
+            final EPole ePole,
+            final CompanyEPoleReqMo body) {
+        this.setCompany(company);
+        this.setePole(ePole);
+        return update(body);
+    }
+
+    public CompanyEPole update(
+            final CompanyEPoleReqMo body) {
+        this.setBasePrice(body.getBasePrice());
+        return this;
     }
 }
