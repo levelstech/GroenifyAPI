@@ -5,6 +5,8 @@ import com.groenify.api.exceptions.PathException;
 import com.groenify.api.framework.annotation.CompanyInPath;
 import com.groenify.api.repository.company.CompanyRepository;
 import com.groenify.api.util.ResolverUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.NativeWebRequest;
 
@@ -29,8 +31,11 @@ public class CompanyInPathResolver
         final Long pathValue = ResolverUtil
                 .findLongInPath(var3, annotation.value());
         final Optional<Company> company = repository.findById(pathValue);
-        if (company.isPresent()) return company.get();
-
-        throw PathException.notFoundWithId(Company.class, pathValue);
+        if (company.isEmpty()) {
+            logger().warn("Could not resolve {} for {} = {}",
+                    Company.class, annotation.value(), pathValue);
+            throw PathException.notFoundWithId(Company.class, pathValue);
+        }
+        return company.get();
     }
 }

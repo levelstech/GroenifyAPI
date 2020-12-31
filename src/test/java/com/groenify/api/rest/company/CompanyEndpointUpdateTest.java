@@ -117,5 +117,7 @@ class CompanyEndpointUpdateTest extends EndpointTest {
 
         Assertions.assertThat(repository.existsByNameIgnoreCase("Company-Wahid")).isTrue();
         Assertions.assertThat(repository.existsByNameIgnoreCase("Company-Thalith(1)")).isFalse();
+        companyId = testCompany.getId();
     }
+
 }

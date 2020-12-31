@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @DataJpaTest()
 @EnableAutoConfiguration
-class EPoleEndpointCreateTest extends EndpointTest {
+class EPoleEndpointEPoleCreateTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/epole_brands";
     private static Long brandId;
@@ -43,8 +43,8 @@ class EPoleEndpointCreateTest extends EndpointTest {
     }
 
     protected void setUpMock() {
-        final EPoleEndpoint endpoint =
-                new EPoleEndpoint(new EPoleService(repository));
+        final EPoleBrandEPoleEndpoint endpoint =
+                new EPoleBrandEPoleEndpoint(new EPoleService(repository));
         final StandaloneMockMvcBuilder mvcBuilder =
                 MockMvcBuilders.standaloneSetup(endpoint);
 

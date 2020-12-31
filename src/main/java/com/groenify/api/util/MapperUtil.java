@@ -3,18 +3,23 @@ package com.groenify.api.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class MapperUtil {
 
+    private static final Logger L = LoggerFactory.getLogger(MapperUtil.class);
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     public static <T> T readObject(final String jsonStr, final Class<T> clazz) {
         try {
             return OBJECT_MAPPER.readValue(jsonStr, clazz);
-        } catch (Exception ignored) {
+        } catch (Exception exception) {
+            L.error("Reading objects to '{}' from '{}'",
+                    clazz.getSimpleName(), jsonStr, exception);
             return null;
         }
     }

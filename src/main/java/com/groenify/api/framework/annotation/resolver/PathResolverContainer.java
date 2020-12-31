@@ -14,8 +14,9 @@ public class PathResolverContainer {
     public PathResolverContainer(
             final EPoleBrandInPathResolver resolver1,
             final CompanyInPathResolver resolver2,
-            final EPoleInPathResolver resolver3) {
-        this.list = List.of(resolver1, resolver2, resolver3);
+            final EPoleInPathResolver resolver3,
+            final CompanyEPoleInPathResolver resolver4) {
+        this.list = List.of(resolver1, resolver2, resolver3, resolver4);
     }
 
     public List<HandlerMethodArgumentResolver> getList() {
