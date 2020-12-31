@@ -32,8 +32,12 @@ public class CompanyEPoleInPathResolver
         final Long pathValue = ResolverUtil
                 .findLongInPath(var3, annotation.value());
         final Optional<CompanyEPole> pole = repository.findById(pathValue);
-        if (pole.isPresent()) return pole.get();
+        if (pole.isEmpty()) {
+            logger().warn("Could not resolve {} for {} = {}",
+                    CompanyEPole.class, annotation.value(), pathValue);
+            throw PathException.notFoundWithId(CompanyEPole.class, pathValue);
+        }
+        return pole.get();
 
-        throw PathException.notFoundWithId(CompanyEPole.class, pathValue);
     }
 }

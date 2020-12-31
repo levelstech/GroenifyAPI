@@ -98,7 +98,7 @@ class CompanyEPoleEndpointGetAllTest extends EndpointTest {
     }
 
     @Test
-    void getAllCompanyValidateJsonKeyNames() throws Exception {
+    void getAllCompanyEPolesValidateJsonKeyNames() throws Exception {
 
         final String resBody = getMockMvc()
                 .perform(get(getEndpoint()))
@@ -128,7 +128,7 @@ class CompanyEPoleEndpointGetAllTest extends EndpointTest {
     }
 
     @Test
-    void getAllCompanyValidateDatabaseValues() throws Exception {
+    void getAllCompanyEPolesValidateDatabaseValues() throws Exception {
         final CompanyEPole ePole1 = TEST_POLES.get(0);
         final CompanyEPole ePole2 = TEST_POLES.get(1);
         final CompanyEPole ePole3 = TEST_POLES.get(2);

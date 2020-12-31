@@ -33,7 +33,8 @@ public class CompanyToEPoleEndpoint {
         this.service = service;
     }
 
-    @PostMapping(value = "/{companyId}/epoles/{epoleId}",
+    @PostMapping(value = "/{companyId}/epoles/{ePoleId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public final CompanyEPoleResMo createCompanyEPoleOnCompany(
