@@ -7,7 +7,7 @@
 <suppressions>
 
     <!-- SpringBoot Launcher needs to have a hidden constructor and a not final class -->
-    <suppress files="GroenifyAPiApplication.java"
+    <suppress files="GroenifyApiApplication.java"
               checks="HideUtilityClassConstructor"/>
 
     <suppress files="com[\\/]groenify[\\/]api[\\/]database[\\/]"
