@@ -24,8 +24,8 @@ public class FactorEndpoint {
 
     private final FactorService service;
 
-    public FactorEndpoint(final FactorService service) {
-        this.service = service;
+    public FactorEndpoint(final FactorService var) {
+        this.service = var;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

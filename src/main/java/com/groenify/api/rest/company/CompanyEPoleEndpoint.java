@@ -24,8 +24,8 @@ public class CompanyEPoleEndpoint {
 
     private final CompanyEPoleService service;
 
-    public CompanyEPoleEndpoint(final CompanyEPoleService service) {
-        this.service = service;
+    public CompanyEPoleEndpoint(final CompanyEPoleService var) {
+        this.service = var;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

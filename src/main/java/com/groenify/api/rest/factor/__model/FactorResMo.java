@@ -6,7 +6,7 @@ import com.groenify.api.database.factor.Factor;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FactorResMo {
+public final class FactorResMo {
 
     @JsonProperty("id")
     private final Long id;

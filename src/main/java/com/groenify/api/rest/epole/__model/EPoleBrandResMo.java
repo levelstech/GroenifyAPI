@@ -6,7 +6,7 @@ import com.groenify.api.database.epole.EPoleBrand;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EPoleBrandResMo {
+public final class EPoleBrandResMo {
 
     @JsonProperty("id")
     private final Long id;

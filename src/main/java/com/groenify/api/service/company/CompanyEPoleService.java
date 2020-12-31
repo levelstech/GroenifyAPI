@@ -14,21 +14,21 @@ import java.util.List;
 public class CompanyEPoleService {
     private final CompanyEPoleRepository repository;
 
-    public CompanyEPoleService(final CompanyEPoleRepository repository) {
-        this.repository = repository;
+    public CompanyEPoleService(final CompanyEPoleRepository var) {
+        this.repository = var;
     }
 
-    public List<CompanyEPole> getAll() {
+    public final List<CompanyEPole> getAll() {
         final Iterable<CompanyEPole> allCompanyEPolesInIter =
                 repository.findAll();
         return ListUtil.iterableToList(allCompanyEPolesInIter);
     }
 
-    public List<CompanyEPole> getAllFromCompany(final Company company) {
+    public final List<CompanyEPole> getAllFromCompany(final Company company) {
         return repository.findAllByCompany(company);
     }
 
-    public CompanyEPole create(
+    public final CompanyEPole create(
             final Company company,
             final EPole ePole,
             final CompanyEPoleReqMo body) {
@@ -37,13 +37,13 @@ public class CompanyEPoleService {
         return repository.save(companyEPole);
     }
 
-    public CompanyEPole update(
+    public final CompanyEPole update(
             final CompanyEPole companyEPole,
             final CompanyEPoleReqMo body) {
         return repository.save(companyEPole.update(body));
     }
 
-    public Boolean delete(final CompanyEPole companyEPole) {
+    public final Boolean delete(final CompanyEPole companyEPole) {
         final Long id = companyEPole.getId();
         repository.delete(companyEPole);
         return !repository.existsById(id);

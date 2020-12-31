@@ -6,7 +6,7 @@ import com.groenify.api.database.factor.FactorType;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FactorTypeResMo {
+public final class FactorTypeResMo {
 
     private final Long id;
     private final String name;

@@ -1,14 +1,9 @@
 package com.groenify.api.rest.factor;
 
-import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.database.factor.FactorType;
-import com.groenify.api.framework.annotation.EPoleBrandInPath;
 import com.groenify.api.framework.annotation.FactorTypeInPath;
-import com.groenify.api.rest.epole.__model.EPoleBrandReqMo;
-import com.groenify.api.rest.epole.__model.EPoleBrandResMo;
 import com.groenify.api.rest.factor.__model.FactorTypeReqMo;
 import com.groenify.api.rest.factor.__model.FactorTypeResMo;
-import com.groenify.api.service.epole.EPoleBrandService;
 import com.groenify.api.service.factor.FactorTypeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,8 +25,8 @@ public class FactorTypeEndpoint {
 
     private final FactorTypeService service;
 
-    public FactorTypeEndpoint(final FactorTypeService service) {
-        this.service = service;
+    public FactorTypeEndpoint(final FactorTypeService var) {
+        this.service = var;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
