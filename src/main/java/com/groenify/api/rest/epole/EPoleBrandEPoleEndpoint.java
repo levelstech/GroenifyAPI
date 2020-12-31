@@ -3,9 +3,11 @@ package com.groenify.api.rest.epole;
 import com.groenify.api.database.epole.EPole;
 import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.framework.annotation.EPoleBrandInPath;
-import com.groenify.api.framework.annotation.EPoleInPath;
+import com.groenify.api.rest.epole.__model.EPoleBrandReqMo;
+import com.groenify.api.rest.epole.__model.EPoleBrandResMo;
 import com.groenify.api.rest.epole.__model.EPoleReqMo;
 import com.groenify.api.rest.epole.__model.EPoleResMo;
+import com.groenify.api.service.epole.EPoleBrandService;
 import com.groenify.api.service.epole.EPoleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,46 +24,31 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/v1/epoles")
-public class EPoleEndpoint {
-
+@RequestMapping(value = "/api/v1/epole_brands")
+public class EPoleBrandEPoleEndpoint {
 
     private final EPoleService service;
 
-    public EPoleEndpoint(final EPoleService service) {
+    public EPoleBrandEPoleEndpoint(final EPoleService service) {
         this.service = service;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<EPoleResMo> getAllEPoles() {
-        final List<EPole> ePoles = service.getAll();
-        return EPoleResMo.mapEPoleBrandToResMoList(ePoles);
+    @GetMapping(value = "/{brandId}/epoles",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<EPoleResMo> getAllEPolesFromEPoleBrand(
+            final @EPoleBrandInPath EPoleBrand ePoleBrand) {
+        final List<EPole> poles = service.getAllFromBrand(ePoleBrand);
+        return EPoleResMo.mapEPoleBrandToResMoList(poles);
     }
 
-    @GetMapping(value = "/{ePoleId}",
+    @PostMapping(value = "/{brandId}/epoles",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final EPoleResMo getEPoleById(
-            final @EPoleInPath EPole ePole) {
-        return EPoleResMo.mapEPoleBrandToResMo(ePole);
-    }
-
-    @PutMapping(value = "/{ePoleId}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public final EPoleResMo updateEPoleById(
-            final @EPoleInPath EPole ePole,
-            final @RequestBody EPoleReqMo body) {
-        final EPole newEPole = service.update(ePole, body);
+    @ResponseStatus(HttpStatus.CREATED)
+    public final EPoleResMo createEPoleOnEPoleBrand(
+            final @EPoleBrandInPath EPoleBrand ePoleBrand,
+            final @Valid @RequestBody EPoleReqMo body) {
+        final EPole newEPole = service.create(ePoleBrand, body);
         return EPoleResMo.mapEPoleBrandToResMo(newEPole);
     }
-
-    @DeleteMapping(value = "/{ePoleId}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public final Boolean deleteEPoleById(
-            final @EPoleInPath EPole ePole) {
-        return service.delete(ePole);
-    }
-
 
 }
