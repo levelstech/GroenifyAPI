@@ -14,6 +14,9 @@ public final class MapperUtil {
     private static final Logger L = LoggerFactory.getLogger(MapperUtil.class);
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
+    private MapperUtil() {
+    }
+
     public static <T> T readObject(final String jsonStr, final Class<T> clazz) {
         try {
             return OBJECT_MAPPER.readValue(jsonStr, clazz);

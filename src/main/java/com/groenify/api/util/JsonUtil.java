@@ -8,7 +8,8 @@ import com.google.gson.JsonPrimitive;
 
 public final class JsonUtil {
 
-    private JsonUtil() {}
+    private JsonUtil() {
+    }
 
     private static final String NULL_KEY = "$null_key";
 

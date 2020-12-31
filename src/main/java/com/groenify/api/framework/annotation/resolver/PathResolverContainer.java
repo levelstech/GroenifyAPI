@@ -22,7 +22,7 @@ public class PathResolverContainer {
                 resolver5, resolver6);
     }
 
-    public List<HandlerMethodArgumentResolver> getList() {
+    public final List<HandlerMethodArgumentResolver> getList() {
         return list;
     }
 }

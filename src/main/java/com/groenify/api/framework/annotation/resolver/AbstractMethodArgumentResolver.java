@@ -14,7 +14,7 @@ import java.util.Objects;
 public abstract class AbstractMethodArgumentResolver<A extends Annotation>
         implements HandlerMethodArgumentResolver {
 
-    private final Logger L =
+    private static final Logger L =
             LoggerFactory.getLogger(AbstractMethodArgumentResolver.class);
     private final Class<A> annotationClass;
 
@@ -22,7 +22,7 @@ public abstract class AbstractMethodArgumentResolver<A extends Annotation>
         this.annotationClass = aClassParam;
     }
 
-    protected Logger logger() {
+    protected final Logger logger() {
         return L;
     }
 

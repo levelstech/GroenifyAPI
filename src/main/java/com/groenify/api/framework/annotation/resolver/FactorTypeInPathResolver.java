@@ -1,6 +1,5 @@
 package com.groenify.api.framework.annotation.resolver;
 
-import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.exceptions.PathException;
 import com.groenify.api.framework.annotation.FactorTypeInPath;
