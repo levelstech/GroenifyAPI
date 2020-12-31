@@ -4,8 +4,6 @@ import com.groenify.api.JsonTestUtil;
 import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.repository.epole.EPoleBrandRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.RestTestUtil;
-import com.groenify.api.rest.epole.EPoleBrandEndpoint;
 import com.groenify.api.service.epole.EPoleBrandService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,10 +15,12 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import java.util.List;
 
+import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @DataJpaTest(showSql = false)
 @EnableAutoConfiguration
@@ -86,11 +86,11 @@ class EPoleBrandEndpointGetAllTest extends EndpointTest {
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(TEST_BRANDS.size())))
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$[0].id", brandWahid))
+                .andExpect(jsonPathIdOfModelId("$[0].id", brandWahid))
                 .andExpect(jsonPath("$[0].name", is(brandWahid.getName())))
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$[1].id", brandThanie))
+                .andExpect(jsonPathIdOfModelId("$[1].id", brandThanie))
                 .andExpect(jsonPath("$[1].name", is(brandThanie.getName())))
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$[2].id", brandThalith))
+                .andExpect(jsonPathIdOfModelId("$[2].id", brandThalith))
                 .andExpect(jsonPath("$[2].name", is(brandThalith.getName())));
     }
 }

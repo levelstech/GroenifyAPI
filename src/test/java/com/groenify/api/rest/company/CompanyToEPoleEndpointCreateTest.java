@@ -5,7 +5,6 @@ import com.groenify.api.database.company.Company;
 import com.groenify.api.database.company.CompanyEPole;
 import com.groenify.api.database.epole.EPole;
 import com.groenify.api.database.epole.EPoleBrand;
-import com.groenify.api.framework.annotation.resolver.CompanyEPoleInPathResolver;
 import com.groenify.api.framework.annotation.resolver.CompanyInPathResolver;
 import com.groenify.api.framework.annotation.resolver.EPoleInPathResolver;
 import com.groenify.api.repository.company.CompanyEPoleRepository;
@@ -28,7 +27,6 @@ import java.util.List;
 import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

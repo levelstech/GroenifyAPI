@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import java.util.List;
 
-import static com.groenify.api.rest.RestTestUtil.*;
+import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

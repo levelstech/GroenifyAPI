@@ -5,7 +5,6 @@ import com.groenify.api.database.company.Company;
 import com.groenify.api.framework.annotation.resolver.CompanyInPathResolver;
 import com.groenify.api.repository.company.CompanyRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.company.CompanyEndpoint;
 import com.groenify.api.service.company.CompanyService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

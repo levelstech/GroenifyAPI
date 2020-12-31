@@ -13,6 +13,9 @@
     <suppress files="com[\\/]groenify[\\/]api[\\/]database[\\/]"
               checks="DesignForExtensionCheck"/>
 
+
+    <suppress files="[\\/]main[\\/]|[\\/]test[\\/]"
+              checks="MagicNumberCheck"/>
     <suppress files="[\\/]main[\\/]|[\\/]test[\\/]"
               checks="JavadocMethod|JavadocVariable|JavadocType|JavadocPackage|NeedBraces"/>
 </suppressions>

@@ -3,9 +3,7 @@ package com.groenify.api.rest.epole;
 import com.groenify.api.JsonTestUtil;
 import com.groenify.api.database.epole.EPole;
 import com.groenify.api.database.epole.EPoleBrand;
-import com.groenify.api.framework.annotation.resolver.EPoleBrandInPathResolver;
 import com.groenify.api.framework.annotation.resolver.EPoleInPathResolver;
-import com.groenify.api.repository.epole.EPoleBrandRepository;
 import com.groenify.api.repository.epole.EPoleRepository;
 import com.groenify.api.rest.EndpointTest;
 import com.groenify.api.rest.RestTestUtil;
@@ -18,9 +16,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
-import java.util.List;
-
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

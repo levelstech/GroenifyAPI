@@ -7,7 +7,6 @@ import com.groenify.api.framework.annotation.resolver.FactorTypeInPathResolver;
 import com.groenify.api.repository.factor.FactorRepository;
 import com.groenify.api.repository.factor.FactorTypeRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.RestTestUtil;
 import com.groenify.api.service.factor.FactorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
