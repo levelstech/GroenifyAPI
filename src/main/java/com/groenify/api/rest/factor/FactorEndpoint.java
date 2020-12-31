@@ -1,6 +1,8 @@
 package com.groenify.api.rest.factor;
 
 import com.groenify.api.database.factor.Factor;
+import com.groenify.api.rest.factor.__model.FactorReqMo;
+import com.groenify.api.rest.factor.__model.FactorResMo;
 import com.groenify.api.service.factor.FactorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

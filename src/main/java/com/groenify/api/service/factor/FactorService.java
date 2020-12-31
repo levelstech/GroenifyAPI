@@ -3,6 +3,7 @@ package com.groenify.api.service.factor;
 import com.groenify.api.database.factor.Factor;
 import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.repository.factor.FactorRepository;
+import com.groenify.api.rest.factor.__model.FactorReqMo;
 import com.groenify.api.util.ListUtil;
 import org.springframework.stereotype.Service;
 
