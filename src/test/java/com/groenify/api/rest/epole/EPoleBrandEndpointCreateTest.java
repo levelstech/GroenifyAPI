@@ -65,7 +65,8 @@ class EPoleBrandEndpointCreateTest extends EndpointTest {
                 .andReturn().getResponse().getContentAsString();
 
         JsonTestUtil.test(resBody, "{\"id\":1, \"name\":\"Brand-Wahid\"}");
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Brand-Wahid")).isTrue();
     }
 
     @Test
@@ -78,7 +79,8 @@ class EPoleBrandEndpointCreateTest extends EndpointTest {
                 .andExpect(jsonPath("$.id", Matchers.greaterThanOrEqualTo(1)))
                 .andExpect(jsonPath("$.name", is("Brand-Thanie")));
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Thanie")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Brand-Thanie")).isTrue();
     }
 
     @Test
@@ -88,6 +90,7 @@ class EPoleBrandEndpointCreateTest extends EndpointTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"peter\":\"Brand-Thalith\"}"))
                 .andExpect(status().isBadRequest());
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Thalith")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Brand-Thalith")).isFalse();
     }
 }

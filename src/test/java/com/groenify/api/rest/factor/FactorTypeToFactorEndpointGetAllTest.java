@@ -31,7 +31,7 @@ class FactorTypeToFactorEndpointGetAllTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/factor_types";
     private static Long typeId;
-    private static List<Factor> TEST_FACTORS;
+    private static List<Factor> testFactors;
 
     @Autowired
     private FactorRepository repository;
@@ -69,7 +69,7 @@ class FactorTypeToFactorEndpointGetAllTest extends EndpointTest {
                         + "\"description\":\"aa\"}");
         factorWahid.setType(typeWahid);
         factorThanie.setType(typeWahid);
-        TEST_FACTORS = storeNews(List.of(factorWahid, factorThanie));
+        testFactors = storeNews(List.of(factorWahid, factorThanie));
         typeId = typeWahid.getId();
     }
 
@@ -101,24 +101,28 @@ class FactorTypeToFactorEndpointGetAllTest extends EndpointTest {
 
     @Test
     void getAllFactorFromTypeValidateDatabaseValues() throws Exception {
-        final Factor factorWahid = TEST_FACTORS.get(0);
-        final Factor factorThanie = TEST_FACTORS.get(1);
+        final Factor factorWahid = testFactors.get(0);
+        final Factor factorThanie = testFactors.get(1);
 
         getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(TEST_FACTORS.size())))
+                .andExpect(jsonPath("$", hasSize(testFactors.size())))
                 .andExpect(jsonPathIdOfModelId("$[0].id", factorWahid))
                 .andExpect(jsonPath("$[0].name", is("Factor-Wahid")))
                 .andExpect(jsonPath("$[0].question", is("Q?")))
-                .andExpect(jsonPathIdOfModelId("$[0].type.id", factorWahid.getType()))
-                .andExpect(jsonPath("$[0].type.name", is(factorWahid.getType().getName())))
+                .andExpect(jsonPathIdOfModelId(
+                        "$[0].type.id", factorWahid.getType()))
+                .andExpect(jsonPath("$[0].type.name",
+                        is(factorWahid.getType().getName())))
                 .andExpect(jsonPath("$[0].description", is("aa")))
                 .andExpect(jsonPathIdOfModelId("$[1].id", factorThanie))
                 .andExpect(jsonPath("$[1].name", is("Factor-Thanie")))
                 .andExpect(jsonPath("$[1].question", is("Q?")))
-                .andExpect(jsonPathIdOfModelId("$[1].type.id", factorThanie.getType()))
-                .andExpect(jsonPath("$[1].type.name", is(factorThanie.getType().getName())))
+                .andExpect(jsonPathIdOfModelId(
+                        "$[1].type.id", factorThanie.getType()))
+                .andExpect(jsonPath(
+                        "$[1].type.name", is(factorThanie.getType().getName())))
                 .andExpect(jsonPath("$[1].description", is("aa")));
     }
 

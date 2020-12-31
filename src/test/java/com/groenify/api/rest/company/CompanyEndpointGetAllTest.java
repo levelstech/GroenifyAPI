@@ -28,7 +28,7 @@ class CompanyEndpointGetAllTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/companies";
 
-    private static List<Company> TEST_BRANDS;
+    private static List<Company> testBrands;
 
     @Autowired
     private CompanyRepository repository;
@@ -60,7 +60,8 @@ class CompanyEndpointGetAllTest extends EndpointTest {
                 "{\"id\":1, \"name\":\"Brand-Thalith\","
                         + "\"date\":\"2020-12-28T00:43:32Z\","
                         + "\"url\":\"https://google.de\"}");
-        TEST_BRANDS = storeNews(List.of(companyWahid, companyThanie, companyThalith));
+        testBrands = storeNews(
+                List.of(companyWahid, companyThanie, companyThalith));
     }
 
     @BeforeEach
@@ -90,14 +91,14 @@ class CompanyEndpointGetAllTest extends EndpointTest {
 
     @Test
     void getAllCompanyValidateDatabaseValues() throws Exception {
-        final Company companyWahid = TEST_BRANDS.get(0);
-        final Company companyThanie = TEST_BRANDS.get(1);
-        final Company companyThalith = TEST_BRANDS.get(2);
+        final Company companyWahid = testBrands.get(0);
+        final Company companyThanie = testBrands.get(1);
+        final Company companyThalith = testBrands.get(2);
 
         getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(TEST_BRANDS.size())))
+                .andExpect(jsonPath("$", hasSize(testBrands.size())))
                 .andExpect(jsonPathIdOfModelId("$[0].id", companyWahid))
                 .andExpect(jsonPath("$[0].name", is(companyWahid.getName())))
                 .andExpect(jsonPath("$[0].date", is("2020-12-28T00:43:32Z")))

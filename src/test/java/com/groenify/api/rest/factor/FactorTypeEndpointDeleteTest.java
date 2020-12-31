@@ -67,7 +67,8 @@ class FactorTypeEndpointDeleteTest extends EndpointTest {
                 .andReturn().getResponse().getContentAsString();
 
         JsonTestUtil.test(resBody, "true");
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Type-Wahid")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Type-Wahid")).isFalse();
     }
 
     @Test
@@ -77,7 +78,8 @@ class FactorTypeEndpointDeleteTest extends EndpointTest {
                 .andExpect(status().isNoContent())
                 .andExpect(jsonPath("$", is(true)));
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Type-Wahid")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Type-Wahid")).isFalse();
     }
 
     @Test
@@ -87,6 +89,7 @@ class FactorTypeEndpointDeleteTest extends EndpointTest {
                 .perform(delete(getEndpoint()))
                 .andExpect(status().isNotFound());
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Type-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Type-Wahid")).isTrue();
     }
 }

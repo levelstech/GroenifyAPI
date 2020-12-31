@@ -106,10 +106,12 @@ class CompanyEPoleEndpointUpdateTest extends EndpointTest {
                         .content("{\"base_price\":50.51}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPathIdOfModelId("$.id", testPole))
-                .andExpect(jsonPathIdOfModelId("$.epole.id", testPole.getEPole()))
-                .andExpect(jsonPathIdOfModelId("$.company.id", testPole.getCompany()))
-                .andExpect(jsonPath("$.base_price", is(testPole.getBasePrice())));
-
+                .andExpect(jsonPathIdOfModelId(
+                        "$.epole.id", testPole.getEPole()))
+                .andExpect(jsonPathIdOfModelId(
+                        "$.company.id", testPole.getCompany()))
+                .andExpect(jsonPath(
+                        "$.base_price", is(testPole.getBasePrice())));
 
         Assertions.assertThat(testPole.getBasePrice()).isEqualTo(50.51d);
     }

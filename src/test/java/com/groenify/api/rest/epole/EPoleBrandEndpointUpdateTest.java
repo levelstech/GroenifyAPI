@@ -84,8 +84,10 @@ class EPoleBrandEndpointUpdateTest extends EndpointTest {
                 .andExpect(jsonPath("$.id", Matchers.greaterThanOrEqualTo(1)))
                 .andExpect(jsonPath("$.name", is("Brand-Wahid(1)")));
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid")).isFalse();
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid(1)")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Brand-Wahid")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Brand-Wahid(1)")).isTrue();
 
         Assertions.assertThat(testBrand.getName()).isEqualTo("Brand-Wahid(1)");
     }
@@ -99,8 +101,10 @@ class EPoleBrandEndpointUpdateTest extends EndpointTest {
                         .content("{\"name\":\"Brand-Wahid(1)\"}"))
                 .andExpect(status().isNotFound());
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid")).isTrue();
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid(1)")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Brand-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Brand-Wahid(1)")).isFalse();
         brandId = testBrand.getId();
     }
 }

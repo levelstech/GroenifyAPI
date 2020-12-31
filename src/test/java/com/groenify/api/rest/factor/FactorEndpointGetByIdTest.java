@@ -6,7 +6,6 @@ import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.framework.annotation.resolver.FactorInPathResolver;
 import com.groenify.api.repository.factor.FactorRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.RestTestUtil;
 import com.groenify.api.service.factor.FactorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
+import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -91,11 +91,13 @@ class FactorEndpointGetByIdTest extends EndpointTest {
         getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$.id", testFactor))
+                .andExpect(jsonPathIdOfModelId("$.id", testFactor))
                 .andExpect(jsonPath("$.name", is("Factor-Wahid")))
                 .andExpect(jsonPath("$.question", is("Q?")))
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$.type.id", testFactor.getType()))
-                .andExpect(jsonPath("$.type.name", is(testFactor.getType().getName())))
+                .andExpect(jsonPathIdOfModelId(
+                        "$.type.id", testFactor.getType()))
+                .andExpect(jsonPath(
+                        "$.type.name", is(testFactor.getType().getName())))
                 .andExpect(jsonPath("$.description", is("aa")));
     }
 

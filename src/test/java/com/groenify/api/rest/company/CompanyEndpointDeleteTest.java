@@ -69,7 +69,8 @@ class CompanyEndpointDeleteTest extends EndpointTest {
                 .andReturn().getResponse().getContentAsString();
 
         JsonTestUtil.test(resBody, "true");
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Company-Wahid")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Company-Wahid")).isFalse();
     }
 
     @Test
@@ -79,7 +80,8 @@ class CompanyEndpointDeleteTest extends EndpointTest {
                 .andExpect(status().isNoContent())
                 .andExpect(jsonPath("$", is(true)));
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Company-Wahid")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Company-Wahid")).isFalse();
     }
 
     @Test
@@ -89,6 +91,7 @@ class CompanyEndpointDeleteTest extends EndpointTest {
                 .perform(delete(getEndpoint()))
                 .andExpect(status().isNotFound());
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Company-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Company-Wahid")).isTrue();
     }
 }

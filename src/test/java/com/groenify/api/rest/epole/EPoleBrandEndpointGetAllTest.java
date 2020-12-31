@@ -28,7 +28,7 @@ class EPoleBrandEndpointGetAllTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/epole_brands";
 
-    private static List<EPoleBrand> TEST_BRANDS;
+    private static List<EPoleBrand> testBrands;
 
     @Autowired
     private EPoleBrandRepository repository;
@@ -54,7 +54,7 @@ class EPoleBrandEndpointGetAllTest extends EndpointTest {
                 "{\"id\":1, \"name\":\"Brand-Thanie\"}");
         final EPoleBrand brandThalith = EPoleBrand.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"Brand-Thalith\"}");
-        TEST_BRANDS = storeNews(List.of(brandWahid, brandThanie, brandThalith));
+        testBrands = storeNews(List.of(brandWahid, brandThanie, brandThalith));
     }
 
     @BeforeEach
@@ -78,14 +78,14 @@ class EPoleBrandEndpointGetAllTest extends EndpointTest {
 
     @Test
     void getAllEPoleBrandValidateDatabaseValues() throws Exception {
-        final EPoleBrand brandWahid = TEST_BRANDS.get(0);
-        final EPoleBrand brandThanie = TEST_BRANDS.get(1);
-        final EPoleBrand brandThalith = TEST_BRANDS.get(2);
+        final EPoleBrand brandWahid = testBrands.get(0);
+        final EPoleBrand brandThanie = testBrands.get(1);
+        final EPoleBrand brandThalith = testBrands.get(2);
 
         getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(TEST_BRANDS.size())))
+                .andExpect(jsonPath("$", hasSize(testBrands.size())))
                 .andExpect(jsonPathIdOfModelId("$[0].id", brandWahid))
                 .andExpect(jsonPath("$[0].name", is(brandWahid.getName())))
                 .andExpect(jsonPathIdOfModelId("$[1].id", brandThanie))

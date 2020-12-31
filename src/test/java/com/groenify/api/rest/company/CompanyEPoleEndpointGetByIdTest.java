@@ -104,9 +104,12 @@ class CompanyEPoleEndpointGetByIdTest extends EndpointTest {
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPathIdOfModelId("$.id", testPole))
-                .andExpect(jsonPathIdOfModelId("$.epole.id", testPole.getEPole()))
-                .andExpect(jsonPathIdOfModelId("$.company.id", testPole.getCompany()))
-                .andExpect(jsonPath("$.base_price", is(testPole.getBasePrice())));
+                .andExpect(jsonPathIdOfModelId(
+                        "$.epole.id", testPole.getEPole()))
+                .andExpect(jsonPathIdOfModelId(
+                        "$.company.id", testPole.getCompany()))
+                .andExpect(jsonPath(
+                        "$.base_price", is(testPole.getBasePrice())));
     }
 
     @Test

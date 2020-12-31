@@ -79,7 +79,8 @@ class FactorTypeEndpointGetByIdTest extends EndpointTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPathIdOfModelId("$.id", testType))
                 .andExpect(jsonPath("$.name", is(testType.getName())))
-                .andExpect(jsonPath("$.description", is(testType.getDescription())));
+                .andExpect(jsonPath(
+                        "$.description", is(testType.getDescription())));
     }
 
     @Test

@@ -77,7 +77,8 @@ class EPoleEndpointDeleteTest extends EndpointTest {
                 .andReturn().getResponse().getContentAsString();
 
         JsonTestUtil.test(resBody, "true");
-        Assertions.assertThat(repository.existsByTypeIgnoreCase("Pole-Wahid")).isFalse();
+        Assertions.assertThat(repository.existsByTypeIgnoreCase(
+                "Pole-Wahid")).isFalse();
     }
 
     @Test
@@ -87,7 +88,8 @@ class EPoleEndpointDeleteTest extends EndpointTest {
                 .perform(delete(getEndpoint()))
                 .andExpect(status().isNoContent())
                 .andExpect(jsonPath("$", is(true)));
-        Assertions.assertThat(repository.existsByTypeIgnoreCase("Pole-Wahid")).isFalse();
+        Assertions.assertThat(repository.existsByTypeIgnoreCase(
+                "Pole-Wahid")).isFalse();
     }
 
     @Test
@@ -97,7 +99,8 @@ class EPoleEndpointDeleteTest extends EndpointTest {
         getMockMvc()
                 .perform(delete(getEndpoint()))
                 .andExpect(status().isNotFound());
-        Assertions.assertThat(repository.existsByTypeIgnoreCase("Pole-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByTypeIgnoreCase(
+                "Pole-Wahid")).isTrue();
         poleId = testPole.getId();
     }
 }

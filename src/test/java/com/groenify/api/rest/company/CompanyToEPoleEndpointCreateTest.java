@@ -117,7 +117,8 @@ class CompanyToEPoleEndpointCreateTest extends EndpointTest {
                 .andExpect(jsonPathIdOfModelId("$.company.id", testCompany))
                 .andExpect(jsonPath("$.base_price", is(50.51d)));
 
-        final List<CompanyEPole> ePoleList = repository.findAllByCompany(testCompany);
+        final List<CompanyEPole> ePoleList =
+                repository.findAllByCompany(testCompany);
         Assertions.assertThat(ePoleList).hasSize(1);
         final CompanyEPole testPole = ePoleList.get(0);
 
@@ -133,7 +134,8 @@ class CompanyToEPoleEndpointCreateTest extends EndpointTest {
                         .content("{\"base_price\":50.51}"))
                 .andExpect(status().isNotFound());
 
-        final List<CompanyEPole> ePoleList = repository.findAllByCompany(testCompany);
+        final List<CompanyEPole> ePoleList =
+                repository.findAllByCompany(testCompany);
         Assertions.assertThat(ePoleList).hasSize(0);
         companyId = testCompany.getId();
     }
@@ -147,7 +149,8 @@ class CompanyToEPoleEndpointCreateTest extends EndpointTest {
                         .content("{\"base_price\":50.51}"))
                 .andExpect(status().isNotFound());
 
-        final List<CompanyEPole> ePoleList = repository.findAllByCompany(testCompany);
+        final List<CompanyEPole> ePoleList =
+                repository.findAllByCompany(testCompany);
         Assertions.assertThat(ePoleList).hasSize(0);
         ePoleId = testEPole.getId();
     }

@@ -9,6 +9,9 @@ import org.assertj.core.api.Assertions;
 
 public final class JsonTestUtil {
 
+    private JsonTestUtil() {
+    }
+
     public static void test(
             final String b1, final String b2) {
         final JsonElement e1 = JsonUtil.parseElement(b1);
