@@ -3,6 +3,7 @@ package com.groenify.api.rest.factor;
 import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.framework.annotation.EPoleBrandInPath;
+import com.groenify.api.framework.annotation.FactorTypeInPath;
 import com.groenify.api.rest.epole.__model.EPoleBrandReqMo;
 import com.groenify.api.rest.epole.__model.EPoleBrandResMo;
 import com.groenify.api.rest.factor.__model.FactorTypeReqMo;
