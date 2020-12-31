@@ -1,8 +1,6 @@
 package com.groenify.api.rest.epole;
 
 import com.groenify.api.database.epole.EPole;
-import com.groenify.api.database.epole.EPoleBrand;
-import com.groenify.api.framework.annotation.EPoleBrandInPath;
 import com.groenify.api.framework.annotation.EPoleInPath;
 import com.groenify.api.rest.epole.__model.EPoleReqMo;
 import com.groenify.api.rest.epole.__model.EPoleResMo;
@@ -11,14 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -35,14 +31,14 @@ public class EPoleEndpoint {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<EPoleResMo> getAllEPoles() {
         final List<EPole> ePoles = service.getAll();
-        return EPoleResMo.mapEPoleBrandToResMoList(ePoles);
+        return EPoleResMo.mapEPoleToResMoList(ePoles);
     }
 
     @GetMapping(value = "/{ePoleId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final EPoleResMo getEPoleById(
             final @EPoleInPath EPole ePole) {
-        return EPoleResMo.mapEPoleBrandToResMo(ePole);
+        return EPoleResMo.mapEPoleToResMo(ePole);
     }
 
     @PutMapping(value = "/{ePoleId}",
@@ -52,7 +48,7 @@ public class EPoleEndpoint {
             final @EPoleInPath EPole ePole,
             final @RequestBody EPoleReqMo body) {
         final EPole newEPole = service.update(ePole, body);
-        return EPoleResMo.mapEPoleBrandToResMo(newEPole);
+        return EPoleResMo.mapEPoleToResMo(newEPole);
     }
 
     @DeleteMapping(value = "/{ePoleId}",
