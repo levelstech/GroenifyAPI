@@ -1,5 +1,6 @@
 package com.groenify.api.framework.annotation.resolver;
 
+import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.exceptions.PathException;
 import com.groenify.api.framework.annotation.FactorTypeInPath;
@@ -29,8 +30,12 @@ public class FactorTypeInPathResolver
         final Long pathValue = ResolverUtil
                 .findLongInPath(var3, annotation.value());
         final Optional<FactorType> type = repository.findById(pathValue);
-        if (type.isPresent()) return type.get();
+        if (type.isEmpty()) {
+            logger().warn("Could not resolve {} for {} = {}",
+                    FactorType.class, annotation.value(), pathValue);
+            throw PathException.notFoundWithId(FactorType.class, pathValue);
+        }
 
-        throw PathException.notFoundWithId(FactorType.class, pathValue);
+        return type.get();
     }
 }
