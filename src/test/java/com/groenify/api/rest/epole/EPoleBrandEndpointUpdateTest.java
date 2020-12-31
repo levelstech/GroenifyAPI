@@ -5,7 +5,6 @@ import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.framework.annotation.resolver.EPoleBrandInPathResolver;
 import com.groenify.api.repository.epole.EPoleBrandRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.epole.EPoleBrandEndpoint;
 import com.groenify.api.service.epole.EPoleBrandService;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
@@ -19,8 +18,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -87,8 +84,10 @@ class EPoleBrandEndpointUpdateTest extends EndpointTest {
                 .andExpect(jsonPath("$.id", Matchers.greaterThanOrEqualTo(1)))
                 .andExpect(jsonPath("$.name", is("Brand-Wahid(1)")));
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid")).isFalse();
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid(1)")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Brand-Wahid")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Brand-Wahid(1)")).isTrue();
 
         Assertions.assertThat(testBrand.getName()).isEqualTo("Brand-Wahid(1)");
     }
@@ -102,8 +101,10 @@ class EPoleBrandEndpointUpdateTest extends EndpointTest {
                         .content("{\"name\":\"Brand-Wahid(1)\"}"))
                 .andExpect(status().isNotFound());
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid")).isTrue();
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid(1)")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Brand-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Brand-Wahid(1)")).isFalse();
         brandId = testBrand.getId();
     }
 }

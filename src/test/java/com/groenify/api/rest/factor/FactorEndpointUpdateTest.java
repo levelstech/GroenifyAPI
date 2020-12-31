@@ -6,7 +6,6 @@ import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.framework.annotation.resolver.FactorInPathResolver;
 import com.groenify.api.repository.factor.FactorRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.RestTestUtil;
 import com.groenify.api.service.factor.FactorService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
+import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -90,8 +90,10 @@ class FactorEndpointUpdateTest extends EndpointTest {
                 + "\"question\":\"Q(1)?\","
                 + "\"description\":\"bb\"}");
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Factor-Wahid")).isFalse();
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Factor-Wahid(1)")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Factor-Wahid")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Factor-Wahid(1)")).isTrue();
     }
 
     @Test
@@ -104,15 +106,19 @@ class FactorEndpointUpdateTest extends EndpointTest {
                                 + "\"question\":\"Q(1)?\","
                                 + "\"description\":\"bb\"}"))
                 .andExpect(status().isOk())
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$.id", testFactor))
+                .andExpect(jsonPathIdOfModelId("$.id", testFactor))
                 .andExpect(jsonPath("$.name", is("Factor-Wahid(1)")))
                 .andExpect(jsonPath("$.question", is("Q(1)?")))
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$.type.id", testFactor.getType()))
-                .andExpect(jsonPath("$.type.name", is(testFactor.getType().getName())))
+                .andExpect(jsonPathIdOfModelId(
+                        "$.type.id", testFactor.getType()))
+                .andExpect(jsonPath(
+                        "$.type.name", is(testFactor.getType().getName())))
                 .andExpect(jsonPath("$.description", is("bb")));
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Factor-Wahid")).isFalse();
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Factor-Wahid(1)")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Factor-Wahid")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Factor-Wahid(1)")).isTrue();
     }
 
     @Test
@@ -127,8 +133,10 @@ class FactorEndpointUpdateTest extends EndpointTest {
                                 + "\"description\":\"bb\"}"))
                 .andExpect(status().isNotFound());
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Factor-Wahid")).isTrue();
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Factor-Wahid(1)")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Factor-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Factor-Wahid(1)")).isFalse();
 
         factorId = testFactor.getId();
     }

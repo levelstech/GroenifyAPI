@@ -24,8 +24,8 @@ public class EPoleEndpoint {
 
     private final EPoleService service;
 
-    public EPoleEndpoint(final EPoleService service) {
-        this.service = service;
+    public EPoleEndpoint(final EPoleService var) {
+        this.service = var;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

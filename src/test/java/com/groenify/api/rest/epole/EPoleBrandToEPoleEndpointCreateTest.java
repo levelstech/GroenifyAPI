@@ -6,7 +6,6 @@ import com.groenify.api.framework.annotation.resolver.EPoleBrandInPathResolver;
 import com.groenify.api.repository.epole.EPoleBrandRepository;
 import com.groenify.api.repository.epole.EPoleRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.RestTestUtil;
 import com.groenify.api.service.epole.EPoleService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,9 +17,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
+import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -83,7 +82,8 @@ class EPoleBrandToEPoleEndpointCreateTest extends EndpointTest {
                 + "\"brand\":{\"id\":2, \"name\":\"Brand-Thanie\"},"
                 + "\"description\":\"(1)\"}");
 
-        Assertions.assertThat(repository.existsByTypeIgnoreCase("Pole-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByTypeIgnoreCase(
+                "Pole-Wahid")).isTrue();
     }
 
     @Test
@@ -97,10 +97,10 @@ class EPoleBrandToEPoleEndpointCreateTest extends EndpointTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.type", is("Pole-Wahid")))
                 .andExpect(jsonPath("$.description", is("description")))
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$.brand.id", testBrand))
+                .andExpect(jsonPathIdOfModelId("$.brand.id", testBrand))
                 .andExpect(jsonPath("$.brand.name", is(testBrand.getName())));
 
-        Assertions.assertThat(repository.existsByTypeIgnoreCase("Pole-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByTypeIgnoreCase(
+                "Pole-Wahid")).isTrue();
     }
-
 }

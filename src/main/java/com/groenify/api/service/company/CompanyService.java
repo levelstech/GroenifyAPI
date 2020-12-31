@@ -13,31 +13,31 @@ public class CompanyService {
 
     private final CompanyRepository repository;
 
-    public CompanyService(final CompanyRepository repository) {
-        this.repository = repository;
+    public CompanyService(final CompanyRepository var) {
+        this.repository = var;
     }
 
-    public CompanyRepository getRepository() {
+    public final CompanyRepository getRepository() {
         return repository;
     }
 
-    public List<Company> getAll() {
+    public final List<Company> getAll() {
         final Iterable<Company> allCompaniesInIter = repository.findAll();
         return ListUtil.iterableToList(allCompaniesInIter);
     }
 
-    public Company create(final CompanyReqMo body) {
+    public final Company create(final CompanyReqMo body) {
         final Company company = Company.ofReqMo(body);
         return repository.save(company);
     }
 
-    public Company update(
+    public final Company update(
             final Company company,
             final CompanyReqMo body) {
         return repository.save(company.update(body));
     }
 
-    public Boolean delete(final Company company) {
+    public final Boolean delete(final Company company) {
         final Long id = company.getId();
         repository.delete(company);
         return !repository.existsById(id);

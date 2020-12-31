@@ -1,14 +1,11 @@
 package com.groenify.api.rest.epole.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.groenify.api.database.epole.EPoleBrand;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.stream.Collectors;
 
-public class EPoleBrandReqMo {
+public final class EPoleBrandReqMo {
 
     @JsonProperty("name")
     @NotNull(message = "'name' is a required field")

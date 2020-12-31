@@ -7,7 +7,7 @@ import com.groenify.api.util.DateUtil;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CompanyResMo {
+public final class CompanyResMo {
 
     @JsonProperty("id")
     private final Long id;

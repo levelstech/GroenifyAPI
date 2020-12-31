@@ -4,8 +4,6 @@ import com.groenify.api.JsonTestUtil;
 import com.groenify.api.database.company.Company;
 import com.groenify.api.repository.company.CompanyRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.RestTestUtil;
-import com.groenify.api.rest.company.CompanyEndpoint;
 import com.groenify.api.service.company.CompanyService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +15,7 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import java.util.List;
 
+import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -29,7 +28,7 @@ class CompanyEndpointGetAllTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/companies";
 
-    private static List<Company> TEST_BRANDS;
+    private static List<Company> testBrands;
 
     @Autowired
     private CompanyRepository repository;
@@ -61,7 +60,8 @@ class CompanyEndpointGetAllTest extends EndpointTest {
                 "{\"id\":1, \"name\":\"Brand-Thalith\","
                         + "\"date\":\"2020-12-28T00:43:32Z\","
                         + "\"url\":\"https://google.de\"}");
-        TEST_BRANDS = storeNews(List.of(companyWahid, companyThanie, companyThalith));
+        testBrands = storeNews(
+                List.of(companyWahid, companyThanie, companyThalith));
     }
 
     @BeforeEach
@@ -91,23 +91,23 @@ class CompanyEndpointGetAllTest extends EndpointTest {
 
     @Test
     void getAllCompanyValidateDatabaseValues() throws Exception {
-        final Company companyWahid = TEST_BRANDS.get(0);
-        final Company companyThanie = TEST_BRANDS.get(1);
-        final Company companyThalith = TEST_BRANDS.get(2);
+        final Company companyWahid = testBrands.get(0);
+        final Company companyThanie = testBrands.get(1);
+        final Company companyThalith = testBrands.get(2);
 
         getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(TEST_BRANDS.size())))
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$[0].id", companyWahid))
+                .andExpect(jsonPath("$", hasSize(testBrands.size())))
+                .andExpect(jsonPathIdOfModelId("$[0].id", companyWahid))
                 .andExpect(jsonPath("$[0].name", is(companyWahid.getName())))
                 .andExpect(jsonPath("$[0].date", is("2020-12-28T00:43:32Z")))
                 .andExpect(jsonPath("$[0].url", is("https://google.de")))
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$[1].id", companyThanie))
+                .andExpect(jsonPathIdOfModelId("$[1].id", companyThanie))
                 .andExpect(jsonPath("$[1].name", is(companyThanie.getName())))
                 .andExpect(jsonPath("$[1].date", is("2020-12-28T00:43:32Z")))
                 .andExpect(jsonPath("$[1].url", is("https://google.de")))
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$[2].id", companyThalith))
+                .andExpect(jsonPathIdOfModelId("$[2].id", companyThalith))
                 .andExpect(jsonPath("$[2].name", is(companyThalith.getName())))
                 .andExpect(jsonPath("$[2].date", is("2020-12-28T00:43:32Z")))
                 .andExpect(jsonPath("$[2].url", is("https://google.de")));

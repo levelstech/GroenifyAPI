@@ -4,7 +4,6 @@ import com.groenify.api.JsonTestUtil;
 import com.groenify.api.framework.annotation.resolver.CompanyInPathResolver;
 import com.groenify.api.repository.company.CompanyRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.company.CompanyEndpoint;
 import com.groenify.api.service.company.CompanyService;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
@@ -19,7 +18,6 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

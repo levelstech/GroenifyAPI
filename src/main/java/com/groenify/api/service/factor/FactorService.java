@@ -14,35 +14,35 @@ public class FactorService {
 
     private final FactorRepository repository;
 
-    public FactorService(final FactorRepository repository) {
-        this.repository = repository;
+    public FactorService(final FactorRepository var) {
+        this.repository = var;
     }
 
-    public FactorRepository getRepository() {
+    public final FactorRepository getRepository() {
         return repository;
     }
 
-    public List<Factor> getAll() {
+    public final List<Factor> getAll() {
         final Iterable<Factor> allTypesInIter = repository.findAll();
         return ListUtil.iterableToList(allTypesInIter);
     }
 
-    public List<Factor> getAllFromType(final FactorType type) {
+    public final List<Factor> getAllFromType(final FactorType type) {
         return repository.findAllByType(type);
     }
 
-    public Factor create(final FactorType type, final FactorReqMo body) {
+    public final Factor create(final FactorType type, final FactorReqMo body) {
         final Factor factor = Factor.ofReqMo(type, body);
         return repository.save(factor);
     }
 
-    public Factor update(
+    public final Factor update(
             final Factor factor,
             final FactorReqMo body) {
         return repository.save(factor.update(body));
     }
 
-    public Boolean delete(final Factor factor) {
+    public final Boolean delete(final Factor factor) {
         final Long id = factor.getId();
         repository.delete(factor);
         return !repository.existsById(id);

@@ -24,8 +24,8 @@ public class EPoleBrandToEPoleEndpoint {
 
     private final EPoleService service;
 
-    public EPoleBrandToEPoleEndpoint(final EPoleService service) {
-        this.service = service;
+    public EPoleBrandToEPoleEndpoint(final EPoleService var) {
+        this.service = var;
     }
 
     @GetMapping(value = "/{brandId}/epoles",

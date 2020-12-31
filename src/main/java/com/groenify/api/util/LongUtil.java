@@ -2,7 +2,8 @@ package com.groenify.api.util;
 
 public final class LongUtil {
 
-    private LongUtil() {}
+    private LongUtil() {
+    }
 
     public static Long parseOrDefault(final String string) {
         try {

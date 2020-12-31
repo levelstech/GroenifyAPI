@@ -3,12 +3,9 @@ package com.groenify.api.rest.epole;
 import com.groenify.api.JsonTestUtil;
 import com.groenify.api.database.epole.EPole;
 import com.groenify.api.database.epole.EPoleBrand;
-import com.groenify.api.framework.annotation.resolver.EPoleBrandInPathResolver;
 import com.groenify.api.framework.annotation.resolver.EPoleInPathResolver;
-import com.groenify.api.repository.epole.EPoleBrandRepository;
 import com.groenify.api.repository.epole.EPoleRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.RestTestUtil;
 import com.groenify.api.service.epole.EPoleService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,9 +15,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
-import java.util.List;
-
-import static org.hamcrest.Matchers.hasSize;
+import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -92,11 +87,14 @@ class EPoleEndpointGetByIdTest extends EndpointTest {
         getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$.id", testPole))
+                .andExpect(jsonPathIdOfModelId("$.id", testPole))
                 .andExpect(jsonPath("$.type", is(testPole.getType())))
-                .andExpect(jsonPath("$.description", is(testPole.getDescription())))
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$.brand.id", testPole.getBrand()))
-                .andExpect(jsonPath("$.brand.name", is(testPole.getBrand().getName())));
+                .andExpect(jsonPath(
+                        "$.description", is(testPole.getDescription())))
+                .andExpect(jsonPathIdOfModelId(
+                        "$.brand.id", testPole.getBrand()))
+                .andExpect(jsonPath(
+                        "$.brand.name", is(testPole.getBrand().getName())));
     }
 
     @Test

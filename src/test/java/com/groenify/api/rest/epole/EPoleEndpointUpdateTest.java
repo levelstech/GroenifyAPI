@@ -6,7 +6,6 @@ import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.framework.annotation.resolver.EPoleInPathResolver;
 import com.groenify.api.repository.epole.EPoleRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.RestTestUtil;
 import com.groenify.api.service.epole.EPoleService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,8 +17,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
+import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -86,8 +85,10 @@ class EPoleEndpointUpdateTest extends EndpointTest {
                 + "\"brand\":{\"id\":2, \"name\":\"Brand-Thanie\"},"
                 + " \"description\":\"(1)\"}");
 
-        Assertions.assertThat(repository.existsByTypeIgnoreCase("Pole-Wahid")).isFalse();
-        Assertions.assertThat(repository.existsByTypeIgnoreCase("Pole-Wahid(1)")).isTrue();
+        Assertions.assertThat(repository.existsByTypeIgnoreCase(
+                "Pole-Wahid")).isFalse();
+        Assertions.assertThat(repository.existsByTypeIgnoreCase(
+                "Pole-Wahid(1)")).isTrue();
     }
 
     @Test
@@ -99,14 +100,18 @@ class EPoleEndpointUpdateTest extends EndpointTest {
                         .content("{\"type\":\"Pole-Wahid(1)\","
                                 + "\"description\":\"(1)\"}"))
                 .andExpect(status().isOk())
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$.id", testPole))
+                .andExpect(jsonPathIdOfModelId("$.id", testPole))
                 .andExpect(jsonPath("$.type", is("Pole-Wahid(1)")))
                 .andExpect(jsonPath("$.description", is("(1)")))
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$.brand.id", testPole.getBrand()))
-                .andExpect(jsonPath("$.brand.name", is(testPole.getBrand().getName())));
+                .andExpect(jsonPathIdOfModelId(
+                        "$.brand.id", testPole.getBrand()))
+                .andExpect(jsonPath(
+                        "$.brand.name", is(testPole.getBrand().getName())));
 
-        Assertions.assertThat(repository.existsByTypeIgnoreCase("Pole-Wahid")).isFalse();
-        Assertions.assertThat(repository.existsByTypeIgnoreCase("Pole-Wahid(1)")).isTrue();
+        Assertions.assertThat(repository.existsByTypeIgnoreCase(
+                "Pole-Wahid")).isFalse();
+        Assertions.assertThat(repository.existsByTypeIgnoreCase(
+                "Pole-Wahid(1)")).isTrue();
     }
 
     @Test
@@ -119,8 +124,10 @@ class EPoleEndpointUpdateTest extends EndpointTest {
                         .content("{\"name\":\"Pole-Wahid(1)\"}"))
                 .andExpect(status().isNotFound());
 
-        Assertions.assertThat(repository.existsByTypeIgnoreCase("Pole-Wahid")).isTrue();
-        Assertions.assertThat(repository.existsByTypeIgnoreCase("Pole-Wahid(1)")).isFalse();
+        Assertions.assertThat(repository.existsByTypeIgnoreCase(
+                "Pole-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByTypeIgnoreCase(
+                "Pole-Wahid(1)")).isFalse();
 
         poleId = testPole.getId();
     }

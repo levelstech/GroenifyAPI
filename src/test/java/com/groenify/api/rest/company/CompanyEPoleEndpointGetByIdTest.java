@@ -6,7 +6,6 @@ import com.groenify.api.database.company.CompanyEPole;
 import com.groenify.api.database.epole.EPole;
 import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.framework.annotation.resolver.CompanyEPoleInPathResolver;
-import com.groenify.api.framework.annotation.resolver.EPoleBrandInPathResolver;
 import com.groenify.api.repository.company.CompanyEPoleRepository;
 import com.groenify.api.rest.EndpointTest;
 import com.groenify.api.service.company.CompanyEPoleService;
@@ -18,10 +17,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
-import java.util.List;
 
 import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -107,9 +104,12 @@ class CompanyEPoleEndpointGetByIdTest extends EndpointTest {
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPathIdOfModelId("$.id", testPole))
-                .andExpect(jsonPathIdOfModelId("$.epole.id", testPole.getEPole()))
-                .andExpect(jsonPathIdOfModelId("$.company.id", testPole.getCompany()))
-                .andExpect(jsonPath("$.base_price", is(testPole.getBasePrice())));
+                .andExpect(jsonPathIdOfModelId(
+                        "$.epole.id", testPole.getEPole()))
+                .andExpect(jsonPathIdOfModelId(
+                        "$.company.id", testPole.getCompany()))
+                .andExpect(jsonPath(
+                        "$.base_price", is(testPole.getBasePrice())));
     }
 
     @Test

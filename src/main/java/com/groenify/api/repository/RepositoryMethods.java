@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public final class RepositoryMethods {
+    private RepositoryMethods() {
+    }
 
     public static <T extends IdModel> T findWithNotFound(
             final Long pathValue,

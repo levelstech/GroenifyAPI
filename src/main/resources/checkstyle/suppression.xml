@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.0//EN"
+        "https://checkstyle.org/dtds/suppressions_1_0.dtd">
+
+<suppressions>
+
+    <!-- SpringBoot Launcher needs to have a hidden constructor and a not final class -->
+    <suppress files="GroenifyApiApplication.java"
+              checks="HideUtilityClassConstructor"/>
+
+    <suppress files="com[\\/]groenify[\\/]api[\\/]database[\\/]"
+              checks="DesignForExtensionCheck"/>
+
+
+    <suppress files="[\\/]main[\\/]|[\\/]test[\\/]"
+              checks="MagicNumberCheck"/>
+    <suppress files="[\\/]main[\\/]|[\\/]test[\\/]"
+              checks="JavadocMethod|JavadocVariable|JavadocType|JavadocPackage|NeedBraces"/>
+</suppressions>

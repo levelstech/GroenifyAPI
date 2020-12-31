@@ -80,11 +80,11 @@ public class CompanyEPole implements IdModel {
     }
 
     public CompanyEPole update(
-            final Company company,
-            final EPole ePole,
+            final Company newCompany,
+            final EPole newEPole,
             final CompanyEPoleReqMo body) {
-        this.setCompany(company);
-        this.setePole(ePole);
+        this.setCompany(newCompany);
+        this.setePole(newEPole);
         return update(body);
     }
 

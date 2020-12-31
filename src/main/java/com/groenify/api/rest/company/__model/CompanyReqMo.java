@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class CompanyReqMo {
+public final class CompanyReqMo {
 
     @JsonProperty("name")
     @NotNull(message = "'name' is a required field")

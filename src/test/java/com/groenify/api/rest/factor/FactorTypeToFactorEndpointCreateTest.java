@@ -6,7 +6,6 @@ import com.groenify.api.framework.annotation.resolver.FactorTypeInPathResolver;
 import com.groenify.api.repository.factor.FactorRepository;
 import com.groenify.api.repository.factor.FactorTypeRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.RestTestUtil;
 import com.groenify.api.service.factor.FactorService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
+import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -85,7 +85,8 @@ class FactorTypeToFactorEndpointCreateTest extends EndpointTest {
                 + "\"question\":\"Q(1)?\","
                 + "\"description\":\"bb\"}");
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Factor-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Factor-Wahid")).isTrue();
     }
 
     @Test
@@ -100,11 +101,11 @@ class FactorTypeToFactorEndpointCreateTest extends EndpointTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", is("Factor-Wahid")))
                 .andExpect(jsonPath("$.question", is("Q?")))
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$.type.id", testType))
+                .andExpect(jsonPathIdOfModelId("$.type.id", testType))
                 .andExpect(jsonPath("$.type.name", is(testType.getName())))
                 .andExpect(jsonPath("$.description", is("bb")));
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Factor-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Factor-Wahid")).isTrue();
     }
-
 }

@@ -1,11 +1,9 @@
 package com.groenify.api.rest.company;
 
 import com.groenify.api.database.company.Company;
-import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.framework.annotation.CompanyInPath;
 import com.groenify.api.rest.company.__model.CompanyReqMo;
 import com.groenify.api.rest.company.__model.CompanyResMo;
-import com.groenify.api.rest.epole.__model.EPoleBrandResMo;
 import com.groenify.api.service.company.CompanyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,8 +25,8 @@ public class CompanyEndpoint {
 
     private final CompanyService service;
 
-    public CompanyEndpoint(final CompanyService service) {
-        this.service = service;
+    public CompanyEndpoint(final CompanyService var) {
+        this.service = var;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

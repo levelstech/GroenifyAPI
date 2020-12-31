@@ -5,7 +5,6 @@ import com.groenify.api.database.company.Company;
 import com.groenify.api.framework.annotation.resolver.CompanyInPathResolver;
 import com.groenify.api.repository.company.CompanyRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.company.CompanyEndpoint;
 import com.groenify.api.service.company.CompanyService;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
@@ -96,12 +95,17 @@ class CompanyEndpointUpdateTest extends EndpointTest {
                 .andExpect(jsonPath("$.url", is("https://google.nl")));
 
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Company-Thanie")).isFalse();
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Company-Thanie(1)")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Company-Thanie")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Company-Thanie(1)")).isTrue();
 
-        Assertions.assertThat(testCompany.getName()).isEqualTo("Company-Thanie(1)");
-        Assertions.assertThat(testCompany.getDateString()).isEqualTo("2020-12-28T00:43:22Z");
-        Assertions.assertThat(testCompany.getUrl()).isEqualTo("https://google.nl");
+        Assertions.assertThat(testCompany.getName())
+                .isEqualTo("Company-Thanie(1)");
+        Assertions.assertThat(testCompany.getDateString())
+                .isEqualTo("2020-12-28T00:43:22Z");
+        Assertions.assertThat(testCompany.getUrl())
+                .isEqualTo("https://google.nl");
     }
 
     @Test
@@ -115,8 +119,10 @@ class CompanyEndpointUpdateTest extends EndpointTest {
                                 + "\"url\":\"https://google.sa\"}"))
                 .andExpect(status().isNotFound());
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Company-Wahid")).isTrue();
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Company-Thalith(1)")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Company-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Company-Thalith(1)")).isFalse();
         companyId = testCompany.getId();
     }
 

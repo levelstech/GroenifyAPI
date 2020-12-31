@@ -67,7 +67,8 @@ class FactorTypeEndpointCreateTest extends EndpointTest {
 
         JsonTestUtil.test(resBody, "{\"id\":1, \"name\":\"Type-Wahid\","
                 + "\"description\":\"aaaa\"}");
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Type-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Type-Wahid")).isTrue();
     }
 
     @Test
@@ -82,7 +83,8 @@ class FactorTypeEndpointCreateTest extends EndpointTest {
                 .andExpect(jsonPath("$.name", is("Type-Thanie")))
                 .andExpect(jsonPath("$.description", is("aaaa")));
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Type-Thanie")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Type-Thanie")).isTrue();
     }
 
     @Test
@@ -92,6 +94,7 @@ class FactorTypeEndpointCreateTest extends EndpointTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"peter\":\"Type-Thalith\"}"))
                 .andExpect(status().isBadRequest());
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Type-Thalith")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Type-Thalith")).isFalse();
     }
 }

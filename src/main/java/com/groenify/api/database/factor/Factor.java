@@ -1,7 +1,6 @@
 package com.groenify.api.database.factor;
 
 import com.groenify.api.database.IdModel;
-import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.rest.factor.__model.FactorReqMo;
 import com.groenify.api.util.MapperUtil;
 
@@ -12,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -31,13 +29,16 @@ public class Factor implements IdModel {
     @Column(name = "name", nullable = false, columnDefinition = "mediumtext")
     private String name;
 
-    @Column(name = "question", nullable = false, columnDefinition = "mediumtext")
+    @Column(name = "question",
+            nullable = false, columnDefinition = "mediumtext")
     private String question;
 
     @Column(name = "description", columnDefinition = "longtext")
     private String description;
 
-    public static Factor ofReqMo(final FactorType type, final FactorReqMo body) {
+    public static Factor ofReqMo(
+            final FactorType type,
+            final FactorReqMo body) {
         return new Factor().update(type, body);
     }
 
@@ -87,8 +88,8 @@ public class Factor implements IdModel {
         this.description = var;
     }
 
-    private Factor update(final FactorType type, final FactorReqMo body) {
-        this.setType(type);
+    private Factor update(final FactorType newType, final FactorReqMo body) {
+        this.setType(newType);
         return update(body);
     }
 

@@ -25,8 +25,8 @@ public class EPoleBrandEndpoint {
 
     private final EPoleBrandService service;
 
-    public EPoleBrandEndpoint(final EPoleBrandService service) {
-        this.service = service;
+    public EPoleBrandEndpoint(final EPoleBrandService var) {
+        this.service = var;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

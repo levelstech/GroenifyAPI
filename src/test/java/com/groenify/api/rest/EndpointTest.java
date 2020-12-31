@@ -23,34 +23,34 @@ public abstract class EndpointTest {
     private TestEntityManager entityManager;
     private MockMvc mockMvc;
 
-    public void setMockMvc(final MockMvc var) {
+    public final void setMockMvc(final MockMvc var) {
         this.mockMvc = var;
     }
 
-    public MockMvc getMockMvc() {
+    public final MockMvc getMockMvc() {
         return mockMvc;
     }
 
-    public void setEntityManager(final TestEntityManager var) {
+    public final void setEntityManager(final TestEntityManager var) {
         this.entityManager = var;
     }
 
-    public TestEntityManager getEntityManager() {
+    public final TestEntityManager getEntityManager() {
         return entityManager;
     }
 
-    protected abstract String getEndpoint();
-
-    protected <T extends IdModel> T storeNew(final T model) {
+    protected final <T extends IdModel> T storeNew(final T model) {
         model.setId(null);
         return getEntityManager().persist(model);
     }
 
-    protected <T extends IdModel> List<T> storeNews(final List<T> model) {
+    protected final <T extends IdModel> List<T> storeNews(final List<T> model) {
         return model.stream()
                 .map(this::storeNew)
                 .collect(Collectors.toList());
     }
+
+    protected abstract String getEndpoint();
 
     @Test
     void smokeTest() throws Exception {

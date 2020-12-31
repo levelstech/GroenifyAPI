@@ -8,6 +8,9 @@ import static org.springframework.web.servlet.HandlerMapping.URI_TEMPLATE_VARIAB
 
 public final class ResolverUtil {
 
+    private ResolverUtil() {
+    }
+
     private static String findInPath(final WebRequest var1, final String var2) {
 //        noinspection unchecked
         final Map<String, String> uriTemplateVars = (Map<String, String>)

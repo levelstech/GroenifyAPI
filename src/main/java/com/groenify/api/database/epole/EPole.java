@@ -1,11 +1,9 @@
 package com.groenify.api.database.epole;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.groenify.api.database.IdModel;
 import com.groenify.api.rest.epole.__model.EPoleReqMo;
 import com.groenify.api.util.MapperUtil;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -78,9 +76,9 @@ public class EPole implements IdModel {
     }
 
     public EPole update(
-            final EPoleBrand brand,
+            final EPoleBrand newBrand,
             final EPoleReqMo body) {
-        this.setBrand(brand);
+        this.setBrand(newBrand);
         return this.update(body);
     }
 

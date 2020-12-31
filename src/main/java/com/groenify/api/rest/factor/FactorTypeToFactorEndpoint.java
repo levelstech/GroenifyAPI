@@ -24,8 +24,8 @@ public class FactorTypeToFactorEndpoint {
 
     private final FactorService service;
 
-    public FactorTypeToFactorEndpoint(final FactorService service) {
-        this.service = service;
+    public FactorTypeToFactorEndpoint(final FactorService var) {
+        this.service = var;
     }
 
     @GetMapping(value = "/{factorTypeId}/factors",

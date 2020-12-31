@@ -4,8 +4,6 @@ import com.groenify.api.JsonTestUtil;
 import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.repository.epole.EPoleBrandRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.RestTestUtil;
-import com.groenify.api.rest.epole.EPoleBrandEndpoint;
 import com.groenify.api.service.epole.EPoleBrandService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,10 +15,12 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import java.util.List;
 
+import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @DataJpaTest(showSql = false)
 @EnableAutoConfiguration
@@ -28,7 +28,7 @@ class EPoleBrandEndpointGetAllTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/epole_brands";
 
-    private static List<EPoleBrand> TEST_BRANDS;
+    private static List<EPoleBrand> testBrands;
 
     @Autowired
     private EPoleBrandRepository repository;
@@ -54,7 +54,7 @@ class EPoleBrandEndpointGetAllTest extends EndpointTest {
                 "{\"id\":1, \"name\":\"Brand-Thanie\"}");
         final EPoleBrand brandThalith = EPoleBrand.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"Brand-Thalith\"}");
-        TEST_BRANDS = storeNews(List.of(brandWahid, brandThanie, brandThalith));
+        testBrands = storeNews(List.of(brandWahid, brandThanie, brandThalith));
     }
 
     @BeforeEach
@@ -78,19 +78,19 @@ class EPoleBrandEndpointGetAllTest extends EndpointTest {
 
     @Test
     void getAllEPoleBrandValidateDatabaseValues() throws Exception {
-        final EPoleBrand brandWahid = TEST_BRANDS.get(0);
-        final EPoleBrand brandThanie = TEST_BRANDS.get(1);
-        final EPoleBrand brandThalith = TEST_BRANDS.get(2);
+        final EPoleBrand brandWahid = testBrands.get(0);
+        final EPoleBrand brandThanie = testBrands.get(1);
+        final EPoleBrand brandThalith = testBrands.get(2);
 
         getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(TEST_BRANDS.size())))
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$[0].id", brandWahid))
+                .andExpect(jsonPath("$", hasSize(testBrands.size())))
+                .andExpect(jsonPathIdOfModelId("$[0].id", brandWahid))
                 .andExpect(jsonPath("$[0].name", is(brandWahid.getName())))
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$[1].id", brandThanie))
+                .andExpect(jsonPathIdOfModelId("$[1].id", brandThanie))
                 .andExpect(jsonPath("$[1].name", is(brandThanie.getName())))
-                .andExpect(RestTestUtil.jsonPathIdOfModelId("$[2].id", brandThalith))
+                .andExpect(jsonPathIdOfModelId("$[2].id", brandThalith))
                 .andExpect(jsonPath("$[2].name", is(brandThalith.getName())));
     }
 }

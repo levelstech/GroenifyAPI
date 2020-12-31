@@ -1,6 +1,5 @@
 package com.groenify.api.database.epole;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.groenify.api.database.IdModel;
 import com.groenify.api.rest.epole.__model.EPoleBrandReqMo;
 import com.groenify.api.util.MapperUtil;
@@ -10,11 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity

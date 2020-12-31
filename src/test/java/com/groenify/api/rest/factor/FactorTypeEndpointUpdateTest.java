@@ -88,8 +88,10 @@ class FactorTypeEndpointUpdateTest extends EndpointTest {
                 .andExpect(jsonPath("$.id", Matchers.greaterThanOrEqualTo(1)))
                 .andExpect(jsonPath("$.name", is("Type-Wahid(1)")))
                 .andExpect(jsonPath("$.description", is("aaaa")));
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Type-Wahid")).isFalse();
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Type-Wahid(1)")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Type-Wahid")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Type-Wahid(1)")).isTrue();
 
         Assertions.assertThat(testType.getName()).isEqualTo("Type-Wahid(1)");
         Assertions.assertThat(testType.getDescription()).isEqualTo("aaaa");
@@ -105,8 +107,10 @@ class FactorTypeEndpointUpdateTest extends EndpointTest {
                                 + "\"description\":\"aaaa\"}"))
                 .andExpect(status().isNotFound());
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Type-Wahid")).isTrue();
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Type-Wahid(1)")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Type-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Type-Wahid(1)")).isFalse();
         typeId = testType.getId();
     }
 }

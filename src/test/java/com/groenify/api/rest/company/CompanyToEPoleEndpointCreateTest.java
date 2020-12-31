@@ -5,7 +5,6 @@ import com.groenify.api.database.company.Company;
 import com.groenify.api.database.company.CompanyEPole;
 import com.groenify.api.database.epole.EPole;
 import com.groenify.api.database.epole.EPoleBrand;
-import com.groenify.api.framework.annotation.resolver.CompanyEPoleInPathResolver;
 import com.groenify.api.framework.annotation.resolver.CompanyInPathResolver;
 import com.groenify.api.framework.annotation.resolver.EPoleInPathResolver;
 import com.groenify.api.repository.company.CompanyEPoleRepository;
@@ -28,7 +27,6 @@ import java.util.List;
 import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -119,7 +117,8 @@ class CompanyToEPoleEndpointCreateTest extends EndpointTest {
                 .andExpect(jsonPathIdOfModelId("$.company.id", testCompany))
                 .andExpect(jsonPath("$.base_price", is(50.51d)));
 
-        final List<CompanyEPole> ePoleList = repository.findAllByCompany(testCompany);
+        final List<CompanyEPole> ePoleList =
+                repository.findAllByCompany(testCompany);
         Assertions.assertThat(ePoleList).hasSize(1);
         final CompanyEPole testPole = ePoleList.get(0);
 
@@ -135,7 +134,8 @@ class CompanyToEPoleEndpointCreateTest extends EndpointTest {
                         .content("{\"base_price\":50.51}"))
                 .andExpect(status().isNotFound());
 
-        final List<CompanyEPole> ePoleList = repository.findAllByCompany(testCompany);
+        final List<CompanyEPole> ePoleList =
+                repository.findAllByCompany(testCompany);
         Assertions.assertThat(ePoleList).hasSize(0);
         companyId = testCompany.getId();
     }
@@ -149,7 +149,8 @@ class CompanyToEPoleEndpointCreateTest extends EndpointTest {
                         .content("{\"base_price\":50.51}"))
                 .andExpect(status().isNotFound());
 
-        final List<CompanyEPole> ePoleList = repository.findAllByCompany(testCompany);
+        final List<CompanyEPole> ePoleList =
+                repository.findAllByCompany(testCompany);
         Assertions.assertThat(ePoleList).hasSize(0);
         ePoleId = testEPole.getId();
     }

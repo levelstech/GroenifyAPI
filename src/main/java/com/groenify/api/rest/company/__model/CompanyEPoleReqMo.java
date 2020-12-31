@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-public class CompanyEPoleReqMo {
+public final class CompanyEPoleReqMo {
     @JsonProperty("base_price")
     @NotNull(message = "'base_price' is a required field")
     @Min(value = 0, message = "'base_price' must be greater than zero")

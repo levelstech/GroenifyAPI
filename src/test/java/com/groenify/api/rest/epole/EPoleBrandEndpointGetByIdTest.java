@@ -5,7 +5,6 @@ import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.framework.annotation.resolver.EPoleBrandInPathResolver;
 import com.groenify.api.repository.epole.EPoleBrandRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.epole.EPoleBrandEndpoint;
 import com.groenify.api.service.epole.EPoleBrandService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

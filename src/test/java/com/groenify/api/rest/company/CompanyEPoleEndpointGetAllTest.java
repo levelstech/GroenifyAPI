@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import java.util.List;
 
-import static com.groenify.api.rest.RestTestUtil.*;
+import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -31,7 +31,7 @@ class CompanyEPoleEndpointGetAllTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/company_epoles";
 
-    private static List<CompanyEPole> TEST_POLES;
+    private static List<CompanyEPole> testPoles;
 
     @Autowired
     private CompanyEPoleRepository repository;
@@ -86,7 +86,7 @@ class CompanyEPoleEndpointGetAllTest extends EndpointTest {
         companyEPoleThalith.setCompany(companyThanie);
         companyEPoleThalith.setePole(ePoleThanie);
 
-        TEST_POLES = storeNews(List.of(companyEPoleWahid,
+        testPoles = storeNews(List.of(companyEPoleWahid,
                 companyEPoleThanie, companyEPoleThalith));
 
     }
@@ -129,25 +129,34 @@ class CompanyEPoleEndpointGetAllTest extends EndpointTest {
 
     @Test
     void getAllCompanyEPolesValidateDatabaseValues() throws Exception {
-        final CompanyEPole ePole1 = TEST_POLES.get(0);
-        final CompanyEPole ePole2 = TEST_POLES.get(1);
-        final CompanyEPole ePole3 = TEST_POLES.get(2);
+        final CompanyEPole ePole1 = testPoles.get(0);
+        final CompanyEPole ePole2 = testPoles.get(1);
+        final CompanyEPole ePole3 = testPoles.get(2);
 
         getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(TEST_POLES.size())))
+                .andExpect(jsonPath("$", hasSize(testPoles.size())))
                 .andExpect(jsonPathIdOfModelId("$[0].id", ePole1))
-                .andExpect(jsonPathIdOfModelId("$[0].epole.id", ePole1.getEPole()))
-                .andExpect(jsonPathIdOfModelId("$[0].company.id", ePole1.getCompany()))
-                .andExpect(jsonPath("$[0].base_price", is(ePole1.getBasePrice())))
+                .andExpect(jsonPathIdOfModelId(
+                        "$[0].epole.id", ePole1.getEPole()))
+                .andExpect(jsonPathIdOfModelId(
+                        "$[0].company.id", ePole1.getCompany()))
+                .andExpect(jsonPath(
+                        "$[0].base_price", is(ePole1.getBasePrice())))
                 .andExpect(jsonPathIdOfModelId("$[1].id", ePole2))
-                .andExpect(jsonPathIdOfModelId("$[1].epole.id", ePole2.getEPole()))
-                .andExpect(jsonPathIdOfModelId("$[1].company.id", ePole2.getCompany()))
-                .andExpect(jsonPath("$[1].base_price", is(ePole2.getBasePrice())))
+                .andExpect(jsonPathIdOfModelId(
+                        "$[1].epole.id", ePole2.getEPole()))
+                .andExpect(jsonPathIdOfModelId(
+                        "$[1].company.id", ePole2.getCompany()))
+                .andExpect(jsonPath(
+                        "$[1].base_price", is(ePole2.getBasePrice())))
                 .andExpect(jsonPathIdOfModelId("$[2].id", ePole3))
-                .andExpect(jsonPathIdOfModelId("$[2].epole.id", ePole3.getEPole()))
-                .andExpect(jsonPathIdOfModelId("$[2].company.id", ePole3.getCompany()))
-                .andExpect(jsonPath("$[2].base_price", is(ePole3.getBasePrice())));
+                .andExpect(jsonPathIdOfModelId(
+                        "$[2].epole.id", ePole3.getEPole()))
+                .andExpect(jsonPathIdOfModelId(
+                        "$[2].company.id", ePole3.getCompany()))
+                .andExpect(jsonPath(
+                        "$[2].base_price", is(ePole3.getBasePrice())));
     }
 }

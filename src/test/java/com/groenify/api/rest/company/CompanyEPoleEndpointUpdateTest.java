@@ -6,14 +6,10 @@ import com.groenify.api.database.company.CompanyEPole;
 import com.groenify.api.database.epole.EPole;
 import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.framework.annotation.resolver.CompanyEPoleInPathResolver;
-import com.groenify.api.framework.annotation.resolver.CompanyInPathResolver;
 import com.groenify.api.repository.company.CompanyEPoleRepository;
-import com.groenify.api.repository.company.CompanyRepository;
 import com.groenify.api.rest.EndpointTest;
 import com.groenify.api.service.company.CompanyEPoleService;
-import com.groenify.api.service.company.CompanyService;
 import org.assertj.core.api.Assertions;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,10 +106,12 @@ class CompanyEPoleEndpointUpdateTest extends EndpointTest {
                         .content("{\"base_price\":50.51}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPathIdOfModelId("$.id", testPole))
-                .andExpect(jsonPathIdOfModelId("$.epole.id", testPole.getEPole()))
-                .andExpect(jsonPathIdOfModelId("$.company.id", testPole.getCompany()))
-                .andExpect(jsonPath("$.base_price", is(testPole.getBasePrice())));
-
+                .andExpect(jsonPathIdOfModelId(
+                        "$.epole.id", testPole.getEPole()))
+                .andExpect(jsonPathIdOfModelId(
+                        "$.company.id", testPole.getCompany()))
+                .andExpect(jsonPath(
+                        "$.base_price", is(testPole.getBasePrice())));
 
         Assertions.assertThat(testPole.getBasePrice()).isEqualTo(50.51d);
     }

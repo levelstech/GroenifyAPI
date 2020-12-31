@@ -1,7 +1,6 @@
 package com.groenify.api.framework.annotation.resolver;
 
 import com.groenify.api.database.factor.Factor;
-import com.groenify.api.database.factor.Factor;
 import com.groenify.api.exceptions.PathException;
 import com.groenify.api.framework.annotation.FactorInPath;
 import com.groenify.api.repository.factor.FactorRepository;

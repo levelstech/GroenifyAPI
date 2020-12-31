@@ -7,7 +7,7 @@ import com.groenify.api.rest.epole.__model.EPoleResMo;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CompanyEPoleResMo {
+public final class CompanyEPoleResMo {
     private final Long id;
     private final CompanyResMo company;
     private final EPoleResMo ePole;

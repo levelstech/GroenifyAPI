@@ -4,7 +4,6 @@ import com.groenify.api.JsonTestUtil;
 import com.groenify.api.framework.annotation.resolver.EPoleBrandInPathResolver;
 import com.groenify.api.repository.epole.EPoleBrandRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.epole.EPoleBrandEndpoint;
 import com.groenify.api.service.epole.EPoleBrandService;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
@@ -18,7 +17,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -67,7 +65,8 @@ class EPoleBrandEndpointCreateTest extends EndpointTest {
                 .andReturn().getResponse().getContentAsString();
 
         JsonTestUtil.test(resBody, "{\"id\":1, \"name\":\"Brand-Wahid\"}");
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Wahid")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Brand-Wahid")).isTrue();
     }
 
     @Test
@@ -80,7 +79,8 @@ class EPoleBrandEndpointCreateTest extends EndpointTest {
                 .andExpect(jsonPath("$.id", Matchers.greaterThanOrEqualTo(1)))
                 .andExpect(jsonPath("$.name", is("Brand-Thanie")));
 
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Thanie")).isTrue();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Brand-Thanie")).isTrue();
     }
 
     @Test
@@ -90,6 +90,7 @@ class EPoleBrandEndpointCreateTest extends EndpointTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"peter\":\"Brand-Thalith\"}"))
                 .andExpect(status().isBadRequest());
-        Assertions.assertThat(repository.existsByNameIgnoreCase("Brand-Thalith")).isFalse();
+        Assertions.assertThat(repository.existsByNameIgnoreCase(
+                "Brand-Thalith")).isFalse();
     }
 }
