@@ -20,11 +20,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/epole_brands")
-public class EPoleBrandEPoleEndpoint {
+public class EPoleBrandToEPoleEndpoint {
 
     private final EPoleService service;
 
-    public EPoleBrandEPoleEndpoint(final EPoleService service) {
+    public EPoleBrandToEPoleEndpoint(final EPoleService service) {
         this.service = service;
     }
 
