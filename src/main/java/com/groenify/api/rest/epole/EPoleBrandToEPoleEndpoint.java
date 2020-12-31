@@ -3,18 +3,13 @@ package com.groenify.api.rest.epole;
 import com.groenify.api.database.epole.EPole;
 import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.framework.annotation.EPoleBrandInPath;
-import com.groenify.api.rest.epole.__model.EPoleBrandReqMo;
-import com.groenify.api.rest.epole.__model.EPoleBrandResMo;
 import com.groenify.api.rest.epole.__model.EPoleReqMo;
 import com.groenify.api.rest.epole.__model.EPoleResMo;
-import com.groenify.api.service.epole.EPoleBrandService;
 import com.groenify.api.service.epole.EPoleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -25,11 +20,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/epole_brands")
-public class EPoleBrandEPoleEndpoint {
+public class EPoleBrandToEPoleEndpoint {
 
     private final EPoleService service;
 
-    public EPoleBrandEPoleEndpoint(final EPoleService service) {
+    public EPoleBrandToEPoleEndpoint(final EPoleService service) {
         this.service = service;
     }
 
@@ -38,7 +33,7 @@ public class EPoleBrandEPoleEndpoint {
     public final List<EPoleResMo> getAllEPolesFromEPoleBrand(
             final @EPoleBrandInPath EPoleBrand ePoleBrand) {
         final List<EPole> poles = service.getAllFromBrand(ePoleBrand);
-        return EPoleResMo.mapEPoleBrandToResMoList(poles);
+        return EPoleResMo.mapEPoleToResMoList(poles);
     }
 
     @PostMapping(value = "/{brandId}/epoles",
@@ -48,7 +43,7 @@ public class EPoleBrandEPoleEndpoint {
             final @EPoleBrandInPath EPoleBrand ePoleBrand,
             final @Valid @RequestBody EPoleReqMo body) {
         final EPole newEPole = service.create(ePoleBrand, body);
-        return EPoleResMo.mapEPoleBrandToResMo(newEPole);
+        return EPoleResMo.mapEPoleToResMo(newEPole);
     }
 
 }

@@ -16,7 +16,7 @@ public class CompanyEPoleResMo {
     private CompanyEPoleResMo(final CompanyEPole pole) {
         this.id = pole.getId();
         this.company = CompanyResMo.mapCompanyToResMo(pole.getCompany());
-        this.ePole = EPoleResMo.mapEPoleBrandToResMo(pole.getEPole());
+        this.ePole = EPoleResMo.mapEPoleToResMo(pole.getEPole());
         this.basePrice = pole.getBasePrice();
     }
 

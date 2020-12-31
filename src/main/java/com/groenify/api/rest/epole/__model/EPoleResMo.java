@@ -2,7 +2,6 @@ package com.groenify.api.rest.epole.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.groenify.api.database.epole.EPole;
-import com.groenify.api.database.epole.EPoleBrand;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,14 +27,14 @@ public class EPoleResMo {
         this.description = ePole.getDescription();
     }
 
-    public static EPoleResMo mapEPoleBrandToResMo(final EPole ePole) {
+    public static EPoleResMo mapEPoleToResMo(final EPole ePole) {
         return new EPoleResMo(ePole);
     }
 
-    public static List<EPoleResMo> mapEPoleBrandToResMoList(
+    public static List<EPoleResMo> mapEPoleToResMoList(
             final List<EPole> ePoles) {
         return ePoles.stream()
-                .map(EPoleResMo::mapEPoleBrandToResMo)
+                .map(EPoleResMo::mapEPoleToResMo)
                 .collect(Collectors.toList());
     }
 
