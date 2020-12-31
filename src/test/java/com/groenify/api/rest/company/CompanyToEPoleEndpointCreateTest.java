@@ -66,7 +66,6 @@ class CompanyToEPoleEndpointCreateTest extends EndpointTest {
     }
 
     protected void setUpData() {
-        System.out.println(getEndpoint());
         final Company companyWahid = Company.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"Company-Wahid\","
                         + "\"date\":\"2020-12-28T00:43:32Z\","

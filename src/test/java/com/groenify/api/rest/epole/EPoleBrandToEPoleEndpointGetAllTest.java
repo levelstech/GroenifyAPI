@@ -21,6 +21,7 @@ import java.util.List;
 import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -102,22 +103,13 @@ class EPoleBrandToEPoleEndpointGetAllTest extends EndpointTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(testPoles.size())))
                 .andExpect(jsonPathIdOfModelId("$[0].id", poleWahid))
-                .andExpect(jsonPath("$[0].type", is(poleWahid.getType())))
-                .andExpect(jsonPath(
-                        "$[0].description", is(poleWahid.getDescription())))
-                .andExpect(jsonPathIdOfModelId(
-                        "$[0].brand.id", poleWahid.getBrand()))
-                .andExpect(jsonPath(
-                        "$[0].brand.name", is(poleWahid.getBrand().getName())))
                 .andExpect(jsonPathIdOfModelId("$[1].id", poleThanie))
+
+                .andExpect(jsonPath("$[0].type", is(poleWahid.getType())))
                 .andExpect(jsonPath("$[1].type", is(poleThanie.getType())))
-                .andExpect(jsonPath(
-                        "$[1].description", is(poleThanie.getDescription())))
-                .andExpect(jsonPathIdOfModelId(
-                        "$[1].brand.id", poleWahid.getBrand()))
-                .andExpect(jsonPath(
-                        "$[1].brand.name",
-                        is(poleThanie.getBrand().getName())));
+
+                .andExpect(jsonPath("$[0].description", is("aa")))
+                .andExpect(jsonPath("$[1].description", is(nullValue())));
     }
 
     @Test

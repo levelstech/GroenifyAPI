@@ -56,13 +56,13 @@ class FactorEndpointGetAllTest extends EndpointTest {
         final FactorType typeThanie = storeNew(FactorType.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"Type-Thanie\"}"));
         final Factor factorWahid = Factor.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Factor-Wahid\", "
-                        + "\"question\":\"Q?\","
-                        + "\"description\":\"aa\"}");
+                "{\"id\":1, \"name\":\"Factor-Wahid1\","
+                        + "\"question\":\"Q11?\","
+                        + "\"description\":\"dd\"}");
         final Factor factorThanie = Factor.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Factor-Thanie\", "
-                        + "\"question\":\"Q?\","
-                        + "\"description\":\"aa\"}");
+                "{\"id\":1, \"name\":\"Factor-Thanie2\","
+                        + "\"question\":\"Q22?\","
+                        + "\"description\":\"cc\"}");
         factorWahid.setType(type);
         factorThanie.setType(typeThanie);
         testFactors = storeNews(List.of(factorWahid, factorThanie));
@@ -104,21 +104,15 @@ class FactorEndpointGetAllTest extends EndpointTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(testFactors.size())))
                 .andExpect(jsonPathIdOfModelId("$[0].id", factorWahid))
-                .andExpect(jsonPath("$[0].name", is("Factor-Wahid")))
-                .andExpect(jsonPath("$[0].question", is("Q?")))
-                .andExpect(jsonPathIdOfModelId(
-                        "$[0].type.id", factorWahid.getType()))
-                .andExpect(jsonPath(
-                        "$[0].type.name", is(factorWahid.getType().getName())))
-                .andExpect(jsonPath("$[0].description", is("aa")))
-                .andExpect(jsonPathIdOfModelId(
-                        "$[1].id", factorThanie))
-                .andExpect(jsonPath("$[1].name", is("Factor-Thanie")))
-                .andExpect(jsonPath("$[1].question", is("Q?")))
-                .andExpect(jsonPathIdOfModelId(
-                        "$[1].type.id", factorThanie.getType()))
-                .andExpect(jsonPath(
-                        "$[1].type.name", is(factorThanie.getType().getName())))
-                .andExpect(jsonPath("$[1].description", is("aa")));
+                .andExpect(jsonPathIdOfModelId("$[1].id", factorThanie))
+
+                .andExpect(jsonPath("$[0].name", is("Factor-Wahid1")))
+                .andExpect(jsonPath("$[1].name", is("Factor-Thanie2")))
+
+                .andExpect(jsonPath("$[0].question", is("Q11?")))
+                .andExpect(jsonPath("$[1].question", is("Q22?")))
+
+                .andExpect(jsonPath("$[0].description", is("dd")))
+                .andExpect(jsonPath("$[1].description", is("cc")));
     }
 }
