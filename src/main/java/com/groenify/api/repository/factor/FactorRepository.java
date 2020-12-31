@@ -9,4 +9,6 @@ import java.util.List;
 public interface FactorRepository extends CrudRepository<Factor, Long> {
 
     List<Factor> findAllByType(FactorType type);
+
+    Boolean existsByNameIgnoreCase(String var);
 }

@@ -3,6 +3,7 @@ package com.groenify.api.database.factor;
 import com.groenify.api.database.IdModel;
 import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.rest.factor.__model.FactorReqMo;
+import com.groenify.api.util.MapperUtil;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,6 +39,10 @@ public class Factor implements IdModel {
 
     public static Factor ofReqMo(final FactorType type, final FactorReqMo body) {
         return new Factor().update(type, body);
+    }
+
+    public static Factor ofJsonObjStr(final String jsonStr) {
+        return MapperUtil.readObject(jsonStr, Factor.class);
     }
 
     @Override
