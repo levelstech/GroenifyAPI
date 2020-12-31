@@ -2,6 +2,7 @@ package com.groenify.api.database.factor;
 
 import com.groenify.api.database.IdModel;
 import com.groenify.api.database.epole.EPoleBrand;
+import com.groenify.api.rest.factor.__model.FactorReqMo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,6 +35,10 @@ public class Factor implements IdModel {
 
     @Column(name = "description", columnDefinition = "longtext")
     private String description;
+
+    public static Factor ofReqMo(final FactorType type, final FactorReqMo body) {
+        return new Factor().update(type, body);
+    }
 
     @Override
     public Long getId() {
@@ -75,5 +80,17 @@ public class Factor implements IdModel {
 
     public void setDescription(final String var) {
         this.description = var;
+    }
+
+    private Factor update(final FactorType type, final FactorReqMo body) {
+        this.setType(type);
+        return update(body);
+    }
+
+    public Factor update(final FactorReqMo body) {
+        this.setName(body.getName());
+        this.setQuestion(body.getQuestion());
+        this.setDescription(body.getDescription());
+        return this;
     }
 }
