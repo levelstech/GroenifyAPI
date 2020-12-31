@@ -35,7 +35,6 @@ public class EPoleService {
 
     public EPole create(final EPoleBrand brand, final EPoleReqMo body) {
         final EPole pole = EPole.ofReqMo(brand, body);
-        System.out.println(brand.getId());
         return repository.save(pole);
     }
 
