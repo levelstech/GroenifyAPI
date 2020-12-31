@@ -5,6 +5,7 @@ import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.repository.epole.EPoleBrandRepository;
 import com.groenify.api.repository.factor.FactorTypeRepository;
 import com.groenify.api.rest.epole.__model.EPoleBrandReqMo;
+import com.groenify.api.rest.factor.__model.FactorTypeReqMo;
 import com.groenify.api.util.ListUtil;
 import org.springframework.stereotype.Service;
 

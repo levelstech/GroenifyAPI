@@ -5,6 +5,8 @@ import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.framework.annotation.EPoleBrandInPath;
 import com.groenify.api.rest.epole.__model.EPoleBrandReqMo;
 import com.groenify.api.rest.epole.__model.EPoleBrandResMo;
+import com.groenify.api.rest.factor.__model.FactorTypeReqMo;
+import com.groenify.api.rest.factor.__model.FactorTypeResMo;
 import com.groenify.api.service.epole.EPoleBrandService;
 import com.groenify.api.service.factor.FactorTypeService;
 import org.springframework.http.HttpStatus;
@@ -42,15 +44,15 @@ public class FactorTypeEndpoint {
     @ResponseStatus(HttpStatus.CREATED)
     public final FactorTypeResMo createFactorType(
             final @Valid @RequestBody FactorTypeReqMo body) {
-        final FactorType brand = service.create(body);
-        return FactorTypeResMo.mapFactorTypeToResMo(brand);
+        final FactorType type = service.create(body);
+        return FactorTypeResMo.mapFactorTypeToResMo(type);
     }
 
     @GetMapping(value = "/{factorTypeId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final FactorTypeResMo getFactorTypeById(
-            final @FactorTypeInPath FactorType brand) {
-        return FactorTypeResMo.mapFactorTypeToResMo(brand);
+            final @FactorTypeInPath FactorType type) {
+        return FactorTypeResMo.mapFactorTypeToResMo(type);
     }
 
     @PutMapping(value = "/{factorTypeId}",
