@@ -34,7 +34,7 @@ public class FactorTypeService {
         return repository.save(type);
     }
 
-    public EPoleBrand update(
+    public FactorType update(
             final FactorType type,
             final FactorTypeReqMo body) {
         return repository.save(type.update(body));

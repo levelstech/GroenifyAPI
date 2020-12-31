@@ -1,6 +1,7 @@
 package com.groenify.api.database.factor;
 
 import com.groenify.api.database.IdModel;
+import com.groenify.api.rest.factor.__model.FactorTypeReqMo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +24,10 @@ public class FactorType implements IdModel {
 
     @Column(name = "description", columnDefinition = "longtext")
     private String description;
+
+    public static FactorType ofReqMo(final FactorTypeReqMo body) {
+        return new FactorType().update(body);
+    }
 
     @Override
     public Long getId() {
@@ -48,5 +53,11 @@ public class FactorType implements IdModel {
 
     public void setDescription(final String var) {
         this.description = var;
+    }
+
+    public FactorType update(final FactorTypeReqMo body) {
+        this.setName(body.getName());
+        this.setDescription(body.getDescription());
+        return this;
     }
 }
