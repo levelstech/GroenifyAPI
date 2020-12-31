@@ -25,7 +25,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/v1/factor_type")
+@RequestMapping(value = "/api/v1/factor_types")
 public class FactorTypeEndpoint {
 
     private final FactorTypeService service;
