@@ -36,6 +36,14 @@ class EPoleBrandToEPoleEndpointCreateTest extends EndpointTest {
     @Autowired
     private EPoleBrandRepository brandRepository;
 
+    public static void setBrandId(final Long var) {
+        EPoleBrandToEPoleEndpointCreateTest.brandId = var;
+    }
+
+    public static void setTestBrand(final EPoleBrand var) {
+        EPoleBrandToEPoleEndpointCreateTest.testBrand = var;
+    }
+
     @Override
     protected String getEndpoint() {
         return ENDPOINT + "/" + brandId + "/epoles";
@@ -57,8 +65,8 @@ class EPoleBrandToEPoleEndpointCreateTest extends EndpointTest {
 
         final EPoleBrand brandWahid = EPoleBrand.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"Brand-Wahid\"}");
-        testBrand = storeNew(brandWahid);
-        brandId = testBrand.getId();
+        setTestBrand(storeNew(brandWahid));
+        setBrandId(testBrand.getId());
     }
 
     @BeforeEach

@@ -36,6 +36,10 @@ class EPoleBrandEndpointById extends EndpointTest {
         return testBrand;
     }
 
+    public static void setTestBrand(final EPoleBrand var) {
+        EPoleBrandEndpointById.testBrand = var;
+    }
+
     public final EPoleBrandRepository getRepository() {
         return repository;
     }
@@ -54,8 +58,8 @@ class EPoleBrandEndpointById extends EndpointTest {
     protected void setUpData() {
         final EPoleBrand brandWahid = EPoleBrand.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"Brand-Wahid\"}");
-        testBrand = storeNew(brandWahid);
-        brandId = testBrand.getId();
+        setTestBrand(storeNew(brandWahid));
+        setBrandId(testBrand.getId());
     }
 
     @BeforeEach

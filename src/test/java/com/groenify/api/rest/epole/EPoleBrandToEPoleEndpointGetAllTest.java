@@ -39,6 +39,14 @@ class EPoleBrandToEPoleEndpointGetAllTest extends EndpointTest {
     @Autowired
     private EPoleBrandRepository brandRepository;
 
+    public static void setBrandId(final Long var) {
+        EPoleBrandToEPoleEndpointGetAllTest.brandId = var;
+    }
+
+    public static void setTestPoles(final List<EPole> var) {
+        EPoleBrandToEPoleEndpointGetAllTest.testPoles = var;
+    }
+
     @Override
     protected String getEndpoint() {
         return ENDPOINT + "/" + brandId + "/epoles";
@@ -61,14 +69,14 @@ class EPoleBrandToEPoleEndpointGetAllTest extends EndpointTest {
         final EPoleBrand brandWahid = EPoleBrand.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"Brand-Wahid\"}");
         final EPoleBrand brand = storeNew(brandWahid);
-        brandId = brand.getId();
+        setBrandId(brand.getId());
         final EPole poleWahid = EPole.ofJsonObjStr(
                 "{\"id\":1, \"type\":\"Pole-Wahid\", \"description\":\"aa\"}");
         final EPole poleThanie = EPole.ofJsonObjStr(
                 "{\"id\":1, \"type\":\"Pole-Thanie\"}");
         poleWahid.setBrand(brand);
         poleThanie.setBrand(brand);
-        testPoles = storeNews(List.of(poleWahid, poleThanie));
+        setTestPoles(storeNews(List.of(poleWahid, poleThanie)));
     }
 
     @BeforeEach
@@ -114,7 +122,7 @@ class EPoleBrandToEPoleEndpointGetAllTest extends EndpointTest {
 
     @Test
     void getAllEPoleFromInvalidBrand() throws Exception {
-        brandId = -1L;
+        setBrandId(-1L);
 
         getMockMvc()
                 .perform(get(getEndpoint()))

@@ -40,13 +40,28 @@ class CompanyToEPoleEndpointCreateTest extends EndpointTest {
     private static Long ePoleId;
     private static EPole testEPole;
 
-
     @Autowired
     private CompanyEPoleRepository repository;
     @Autowired
     private CompanyRepository companyRepository;
     @Autowired
     private EPoleRepository ePoleRepository;
+
+    public static void setCompanyId(final Long var) {
+        CompanyToEPoleEndpointCreateTest.companyId = var;
+    }
+
+    public static void setTestCompany(final Company var) {
+        CompanyToEPoleEndpointCreateTest.testCompany = var;
+    }
+
+    public static void setEPoleId(final Long var) {
+        CompanyToEPoleEndpointCreateTest.ePoleId = var;
+    }
+
+    public static void setTestEPole(final EPole var) {
+        CompanyToEPoleEndpointCreateTest.testEPole = var;
+    }
 
     @Override
     protected String getEndpoint() {
@@ -70,16 +85,16 @@ class CompanyToEPoleEndpointCreateTest extends EndpointTest {
                 "{\"id\":1, \"name\":\"Company-Wahid\","
                         + "\"date\":\"2020-12-28T00:43:32Z\","
                         + "\"url\":\"https://google.de\"}");
-        testCompany = storeNew(companyWahid);
+        setTestCompany(storeNew(companyWahid));
         final EPoleBrand brandWahid = storeNew(EPoleBrand.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"Brand-Wahid\"}"));
         final EPole ePoleWahid = EPole.ofJsonObjStr(
                 "{\"id\":1, \"type\":\"EPole-Wahid\"}");
         ePoleWahid.setBrand(brandWahid);
-        testEPole = storeNew(ePoleWahid);
+        setTestEPole(storeNew(ePoleWahid));
 
-        companyId = testCompany.getId();
-        ePoleId = testEPole.getId();
+        setCompanyId(testCompany.getId());
+        setEPoleId(testEPole.getId());
     }
 
     @BeforeEach
@@ -126,7 +141,7 @@ class CompanyToEPoleEndpointCreateTest extends EndpointTest {
 
     @Test
     void postCompanyEPoleCreateInvalidCompany() throws Exception {
-        companyId = -1L;
+        setCompanyId(-1L);
         getMockMvc()
                 .perform(post(getEndpoint())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -136,12 +151,12 @@ class CompanyToEPoleEndpointCreateTest extends EndpointTest {
         final List<CompanyEPole> ePoleList =
                 repository.findAllByCompany(testCompany);
         Assertions.assertThat(ePoleList).hasSize(0);
-        companyId = testCompany.getId();
+        setCompanyId(testCompany.getId());
     }
 
     @Test
     void postCompanyEPoleCreateInvalidEPole() throws Exception {
-        ePoleId = -1L;
+        setEPoleId(-1L);
         getMockMvc()
                 .perform(post(getEndpoint())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -151,6 +166,6 @@ class CompanyToEPoleEndpointCreateTest extends EndpointTest {
         final List<CompanyEPole> ePoleList =
                 repository.findAllByCompany(testCompany);
         Assertions.assertThat(ePoleList).hasSize(0);
-        ePoleId = testEPole.getId();
+        setEPoleId(testEPole.getId());
     }
 }

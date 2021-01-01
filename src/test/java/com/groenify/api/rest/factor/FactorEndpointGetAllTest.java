@@ -34,6 +34,10 @@ class FactorEndpointGetAllTest extends EndpointTest {
     @Autowired
     private FactorRepository repository;
 
+    public static void setTestFactors(final List<Factor> var) {
+        FactorEndpointGetAllTest.testFactors = var;
+    }
+
     @Override
     protected String getEndpoint() {
         return ENDPOINT;
@@ -65,7 +69,7 @@ class FactorEndpointGetAllTest extends EndpointTest {
                         + "\"description\":\"cc\"}");
         factorWahid.setType(type);
         factorThanie.setType(typeThanie);
-        testFactors = storeNews(List.of(factorWahid, factorThanie));
+        setTestFactors(storeNews(List.of(factorWahid, factorThanie)));
     }
 
     @BeforeEach

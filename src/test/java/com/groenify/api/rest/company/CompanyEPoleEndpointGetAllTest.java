@@ -36,6 +36,10 @@ class CompanyEPoleEndpointGetAllTest extends EndpointTest {
     @Autowired
     private CompanyEPoleRepository repository;
 
+    public static void setTestPoles(final List<CompanyEPole> var) {
+        CompanyEPoleEndpointGetAllTest.testPoles = var;
+    }
+
     @Override
     protected String getEndpoint() {
         return ENDPOINT;
@@ -86,8 +90,8 @@ class CompanyEPoleEndpointGetAllTest extends EndpointTest {
         companyEPoleThalith.setCompany(companyThanie);
         companyEPoleThalith.setePole(ePoleThanie);
 
-        testPoles = storeNews(List.of(companyEPoleWahid,
-                companyEPoleThanie, companyEPoleThalith));
+        setTestPoles(storeNews(List.of(companyEPoleWahid,
+                companyEPoleThanie, companyEPoleThalith)));
 
     }
 

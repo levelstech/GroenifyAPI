@@ -41,6 +41,14 @@ class FactorTypeToFactorEndpointCreateTest extends EndpointTest {
         return ENDPOINT + "/" + typeId + "/factors";
     }
 
+    private static void setTestType(final FactorType var) {
+        FactorTypeToFactorEndpointCreateTest.testType = var;
+    }
+
+    private static void setTypeId(final Long var) {
+        FactorTypeToFactorEndpointCreateTest.typeId = var;
+    }
+
     protected void setUpMock() {
         final FactorTypeToFactorEndpoint endpoint =
                 new FactorTypeToFactorEndpoint(new FactorService(repository));
@@ -57,8 +65,8 @@ class FactorTypeToFactorEndpointCreateTest extends EndpointTest {
 
         final FactorType typeWahid = FactorType.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"Type-Wahid\"}");
-        testType = storeNew(typeWahid);
-        typeId = testType.getId();
+        setTestType(storeNew(typeWahid));
+        setTypeId(testType.getId());
     }
 
     @BeforeEach

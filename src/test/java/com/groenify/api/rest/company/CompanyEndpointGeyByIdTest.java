@@ -36,6 +36,14 @@ class CompanyEndpointGeyByIdTest extends EndpointTest {
         return ENDPOINT + "/" + companyId;
     }
 
+    public static void setTestCompany(final Company var) {
+        CompanyEndpointGeyByIdTest.testCompany = var;
+    }
+
+    public static void setCompanyId(final Long var) {
+        CompanyEndpointGeyByIdTest.companyId = var;
+    }
+
     protected void setUpMock() {
         final CompanyEndpoint endpoint =
                 new CompanyEndpoint(new CompanyService(repository));
@@ -52,8 +60,8 @@ class CompanyEndpointGeyByIdTest extends EndpointTest {
                 "{\"id\":1, \"name\":\"Company-Wahid\","
                         + "\"date\":\"2020-12-28T00:43:32Z\","
                         + "\"url\":\"https://google.de\"}");
-        testCompany = storeNew(companyWahid);
-        companyId = testCompany.getId();
+        setTestCompany(storeNew(companyWahid));
+        setCompanyId(testCompany.getId());
     }
 
     @BeforeEach
@@ -87,7 +95,7 @@ class CompanyEndpointGeyByIdTest extends EndpointTest {
 
     @Test
     void getEPoleBrandByIdNotFound() throws Exception {
-        companyId = -1L;
+        setCompanyId(-1L);
         getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isNotFound());

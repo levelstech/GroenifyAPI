@@ -30,6 +30,10 @@ class CompanyEndpointDeleteTest extends EndpointTest {
     @Autowired
     private CompanyRepository repository;
 
+    public static void setCompanyId(final Long var) {
+        CompanyEndpointDeleteTest.companyId = var;
+    }
+
     @Override
     protected String getEndpoint() {
         return ENDPOINT + "/" + companyId;
@@ -52,7 +56,7 @@ class CompanyEndpointDeleteTest extends EndpointTest {
                         + "\"date\":\"2020-12-28T00:43:32Z\","
                         + "\"url\":\"https://google.de\"}");
         final Company testBrand = storeNew(companyWahid);
-        companyId = testBrand.getId();
+        setCompanyId(testBrand.getId());
     }
 
     @BeforeEach
@@ -86,7 +90,7 @@ class CompanyEndpointDeleteTest extends EndpointTest {
 
     @Test
     void deleteEPoleBrandDeleteInvalid() throws Exception {
-        companyId = -1L;
+        setCompanyId(-1L);
         getMockMvc()
                 .perform(delete(getEndpoint()))
                 .andExpect(status().isNotFound());

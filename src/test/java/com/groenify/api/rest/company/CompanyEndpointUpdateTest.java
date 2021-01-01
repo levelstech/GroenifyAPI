@@ -28,10 +28,18 @@ class CompanyEndpointUpdateTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/companies";
     private static Long companyId;
-    private Company testCompany;
+    private static Company testCompany;
 
     @Autowired
     private CompanyRepository repository;
+
+    public static void setCompanyId(final Long var) {
+        CompanyEndpointUpdateTest.companyId = var;
+    }
+
+    public static void setTestCompany(final Company var) {
+        CompanyEndpointUpdateTest.testCompany = var;
+    }
 
     @Override
     protected String getEndpoint() {
@@ -54,8 +62,8 @@ class CompanyEndpointUpdateTest extends EndpointTest {
                 "{\"id\":1, \"name\":\"Company-Wahid\","
                         + "\"date\":\"2020-12-28T00:43:12Z\","
                         + "\"url\":\"https://google.com\"}");
-        testCompany = storeNew(companyWahid);
-        companyId = testCompany.getId();
+        setTestCompany(storeNew(companyWahid));
+        setCompanyId(testCompany.getId());
     }
 
     @BeforeEach
@@ -110,7 +118,7 @@ class CompanyEndpointUpdateTest extends EndpointTest {
 
     @Test
     void putCompanyUpdateInvalid() throws Exception {
-        companyId = -1L;
+        setCompanyId(-1L);
         getMockMvc()
                 .perform(put(getEndpoint())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -123,7 +131,7 @@ class CompanyEndpointUpdateTest extends EndpointTest {
                 "Company-Wahid")).isTrue();
         Assertions.assertThat(repository.existsByNameIgnoreCase(
                 "Company-Thalith(1)")).isFalse();
-        companyId = testCompany.getId();
+        setCompanyId(testCompany.getId());
     }
 
 }

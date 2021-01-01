@@ -43,6 +43,14 @@ class FactorTypeToFactorEndpointGetAllTest extends EndpointTest {
         return ENDPOINT + "/" + typeId + "/factors";
     }
 
+    private static void setTypeId(final Long var) {
+        typeId = var;
+    }
+
+    private static void setTestFactors(final List<Factor> var) {
+        testFactors = var;
+    }
+
     protected void setUpMock() {
         final FactorTypeToFactorEndpoint endpoint =
                 new FactorTypeToFactorEndpoint(new FactorService(repository));
@@ -69,8 +77,8 @@ class FactorTypeToFactorEndpointGetAllTest extends EndpointTest {
                         + "\"description\":\"bb\"}");
         factorWahid.setType(typeWahid);
         factorThanie.setType(typeWahid);
-        testFactors = storeNews(List.of(factorWahid, factorThanie));
-        typeId = typeWahid.getId();
+        setTestFactors(storeNews(List.of(factorWahid, factorThanie)));
+        setTypeId(typeWahid.getId());
     }
 
     @BeforeEach
@@ -123,7 +131,7 @@ class FactorTypeToFactorEndpointGetAllTest extends EndpointTest {
 
     @Test
     void getAllFactorFromInvalidType() throws Exception {
-        typeId = -1L;
+        setTypeId(-1L);
 
         getMockMvc()
                 .perform(get(getEndpoint()))

@@ -38,6 +38,10 @@ class FactorTypeEndpointGetAllTest extends EndpointTest {
         return ENDPOINT;
     }
 
+    public static void setTestTypes(final List<FactorType> var) {
+        FactorTypeEndpointGetAllTest.testTypes = var;
+    }
+
     protected void setUpMock() {
         final FactorTypeEndpoint endpoint =
                 new FactorTypeEndpoint(new FactorTypeService(repository));
@@ -57,7 +61,7 @@ class FactorTypeEndpointGetAllTest extends EndpointTest {
         final FactorType typeThalith = FactorType.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"Type-Thalith\","
                         + "\"description\":\"aaaa\"}");
-        testTypes = storeNews(List.of(typeWahid, typeThanie, typeThalith));
+        setTestTypes(storeNews(List.of(typeWahid, typeThanie, typeThalith)));
     }
 
     @BeforeEach

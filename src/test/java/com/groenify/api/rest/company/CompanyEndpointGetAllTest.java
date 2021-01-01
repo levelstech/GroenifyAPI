@@ -33,6 +33,10 @@ class CompanyEndpointGetAllTest extends EndpointTest {
     @Autowired
     private CompanyRepository repository;
 
+    public static void setTestBrands(final List<Company> var) {
+        CompanyEndpointGetAllTest.testBrands = var;
+    }
+
     @Override
     protected String getEndpoint() {
         return ENDPOINT;
@@ -60,8 +64,8 @@ class CompanyEndpointGetAllTest extends EndpointTest {
                 "{\"id\":1, \"name\":\"Brand-Thalith\","
                         + "\"date\":\"2020-12-28T00:43:32Z\","
                         + "\"url\":\"https://google.de\"}");
-        testBrands = storeNews(
-                List.of(companyWahid, companyThanie, companyThalith));
+        setTestBrands(storeNews(
+                List.of(companyWahid, companyThanie, companyThalith)));
     }
 
     @BeforeEach

@@ -32,6 +32,10 @@ class FactorEndpointById extends EndpointTest {
         return testFactor;
     }
 
+    private static void setTestFactor(final Factor var) {
+        FactorEndpointById.testFactor = var;
+    }
+
     protected final FactorRepository getRepository() {
         return repository;
     }
@@ -63,8 +67,8 @@ class FactorEndpointById extends EndpointTest {
                         + "\"question\":\"Q?\","
                         + "\"description\":\"aa\"}");
         factorWahid.setType(type);
-        testFactor = storeNew(factorWahid);
-        factorId = testFactor.getId();
+        setTestFactor(storeNew(factorWahid));
+        setFactorId(testFactor.getId());
 
     }
 

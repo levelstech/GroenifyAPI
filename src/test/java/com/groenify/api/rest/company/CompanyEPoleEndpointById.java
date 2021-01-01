@@ -38,6 +38,10 @@ class CompanyEPoleEndpointById extends EndpointTest {
         return testPole;
     }
 
+    private static void setTestPole(final CompanyEPole var) {
+        CompanyEPoleEndpointById.testPole = var;
+    }
+
     public CompanyEPoleRepository getRepository() {
         return repository;
     }
@@ -76,8 +80,8 @@ class CompanyEPoleEndpointById extends EndpointTest {
         companyEPoleWahid.setCompany(companyWahid);
         companyEPoleWahid.setePole(ePoleWahid);
 
-        testPole = storeNew(companyEPoleWahid);
-        poleId = testPole.getId();
+        setTestPole(storeNew(companyEPoleWahid));
+        setPoleId(testPole.getId());
 
     }
 

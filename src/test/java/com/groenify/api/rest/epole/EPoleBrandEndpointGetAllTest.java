@@ -33,6 +33,10 @@ class EPoleBrandEndpointGetAllTest extends EndpointTest {
     @Autowired
     private EPoleBrandRepository repository;
 
+    public static void setTestBrands(final List<EPoleBrand> var) {
+        EPoleBrandEndpointGetAllTest.testBrands = var;
+    }
+
     @Override
     protected String getEndpoint() {
         return ENDPOINT;
@@ -54,7 +58,8 @@ class EPoleBrandEndpointGetAllTest extends EndpointTest {
                 "{\"id\":1, \"name\":\"Brand-Thanie\"}");
         final EPoleBrand brandThalith = EPoleBrand.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"Brand-Thalith\"}");
-        testBrands = storeNews(List.of(brandWahid, brandThanie, brandThalith));
+        setTestBrands(storeNews(
+                List.of(brandWahid, brandThanie, brandThalith)));
     }
 
     @BeforeEach

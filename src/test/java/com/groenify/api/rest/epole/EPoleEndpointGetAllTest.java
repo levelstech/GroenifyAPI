@@ -35,6 +35,10 @@ class EPoleEndpointGetAllTest extends EndpointTest {
     @Autowired
     private EPoleRepository repository;
 
+    public static void setTestPoles(final List<EPole> var) {
+        EPoleEndpointGetAllTest.testPoles = var;
+    }
+
     @Override
     protected String getEndpoint() {
         return ENDPOINT;
@@ -60,7 +64,7 @@ class EPoleEndpointGetAllTest extends EndpointTest {
                 "{\"id\":1, \"type\":\"Pole-Thanie\"}");
         poleWahid.setBrand(brand);
         poleThanie.setBrand(brand);
-        testPoles = storeNews(List.of(poleWahid, poleThanie));
+        setTestPoles(storeNews(List.of(poleWahid, poleThanie)));
     }
 
     @BeforeEach
