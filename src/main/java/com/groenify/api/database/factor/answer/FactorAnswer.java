@@ -2,6 +2,7 @@ package com.groenify.api.database.factor.answer;
 
 import com.groenify.api.database.factor.Factor;
 import com.groenify.api.database.factor.FactorType;
+import com.groenify.api.database.factor.FactorTypeEnum;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,6 +48,10 @@ public abstract class FactorAnswer {
 
     public FactorType getType() {
         return type;
+    }
+
+    public FactorTypeEnum getTypeEnum() {
+        return getType().getAsEnum();
     }
 
     public void setType(final FactorType var) {

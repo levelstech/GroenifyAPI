@@ -66,7 +66,7 @@ public class FactorType implements IdModel {
         this.description = var;
     }
 
-    public FactorTypeEnum getAsType() {
+    public FactorTypeEnum getAsEnum() {
         return FactorTypeEnum.valueOfFactorType(this);
     }
 

@@ -4,6 +4,7 @@ public enum FactorTypeEnum {
 
     BOOLEAN_QUESTION, MULTIPLE_CHOICE, NUMBER, DOUBLE_NUMBER;
 
+    private Long nummer;
     private FactorType mappedTo;
 
     public static FactorTypeEnum valueOfFactorType(final FactorType type) {
@@ -22,7 +23,11 @@ public enum FactorTypeEnum {
     }
 
     public void setMappedTo(final FactorType var) {
+        this.nummer = var.getId();
         this.mappedTo = var;
     }
 
+    public Long getNumber() {
+        return nummer;
+    }
 }
