@@ -2,7 +2,6 @@ package com.groenify.api.config;
 
 import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.database.factor.FactorTypeEnum;
-import com.groenify.api.framework.annotation.resolver.AbstractMethodArgumentResolver;
 import com.groenify.api.repository.factor.FactorTypeRepository;
 import com.sun.istack.NotNull;
 import org.slf4j.Logger;
@@ -40,11 +39,12 @@ public class ApplicationLoader
     }
 
     @Override
-    public void onApplicationEvent(final @NotNull ApplicationReadyEvent event) {
+    public final void onApplicationEvent(
+            final @NotNull ApplicationReadyEvent event) {
         for (final FactorTypeEnum typeEnum : FactorTypeEnum.values()) {
             final FactorType factorType =
                     determineFactorTypeFromEnum(typeEnum);
-            typeEnum.setMappedTo(factorType);
+            typeEnum.updateType(factorType);
             L.trace("FactorType(id = {}) is mapped to Enum(title = {})",
                     factorType.getId(), typeEnum.toString());
         }

@@ -9,5 +9,5 @@ import java.util.List;
 public interface FactorAnswerRepository
         extends CrudRepository<FactorAnswer, Long> {
 
-    List<FactorAnswer> findAllByFactor(final Factor factor);
+    List<FactorAnswer> findAllByFactor(Factor factor);
 }

@@ -31,13 +31,13 @@ public final class FactorResMo {
         this.description = factor.getDescription();
     }
 
-    public static FactorResMo mapFactorToResMo(final Factor ePole) {
-        return new FactorResMo(ePole);
+    public static FactorResMo mapFactorToResMo(final Factor factor) {
+        return new FactorResMo(factor);
     }
 
     public static List<FactorResMo> mapFactorToResMoList(
-            final List<Factor> ePoles) {
-        return ePoles.stream()
+            final List<Factor> factors) {
+        return factors.stream()
                 .map(FactorResMo::mapFactorToResMo)
                 .collect(Collectors.toList());
     }
