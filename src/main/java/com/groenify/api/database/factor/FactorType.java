@@ -34,6 +34,12 @@ public class FactorType implements IdModel {
         return MapperUtil.readObject(jsonStr, FactorType.class);
     }
 
+    public static FactorType ofFactorTypeEnum(final FactorTypeEnum typeEnum) {
+        final FactorType factorType = new FactorType();
+        factorType.setName(typeEnum.toString());
+        return factorType;
+    }
+
     @Override
     public Long getId() {
         return id;
@@ -58,6 +64,10 @@ public class FactorType implements IdModel {
 
     public void setDescription(final String var) {
         this.description = var;
+    }
+
+    public FactorTypeEnum getAsType() {
+        return FactorTypeEnum.valueOfFactorType(this);
     }
 
     public FactorType update(final FactorTypeReqMo body) {
