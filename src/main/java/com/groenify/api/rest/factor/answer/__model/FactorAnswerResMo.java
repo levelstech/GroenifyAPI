@@ -13,11 +13,13 @@ public final class FactorAnswerResMo {
     private final Long id;
     private final FactorResMo factor;
     private final FactorTypeEnum type;
+    private final String answer;
 
     public FactorAnswerResMo(final FactorAnswer answer) {
         this.id = answer.getId();
         this.factor = FactorResMo.mapFactorToResMo(answer.getFactor());
         this.type = answer.getTypeEnum();
+        this.answer = String.valueOf(answer.getAnswer());
     }
 
     public static FactorAnswerResMo mapFactorAnswerToResMo(
@@ -45,5 +47,10 @@ public final class FactorAnswerResMo {
     @JsonProperty("type")
     public Long getType() {
         return type.getNumber();
+    }
+
+    @JsonProperty("answer")
+    public String getAnswer() {
+        return answer;
     }
 }
