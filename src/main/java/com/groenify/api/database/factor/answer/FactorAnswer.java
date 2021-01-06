@@ -57,4 +57,6 @@ public abstract class FactorAnswer {
     public void setType(final FactorType var) {
         this.type = var;
     }
+
+    public abstract Object getAnswer();
 }

@@ -24,4 +24,9 @@ public class FactorAnswerBoolean extends FactorAnswer {
     public void setAnswerBoolean(final Boolean var) {
         this.answerBoolean = var;
     }
+
+    @Override
+    public Boolean getAnswer() {
+        return getAnswerBoolean();
+    }
 }
