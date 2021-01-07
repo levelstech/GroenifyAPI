@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 @DataJpaTest()
 @EnableAutoConfiguration
-class FactorEndpointById extends EndpointTest {
+abstract class FactorEndpointById extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/factors";
     private static Long factorId;
