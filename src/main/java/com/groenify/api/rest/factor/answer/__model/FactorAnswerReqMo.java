@@ -22,13 +22,9 @@ public abstract class FactorAnswerReqMo {
         return this.type;
     }
 
-    public final FactorTypeEnum getTypeEnum() {
-        return FactorTypeEnum.valueOfFactorOfId(getType());
-    }
-
     public final void setType(final Long var) {
         this.type = var;
     }
 
-    public abstract FactorAnswer toToDatabaseModel(Factor factor);
+    public abstract FactorAnswer mapToDatabaseModel(Factor factor);
 }

@@ -1,9 +1,12 @@
 package com.groenify.api.database.factor.answer;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.groenify.api.database.factor.Factor;
 import com.groenify.api.database.factor.FactorTypeEnum;
 import com.groenify.api.rest.factor.answer.__model.FactorAnswerBooleanReqMo;
+import com.groenify.api.rest.factor.answer.__model.FactorAnswerBooleanResMo;
 import com.groenify.api.rest.factor.answer.__model.FactorAnswerReqMo;
+import com.groenify.api.util.MapperUtil;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +22,7 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class FactorAnswerBoolean extends FactorAnswer {
 
+    @JsonProperty("answer_boolean")
     @Column(name = "answer_boolean", nullable = false)
     private Boolean answerBoolean;
 
@@ -26,12 +30,16 @@ public class FactorAnswerBoolean extends FactorAnswer {
         super(FactorTypeEnum.BOOLEAN_QUESTION);
     }
 
-    public static FactorAnswer ofReqMo(
+    public static FactorAnswer ofRequestModel(
             final Factor factor,
             final FactorAnswerBooleanReqMo reqMo) {
         final FactorAnswerBoolean answer = new FactorAnswerBoolean();
         answer.setFactor(factor);
         return answer.update(reqMo);
+    }
+
+    public static FactorAnswerBoolean ofJsonObjStr(final String jsonStr) {
+        return MapperUtil.readObject(jsonStr, FactorAnswerBoolean.class);
     }
 
     public Boolean getAnswerBoolean() {
@@ -59,5 +67,10 @@ public class FactorAnswerBoolean extends FactorAnswer {
         if (reqMo == null) return this;
         this.setAnswerBoolean(reqMo.getAnswer());
         return this;
+    }
+
+    @Override
+    public FactorAnswerBooleanResMo mapToResponseModel() {
+        return FactorAnswerBooleanResMo.mapFactorAnswerToResMo(this);
     }
 }

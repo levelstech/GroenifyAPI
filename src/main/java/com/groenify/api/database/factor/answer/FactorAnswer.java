@@ -1,9 +1,11 @@
 package com.groenify.api.database.factor.answer;
 
+import com.groenify.api.database.IdModel;
 import com.groenify.api.database.factor.Factor;
 import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.database.factor.FactorTypeEnum;
 import com.groenify.api.rest.factor.answer.__model.FactorAnswerReqMo;
+import com.groenify.api.rest.factor.answer.__model.FactorAnswerResMo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +21,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "factor_answer")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class FactorAnswer {
+public abstract class FactorAnswer implements IdModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,10 +41,12 @@ public abstract class FactorAnswer {
         this.type = typeEnum.getMappedTo();
     }
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(final Long var) {
         this.id = var;
     }
@@ -70,4 +74,6 @@ public abstract class FactorAnswer {
     public abstract Object getAnswer();
 
     public abstract FactorAnswer update(FactorAnswerReqMo reqMo);
+
+    public abstract FactorAnswerResMo mapToResponseModel();
 }

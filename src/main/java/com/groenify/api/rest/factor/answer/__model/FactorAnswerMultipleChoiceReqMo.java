@@ -24,7 +24,7 @@ public final class FactorAnswerMultipleChoiceReqMo extends FactorAnswerReqMo {
     }
 
     @Override
-    public FactorAnswer toToDatabaseModel(final Factor factor) {
-        return FactorAnswerMultipleChoice.ofReqMo(factor, this);
+    public FactorAnswer mapToDatabaseModel(final Factor factor) {
+        return FactorAnswerMultipleChoice.ofRequestModel(factor, this);
     }
 }

@@ -8,6 +8,6 @@ public interface IdModel {
     void setId(Long var);
 
     default Boolean equalsId(final IdModel model) {
-        return Objects.equals(this.getId(), model.getId());
+        return model != null && Objects.equals(this.getId(), model.getId());
     }
 }

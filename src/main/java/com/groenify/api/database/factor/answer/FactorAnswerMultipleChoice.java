@@ -1,9 +1,12 @@
 package com.groenify.api.database.factor.answer;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.groenify.api.database.factor.Factor;
 import com.groenify.api.database.factor.FactorTypeEnum;
 import com.groenify.api.rest.factor.answer.__model.FactorAnswerMultipleChoiceReqMo;
+import com.groenify.api.rest.factor.answer.__model.FactorAnswerMultipleChoiceResMo;
 import com.groenify.api.rest.factor.answer.__model.FactorAnswerReqMo;
+import com.groenify.api.util.MapperUtil;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +21,7 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class FactorAnswerMultipleChoice extends FactorAnswer {
 
+    @JsonProperty("answer_multiple")
     @Column(name = "answer_multiple", nullable = false,
             columnDefinition = "mediumtext")
     private String answerMultipleChoice;
@@ -26,13 +30,18 @@ public class FactorAnswerMultipleChoice extends FactorAnswer {
         super(FactorTypeEnum.MULTIPLE_CHOICE);
     }
 
-    public static FactorAnswer ofReqMo(
+    public static FactorAnswer ofRequestModel(
             final Factor factor,
             final FactorAnswerMultipleChoiceReqMo reqMo) {
         final FactorAnswerMultipleChoice answer =
                 new FactorAnswerMultipleChoice();
         answer.setFactor(factor);
         return answer.update(reqMo);
+    }
+
+    public static FactorAnswerMultipleChoice ofJsonObjStr(
+            final String jsonStr) {
+        return MapperUtil.readObject(jsonStr, FactorAnswerMultipleChoice.class);
     }
 
     public String getAnswerMultipleChoice() {
@@ -62,4 +71,10 @@ public class FactorAnswerMultipleChoice extends FactorAnswer {
         this.setAnswerMultipleChoice(reqMo.getAnswer());
         return this;
     }
+
+    @Override
+    public FactorAnswerMultipleChoiceResMo mapToResponseModel() {
+        return FactorAnswerMultipleChoiceResMo.mapFactorAnswerToResMo(this);
+    }
+
 }

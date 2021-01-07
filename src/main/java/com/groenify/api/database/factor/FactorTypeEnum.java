@@ -37,8 +37,12 @@ public enum FactorTypeEnum {
         setNumber(var.getId());
     }
 
+    private Boolean hasMappedTo() {
+        return this.getMappedTo() != null;
+    }
+
     private Boolean hasMappedTo(final FactorType type) {
-        return this.getMappedTo().equalsId(type);
+        return hasMappedTo() && this.getMappedTo().equalsId(type);
     }
 
     public FactorType getMappedTo() {

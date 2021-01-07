@@ -30,7 +30,7 @@ public class FactorAnswerService {
     public final FactorAnswer create(
             final Factor factor,
             final FactorAnswerReqMo body) {
-        final FactorAnswer answer = body.toToDatabaseModel(factor);
+        final FactorAnswer answer = body.mapToDatabaseModel(factor);
         return repository.save(answer);
     }
 

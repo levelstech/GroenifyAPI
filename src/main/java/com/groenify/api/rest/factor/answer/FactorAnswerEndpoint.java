@@ -67,7 +67,7 @@ public class FactorAnswerEndpoint {
         final Long typeL = LongUtil.parseOrDefault(type);
         final FactorAnswerReqMo reqMo = parseReqMoOfLong(bodyStr, typeL);
         final FactorAnswer answer = service.create(factor, reqMo);
-        return FactorAnswerResMo.mapFactorAnswerToResMo(answer);
+        return answer.mapToResponseModel();
     }
 
     @GetMapping(value = "/answers",
@@ -81,7 +81,7 @@ public class FactorAnswerEndpoint {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final FactorAnswerResMo getFactorAnswerById(
             final @FactorAnswerInPath FactorAnswer answer) {
-        return FactorAnswerResMo.mapFactorAnswerToResMo(answer);
+        return answer.mapToResponseModel();
     }
 
     @PutMapping(value = "/answers/{answerId}",
@@ -93,7 +93,7 @@ public class FactorAnswerEndpoint {
         final FactorAnswerReqMo reqMo =
                 parseReqMoOfEnum(bodyStr, answer.getTypeEnum());
         final FactorAnswer newFactorAnswer = service.update(answer, reqMo);
-        return FactorAnswerResMo.mapFactorAnswerToResMo(newFactorAnswer);
+        return newFactorAnswer.mapToResponseModel();
     }
 
     @DeleteMapping(value = "/answers/{answerId}",

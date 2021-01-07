@@ -22,7 +22,7 @@ public final class FactorAnswerBooleanReqMo extends FactorAnswerReqMo {
     }
 
     @Override
-    public FactorAnswer toToDatabaseModel(final Factor factor) {
-        return FactorAnswerBoolean.ofReqMo(factor, this);
+    public FactorAnswer mapToDatabaseModel(final Factor factor) {
+        return FactorAnswerBoolean.ofRequestModel(factor, this);
     }
 }
