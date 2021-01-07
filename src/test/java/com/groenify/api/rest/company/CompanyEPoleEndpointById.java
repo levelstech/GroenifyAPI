@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 @DataJpaTest(showSql = false)
 @EnableAutoConfiguration
-class CompanyEPoleEndpointById extends EndpointTest {
+abstract class CompanyEPoleEndpointById extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/company_epoles";
     private static Long poleId;

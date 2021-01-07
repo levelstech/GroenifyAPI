@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @DataJpaTest(showSql = false)
 @EnableAutoConfiguration
-class FactorEndpointGetAllTest extends EndpointTest {
+class FactorAnswerEndpointGetAllTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/factors/answers";
     private static List<FactorAnswer> testAnswers;
@@ -40,7 +40,7 @@ class FactorEndpointGetAllTest extends EndpointTest {
     private FactorAnswerRepository repository;
 
     public static void setTestAnswers(final List<FactorAnswer> var) {
-        FactorEndpointGetAllTest.testAnswers = var;
+        FactorAnswerEndpointGetAllTest.testAnswers = var;
     }
 
     @Override
@@ -83,9 +83,9 @@ class FactorEndpointGetAllTest extends EndpointTest {
                         "{\"id\":1, \"answer_multiple\":\"text\"}");
         answerMulti.setFactor(factorWahid);
 
-        final FactorAnswer answer1 = repository.save(answerBoolean);
-        final FactorAnswer answer2 = repository.save(answerBoolean2);
-        final FactorAnswer answer3 = repository.save(answerMulti);
+        final FactorAnswer answer1 = storeNew(answerBoolean);
+        final FactorAnswer answer2 = storeNew(answerBoolean2);
+        final FactorAnswer answer3 = storeNew(answerMulti);
         setTestAnswers(List.of(answer1, answer2, answer3));
     }
 
@@ -96,7 +96,7 @@ class FactorEndpointGetAllTest extends EndpointTest {
     }
 
     @Test
-    void getAllFactorTypeValidateJsonKeyNames() throws Exception {
+    void getAllFactorAnswerValidateJsonKeyNames() throws Exception {
 
         final String resBody = getMockMvc()
                 .perform(get(getEndpoint()))
@@ -125,7 +125,7 @@ class FactorEndpointGetAllTest extends EndpointTest {
     }
 
     @Test
-    void getAllFactorTypeValidateDatabaseValues() throws Exception {
+    void getAllFactorAnswerValidateDatabaseValues() throws Exception {
         final FactorAnswer answerWahid = testAnswers.get(0);
         final FactorAnswer answerThanie = testAnswers.get(1);
         final FactorAnswer answerThalith = testAnswers.get(2);

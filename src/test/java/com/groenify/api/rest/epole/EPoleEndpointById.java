@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
-public class EPoleEndpointById extends EndpointTest {
+abstract class EPoleEndpointById extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/epoles";
     private static Long poleId;
@@ -26,6 +26,10 @@ public class EPoleEndpointById extends EndpointTest {
 
     protected static EPole getTestPole() {
         return testPole;
+    }
+
+    public static void setTestPole(final EPole var) {
+        EPoleEndpointById.testPole = var;
     }
 
     @Override
@@ -57,8 +61,8 @@ public class EPoleEndpointById extends EndpointTest {
         final EPole poleWahid = EPole.ofJsonObjStr(
                 "{\"id\":1, \"type\":\"Pole-Wahid\", \"description\":\"aa\"}");
         poleWahid.setBrand(brand);
-        testPole = storeNew(poleWahid);
-        poleId = testPole.getId();
+        setTestPole(storeNew(poleWahid));
+        setPoleId(testPole.getId());
 
     }
 
