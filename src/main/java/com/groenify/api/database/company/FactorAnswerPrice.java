@@ -2,6 +2,7 @@ package com.groenify.api.database.company;
 
 import com.groenify.api.database.IdModel;
 import com.groenify.api.database.factor.answer.FactorAnswer;
+import com.groenify.api.rest.company.__model.FactorAnswerPriceReqMo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "`company_to_epole_to_factor_answer`")
-public class CompanyEPoleFactorAnswer implements IdModel {
+public class FactorAnswerPrice implements IdModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +24,7 @@ public class CompanyEPoleFactorAnswer implements IdModel {
 
     @ManyToOne
     @JoinColumn(name = "company_to_epole_id")
-    private CompanyEPole ePole;
+    private CompanyEPole pole;
 
     @ManyToOne
     @JoinColumn(name = "factor_answer_id")
@@ -31,6 +32,13 @@ public class CompanyEPoleFactorAnswer implements IdModel {
 
     @Column(name = "price")
     private Double price;
+
+    public static FactorAnswerPrice ofReqMo(
+            final CompanyEPole companyEPole,
+            final FactorAnswer factorAnswer,
+            final FactorAnswerPriceReqMo body) {
+        return new FactorAnswerPrice().update(companyEPole, factorAnswer, body);
+    }
 
     @Override
     public Long getId() {
@@ -42,12 +50,12 @@ public class CompanyEPoleFactorAnswer implements IdModel {
         this.id = var;
     }
 
-    public CompanyEPole getEPole() {
-        return ePole;
+    public CompanyEPole getPole() {
+        return pole;
     }
 
-    public void setEPole(final CompanyEPole var) {
-        this.ePole = var;
+    public void setPole(final CompanyEPole var) {
+        this.pole = var;
     }
 
     public FactorAnswer getFactorAnswer() {
@@ -64,5 +72,19 @@ public class CompanyEPoleFactorAnswer implements IdModel {
 
     public void setPrice(final Double var) {
         this.price = var;
+    }
+
+    private FactorAnswerPrice update(
+            final CompanyEPole companyEPole,
+            final FactorAnswer factorAnswer,
+            final FactorAnswerPriceReqMo body) {
+        this.setPole(companyEPole);
+        this.setFactorAnswer(factorAnswer);
+        return this.update(body);
+    }
+
+    public FactorAnswerPrice update(final FactorAnswerPriceReqMo body) {
+        this.setPrice(body.getPrice());
+        return this;
     }
 }

@@ -14,6 +14,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import java.util.Locale;
 
 @Entity
 @Table(name = "factor_answer_multiple_choice")
@@ -25,6 +26,8 @@ public class FactorAnswerMultipleChoice extends FactorAnswer {
     @Column(name = "answer_multiple", nullable = false,
             columnDefinition = "mediumtext")
     private String answerMultipleChoice;
+    @Column(name = "lower_answer_hash", nullable = false)
+    private String hash;
 
     public FactorAnswerMultipleChoice() {
         super(FactorTypeEnum.MULTIPLE_CHOICE);
@@ -52,6 +55,19 @@ public class FactorAnswerMultipleChoice extends FactorAnswer {
         this.answerMultipleChoice = var;
     }
 
+    private void setAnswerMultipleChoiceWithHash(final String answer) {
+        setAnswerMultipleChoice(answer);
+        setHash(answer.toLowerCase(Locale.ROOT));
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public void setHash(final String var) {
+        this.hash = var;
+    }
+
     @Override
     public String getAnswer() {
         return getAnswerMultipleChoice();
@@ -68,9 +84,10 @@ public class FactorAnswerMultipleChoice extends FactorAnswer {
     public FactorAnswerMultipleChoice update(
             final FactorAnswerMultipleChoiceReqMo reqMo) {
         if (reqMo == null) return this;
-        this.setAnswerMultipleChoice(reqMo.getAnswer());
+        this.setAnswerMultipleChoiceWithHash(reqMo.getAnswer());
         return this;
     }
+
 
     @Override
     public FactorAnswerMultipleChoiceResMo mapToResponseModel() {

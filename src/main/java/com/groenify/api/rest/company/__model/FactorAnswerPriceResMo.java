@@ -1,56 +1,56 @@
 package com.groenify.api.rest.company.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.groenify.api.database.company.CompanyEPoleFactorAnswer;
+import com.groenify.api.database.company.FactorAnswerPrice;
 import com.groenify.api.rest.factor.answer.__model.FactorAnswerResMo;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class CompanyEPoleFactorAnswerResMo {
+public final class FactorAnswerPriceResMo {
 
-    @JsonProperty("id")
     private final Long id;
-    @JsonProperty("company_epole")
     private final CompanyEPoleResMo ePoleResMo;
-    @JsonProperty("factor_answer")
     private final FactorAnswerResMo factorAnswerResMo;
-    @JsonProperty("price")
     private final Double price;
 
-    private CompanyEPoleFactorAnswerResMo(
-            final CompanyEPoleFactorAnswer answer) {
+    private FactorAnswerPriceResMo(
+            final FactorAnswerPrice answer) {
         this.id = answer.getId();
         this.ePoleResMo = CompanyEPoleResMo.mapCompanyEPoleToResMo(
-                answer.getEPole());
+                answer.getPole());
         this.factorAnswerResMo = answer.getFactorAnswer().mapToResponseModel();
         this.price = answer.getPrice();
     }
 
-    private static CompanyEPoleFactorAnswerResMo mapCompanyEPoleToResMo(
-            final CompanyEPoleFactorAnswer resMo) {
-        return new CompanyEPoleFactorAnswerResMo(resMo);
+    public static FactorAnswerPriceResMo mapCompanyEPoleToResMo(
+            final FactorAnswerPrice resMo) {
+        return new FactorAnswerPriceResMo(resMo);
     }
 
-    public static List<CompanyEPoleFactorAnswerResMo> mapCompanyEPoleToResMoList(
-            final List<CompanyEPoleFactorAnswer> list) {
+    public static List<FactorAnswerPriceResMo> mapCompanyEPoleToResMoList(
+            final List<FactorAnswerPrice> list) {
         return list.stream()
-                .map(CompanyEPoleFactorAnswerResMo::mapCompanyEPoleToResMo)
+                .map(FactorAnswerPriceResMo::mapCompanyEPoleToResMo)
                 .collect(Collectors.toList());
     }
 
+    @JsonProperty("id")
     public Long getId() {
         return id;
     }
 
-    public CompanyEPoleResMo getEPoleResMo() {
+    @JsonProperty("company_epole")
+    public CompanyEPoleResMo getCompanyEPole() {
         return ePoleResMo;
     }
 
-    public FactorAnswerResMo getFactorAnswerResMo() {
+    @JsonProperty("factor_answer")
+    public FactorAnswerResMo getFactorAnswer() {
         return factorAnswerResMo;
     }
 
+    @JsonProperty("price")
     public Double getPrice() {
         return price;
     }

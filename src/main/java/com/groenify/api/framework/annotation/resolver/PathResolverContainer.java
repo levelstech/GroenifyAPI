@@ -18,9 +18,10 @@ public class PathResolverContainer {
             final CompanyEPoleInPathResolver resolver4,
             final FactorTypeInPathResolver resolver5,
             final FactorInPathResolver resolver6,
-            final FactorAnswerInPathResolver resolver7) {
+            final FactorAnswerInPathResolver resolver7,
+            final FactorAnswerPriceInPathResolver resolver8) {
         this.list = List.of(resolver1, resolver2, resolver3, resolver4,
-                resolver5, resolver6, resolver7);
+                resolver5, resolver6, resolver7, resolver8);
     }
 
     public final List<HandlerMethodArgumentResolver> getList() {
