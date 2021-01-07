@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EPoleFactorAnswerService {
+public class CompanyEPoleFactorAnswerService {
 
     private final CompanyEPoleFactorAnswerRepository repository;
 
-    public EPoleFactorAnswerService(
+    public CompanyEPoleFactorAnswerService(
             final CompanyEPoleFactorAnswerRepository var) {
         this.repository = var;
     }

@@ -8,9 +8,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public final class CompanyEPoleResMo {
+    @JsonProperty("id")
     private final Long id;
+    @JsonProperty("company")
     private final CompanyResMo company;
+    @JsonProperty("epole")
     private final EPoleResMo ePole;
+    @JsonProperty("base_price")
     private final Double basePrice;
 
     private CompanyEPoleResMo(final CompanyEPole pole) {
@@ -32,22 +36,18 @@ public final class CompanyEPoleResMo {
         return new CompanyEPoleResMo(pole);
     }
 
-    @JsonProperty("id")
     public Long getId() {
         return id;
     }
 
-    @JsonProperty("company")
     public CompanyResMo getCompany() {
         return company;
     }
 
-    @JsonProperty("epole")
     public EPoleResMo getEPole() {
         return ePole;
     }
 
-    @JsonProperty("base_price")
     public Double getBasePrice() {
         return basePrice;
     }
