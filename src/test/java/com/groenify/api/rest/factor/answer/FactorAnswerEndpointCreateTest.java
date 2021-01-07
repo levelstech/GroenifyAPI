@@ -5,18 +5,12 @@ import com.groenify.api.config.ApplicationLoader;
 import com.groenify.api.database.factor.Factor;
 import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.database.factor.FactorTypeEnum;
-import com.groenify.api.database.factor.answer.FactorAnswer;
-import com.groenify.api.database.factor.answer.FactorAnswerBoolean;
-import com.groenify.api.database.factor.answer.FactorAnswerMultipleChoice;
-import com.groenify.api.framework.annotation.resolver.FactorAnswerInPathResolver;
 import com.groenify.api.framework.annotation.resolver.FactorInPathResolver;
 import com.groenify.api.repository.factor.FactorRepository;
 import com.groenify.api.repository.factor.FactorTypeRepository;
 import com.groenify.api.repository.factor.answer.FactorAnswerRepository;
 import com.groenify.api.rest.EndpointTest;
 import com.groenify.api.service.factor.answer.FactorAnswerService;
-import org.assertj.core.api.Assertions;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +20,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
-import java.util.List;
-
-import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -50,6 +38,22 @@ class FactorAnswerEndpointCreateTest extends EndpointTest {
     private FactorRepository factorRepository;
     @Autowired
     private FactorAnswerRepository repository;
+
+    public static Long getFactorId() {
+        return factorId;
+    }
+
+    public static void setFactorId(final Long var) {
+        FactorAnswerEndpointCreateTest.factorId = var;
+    }
+
+    public static Long getFactorType() {
+        return factorType;
+    }
+
+    public static void setFactorType(final Long var) {
+        FactorAnswerEndpointCreateTest.factorType = var;
+    }
 
     @Override
     protected String getEndpoint() {
@@ -80,8 +84,8 @@ class FactorAnswerEndpointCreateTest extends EndpointTest {
                         + "\"description\":\"dd\"}");
         factorWahid.setType(type);
         factorWahid = storeNew(factorWahid);
-        factorId = factorWahid.getId();
-        factorType = FactorTypeEnum.BOOLEAN_QUESTION.getNumber();
+        setFactorId(factorWahid.getId());
+        setFactorType(FactorTypeEnum.BOOLEAN_QUESTION.getNumber());
     }
 
     @BeforeEach
