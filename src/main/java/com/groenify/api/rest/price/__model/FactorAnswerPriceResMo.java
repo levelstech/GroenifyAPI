@@ -1,7 +1,8 @@
-package com.groenify.api.rest.company.__model;
+package com.groenify.api.rest.price.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.groenify.api.database.company.FactorAnswerPrice;
+import com.groenify.api.database.price.FactorAnswerPrice;
+import com.groenify.api.rest.company.__model.CompanyEPoleResMo;
 import com.groenify.api.rest.factor.answer.__model.FactorAnswerResMo;
 
 import java.util.List;

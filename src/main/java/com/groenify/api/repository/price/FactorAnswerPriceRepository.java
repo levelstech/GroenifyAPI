@@ -1,7 +1,7 @@
-package com.groenify.api.repository.company;
+package com.groenify.api.repository.price;
 
 import com.groenify.api.database.company.CompanyEPole;
-import com.groenify.api.database.company.FactorAnswerPrice;
+import com.groenify.api.database.price.FactorAnswerPrice;
 import com.groenify.api.database.factor.Factor;
 import com.groenify.api.database.factor.answer.FactorAnswer;
 import org.springframework.data.jpa.repository.Query;

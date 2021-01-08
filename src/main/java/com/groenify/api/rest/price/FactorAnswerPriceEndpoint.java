@@ -1,16 +1,16 @@
-package com.groenify.api.rest.company;
+package com.groenify.api.rest.price;
 
 import com.groenify.api.database.company.CompanyEPole;
-import com.groenify.api.database.company.FactorAnswerPrice;
+import com.groenify.api.database.price.FactorAnswerPrice;
 import com.groenify.api.database.factor.Factor;
 import com.groenify.api.database.factor.answer.FactorAnswer;
 import com.groenify.api.framework.annotation.CompanyEPoleInPath;
 import com.groenify.api.framework.annotation.FactorAnswerInPath;
 import com.groenify.api.framework.annotation.FactorAnswerPriceInPath;
 import com.groenify.api.framework.annotation.FactorInPath;
-import com.groenify.api.rest.company.__model.FactorAnswerPriceReqMo;
-import com.groenify.api.rest.company.__model.FactorAnswerPriceResMo;
-import com.groenify.api.service.epole.FactorAnswerPriceService;
+import com.groenify.api.rest.price.__model.FactorAnswerPriceReqMo;
+import com.groenify.api.rest.price.__model.FactorAnswerPriceResMo;
+import com.groenify.api.service.price.FactorAnswerPriceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;

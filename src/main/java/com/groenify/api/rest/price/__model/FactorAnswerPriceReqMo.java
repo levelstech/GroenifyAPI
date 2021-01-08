@@ -1,4 +1,4 @@
-package com.groenify.api.rest.company.__model;
+package com.groenify.api.rest.price.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

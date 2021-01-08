@@ -1,8 +1,10 @@
-package com.groenify.api.database.company;
+package com.groenify.api.database.price;
 
 import com.groenify.api.database.IdModel;
+import com.groenify.api.database.company.CompanyEPole;
 import com.groenify.api.database.factor.answer.FactorAnswer;
-import com.groenify.api.rest.company.__model.FactorAnswerPriceReqMo;
+import com.groenify.api.rest.price.__model.FactorAnswerPriceReqMo;
+import com.groenify.api.util.MapperUtil;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,6 +40,10 @@ public class FactorAnswerPrice implements IdModel {
             final FactorAnswer factorAnswer,
             final FactorAnswerPriceReqMo body) {
         return new FactorAnswerPrice().update(companyEPole, factorAnswer, body);
+    }
+
+    public static FactorAnswerPrice ofJsonObjSr(final String jsonStr) {
+        return MapperUtil.readObject(jsonStr, FactorAnswerPrice.class);
     }
 
     @Override
