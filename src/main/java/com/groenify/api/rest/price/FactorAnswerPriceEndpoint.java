@@ -40,7 +40,8 @@ public class FactorAnswerPriceEndpoint {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<FactorAnswerPriceResMo> getPriceByPole(
             final @CompanyEPoleInPath CompanyEPole companyEPole) {
-        final List<FactorAnswerPrice> list = service.getAllFromCompanyEPole(companyEPole);
+        final List<FactorAnswerPrice> list =
+                service.getAllFromCompanyEPole(companyEPole);
         return FactorAnswerPriceResMo.mapCompanyEPoleToResMoList(list);
     }
 
@@ -60,7 +61,8 @@ public class FactorAnswerPriceEndpoint {
             final @CompanyEPoleInPath CompanyEPole companyEPole,
             final @FactorAnswerInPath FactorAnswer factorAnswer) {
         final List<FactorAnswerPrice> list =
-                service.getAllFromCompanyEPoleAndFactorAnswer(companyEPole, factorAnswer);
+                service.getAllFromCompanyEPoleAndFactorAnswer(
+                        companyEPole, factorAnswer);
         return FactorAnswerPriceResMo.mapCompanyEPoleToResMoList(list);
     }
 

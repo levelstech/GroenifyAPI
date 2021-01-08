@@ -45,9 +45,11 @@ public class FactorAnswerMultipleChoice extends FactorAnswer {
     public static FactorAnswerMultipleChoice ofJsonObjStr(
             final String jsonStr) {
         final FactorAnswerMultipleChoice multipleChoice =
-                MapperUtil.readObject(jsonStr, FactorAnswerMultipleChoice.class);
+                MapperUtil.readObject(jsonStr,
+                        FactorAnswerMultipleChoice.class);
         if (multipleChoice != null)
-            multipleChoice.setAnswerMultipleChoiceWithHash(multipleChoice.getAnswer());
+            multipleChoice.setAnswerMultipleChoiceWithHash(
+                    multipleChoice.getAnswer());
         return multipleChoice;
     }
 

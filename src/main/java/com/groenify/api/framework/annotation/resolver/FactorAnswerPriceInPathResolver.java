@@ -16,23 +16,27 @@ public class FactorAnswerPriceInPathResolver
 
     private final FactorAnswerPriceRepository repository;
 
-    public FactorAnswerPriceInPathResolver(final FactorAnswerPriceRepository var) {
+    public FactorAnswerPriceInPathResolver(
+            final FactorAnswerPriceRepository var) {
         super(FactorAnswerPriceInPath.class);
         this.repository = var;
     }
 
     @Override
     protected final FactorAnswerPrice resolver(
-            final NativeWebRequest var3, final FactorAnswerPriceInPath annotation)
+            final NativeWebRequest var3,
+            final FactorAnswerPriceInPath annotation)
             throws PathException {
 
         final Long pathValue = ResolverUtil
                 .findLongInPath(var3, annotation.value());
-        final Optional<FactorAnswerPrice> price = repository.findById(pathValue);
+        final Optional<FactorAnswerPrice> price
+                = repository.findById(pathValue);
         if (price.isEmpty()) {
             logger().warn("Could not resolve {} for {} = {}",
                     FactorAnswerPrice.class, annotation.value(), pathValue);
-            throw PathException.notFoundWithId(FactorAnswerPrice.class, pathValue);
+            throw PathException.notFoundWithId(
+                    FactorAnswerPrice.class, pathValue);
         }
 
         return price.get();

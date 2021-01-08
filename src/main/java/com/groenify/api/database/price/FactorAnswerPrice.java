@@ -82,10 +82,10 @@ public class FactorAnswerPrice implements IdModel {
 
     private FactorAnswerPrice update(
             final CompanyEPole companyEPole,
-            final FactorAnswer factorAnswer,
+            final FactorAnswer answer,
             final FactorAnswerPriceReqMo body) {
         this.setPole(companyEPole);
-        this.setFactorAnswer(factorAnswer);
+        this.setFactorAnswer(answer);
         return this.update(body);
     }
 

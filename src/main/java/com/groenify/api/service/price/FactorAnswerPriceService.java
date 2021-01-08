@@ -31,22 +31,22 @@ public class FactorAnswerPriceService {
         return ListUtil.iterableToList(allAnswerInIter);
     }
 
-    public List<FactorAnswerPrice> getAllFromCompanyEPole(
+    public final List<FactorAnswerPrice> getAllFromCompanyEPole(
             final CompanyEPole companyEPole) {
         return repository.findAllByPole(companyEPole);
     }
 
-    public List<FactorAnswerPrice> getAllFromCompanyEPoleAndFactorAnswer(
+    public final List<FactorAnswerPrice> getAllFromCompanyEPoleAndFactorAnswer(
             final CompanyEPole companyEPole, final FactorAnswer answer) {
         return repository.findAllByPoleAndFactorAnswer(companyEPole, answer);
     }
 
-    public List<FactorAnswerPrice> getAllFromCompanyEPoleAndFactor(
+    public final List<FactorAnswerPrice> getAllFromCompanyEPoleAndFactor(
             final CompanyEPole companyEPole, final Factor factor) {
         return repository.findAllByPoleAndFactor(companyEPole, factor);
     }
 
-    public FactorAnswerPrice create(
+    public final FactorAnswerPrice create(
             final CompanyEPole companyEPole,
             final FactorAnswer factorAnswer,
             final FactorAnswerPriceReqMo body) {
@@ -55,13 +55,13 @@ public class FactorAnswerPriceService {
         return repository.save(price);
     }
 
-    public FactorAnswerPrice update(
+    public final FactorAnswerPrice update(
             final FactorAnswerPrice price,
             final FactorAnswerPriceReqMo body) {
         return repository.save(price.update(body));
     }
 
-    public Boolean delete(final FactorAnswerPrice price) {
+    public final Boolean delete(final FactorAnswerPrice price) {
         final Long id = price.getId();
         repository.delete(price);
         return !repository.existsById(id);

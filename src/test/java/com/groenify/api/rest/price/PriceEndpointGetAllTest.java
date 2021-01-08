@@ -178,10 +178,14 @@ class PriceEndpointGetAllTest extends EndpointTest {
                 .andExpect(jsonPath("$[0].price", is(100d)))
                 .andExpect(jsonPath("$[1].price", is(50d)))
 
-                .andExpect(jsonPathIdOfModelId("$[0].factor_answer.id", priceWahid.getFactorAnswer()))
-                .andExpect(jsonPathIdOfModelId("$[1].factor_answer.id", priceThanie.getFactorAnswer()))
+                .andExpect(jsonPathIdOfModelId(
+                        "$[0].factor_answer.id", priceWahid.getFactorAnswer()))
+                .andExpect(jsonPathIdOfModelId(
+                        "$[1].factor_answer.id", priceThanie.getFactorAnswer()))
 
-                .andExpect(jsonPathIdOfModelId("$[0].company_epole.id", priceWahid.getPole()))
-                .andExpect(jsonPathIdOfModelId("$[1].company_epole.id", priceWahid.getPole()));
+                .andExpect(jsonPathIdOfModelId(
+                        "$[0].company_epole.id", priceWahid.getPole()))
+                .andExpect(jsonPathIdOfModelId(
+                        "$[1].company_epole.id", priceWahid.getPole()));
     }
 }

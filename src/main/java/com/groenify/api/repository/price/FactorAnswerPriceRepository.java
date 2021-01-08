@@ -13,10 +13,10 @@ import java.util.List;
 public interface FactorAnswerPriceRepository
         extends CrudRepository<FactorAnswerPrice, Long> {
 
-    List<FactorAnswerPrice> findAllByPole(final CompanyEPole ePole);
+    List<FactorAnswerPrice> findAllByPole(CompanyEPole ePole);
 
     List<FactorAnswerPrice> findAllByPoleAndFactorAnswer(
-            final CompanyEPole companyEPole, final FactorAnswer factor);
+            CompanyEPole companyEPole, FactorAnswer factor);
 
     @Query("SELECT FAP FROM FactorAnswerPrice FAP WHERE "
             + "FAP.pole=:s1 AND FAP.factorAnswer.factor =:s2")
