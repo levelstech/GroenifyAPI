@@ -2,12 +2,7 @@ package com.groenify.api.rest.price;
 
 import com.groenify.api.JsonTestUtil;
 import com.groenify.api.config.ApplicationLoader;
-import com.groenify.api.database.company.Company;
 import com.groenify.api.database.company.CompanyEPole;
-import com.groenify.api.database.epole.EPole;
-import com.groenify.api.database.epole.EPoleBrand;
-import com.groenify.api.database.factor.Factor;
-import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.database.factor.answer.FactorAnswer;
 import com.groenify.api.database.price.FactorAnswerPrice;
 import com.groenify.api.repository.factor.FactorTypeRepository;
@@ -25,15 +20,10 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 import java.util.List;
 
 import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
-import static com.groenify.api.TestModelCreatorUtil.newCompany;
 import static com.groenify.api.TestModelCreatorUtil.newCompanyEPole;
-import static com.groenify.api.TestModelCreatorUtil.newEPole;
-import static com.groenify.api.TestModelCreatorUtil.newEPoleBrand;
-import static com.groenify.api.TestModelCreatorUtil.newFactor;
 import static com.groenify.api.TestModelCreatorUtil.newFactorAnswerBoolean;
 import static com.groenify.api.TestModelCreatorUtil.newFactorAnswerPrice;
 import static com.groenify.api.TestModelCreatorUtil.newFactorText;
-import static com.groenify.api.TestModelCreatorUtil.newFactorType;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -76,19 +66,13 @@ class PriceEndpointGetAllTest extends EndpointTest {
 
         ApplicationLoader.loadFactorTypeEnumerators(typeRepository);
 
-        final Company companyWahid = storeNew(newCompany());
-        final EPoleBrand brandWahid = storeNew(newEPoleBrand());
-        final EPole ePoleWahid = storeNew(newEPole(brandWahid));
-        final CompanyEPole companyEPoleWahid = storeNew(
-                newCompanyEPole(121d, companyWahid, ePoleWahid));
-        final FactorType type = storeNew(newFactorType());
-        final Factor factorWahid = storeNew(newFactor(type));
+        final CompanyEPole companyEPoleWahid =
+                newCompanyEPole(121d, this);
 
-        final FactorAnswer answer1 = storeNew(
-                newFactorAnswerBoolean(true, factorWahid));
-
+        final FactorAnswer answer1 =
+                newFactorAnswerBoolean(true, this);
         final FactorAnswer answer3 = storeNew(
-                newFactorText("text", factorWahid));
+                newFactorText("text", answer1.getFactor()));
 
         final FactorAnswerPrice price =
                 newFactorAnswerPrice(100d, answer1, companyEPoleWahid);
@@ -118,7 +102,7 @@ class PriceEndpointGetAllTest extends EndpointTest {
                 + "\"type\":{\"id\":10,\"name\":\"Type-Wahid\","
                 + "\"description\":null},"
                 + "\"name\":\"Factor-Wahid1\",\"question\":\"Q11?\","
-                + "\"description\":\"dd\"},\"type\":6,\"answer\":true},"
+                + "\"description\":\"dd\"},\"type\":null,\"answer\":true},"
                 + "\"company_epole\":{\"id\":2,\"company\":"
                 + "{\"id\":2,\"name\":\"Company-Wahid\","
                 + "\"date\":\"2020-12-28T00:43:32Z\","
@@ -130,7 +114,7 @@ class PriceEndpointGetAllTest extends EndpointTest {
                 + "{\"id\":4,\"factor\":{\"id\":2,\"type\":"
                 + "{\"id\":10,\"name\":\"Type-Wahid\",\"description\":null},"
                 + "\"name\":\"Factor-Wahid1\",\"question\":\"Q11?\","
-                + "\"description\":\"dd\"},\"type\":7,\"answer\":\"text\"},"
+                + "\"description\":\"dd\"},\"type\":8,\"answer\":\"text\"},"
                 + "\"company_epole\":{\"id\":2,\"company\":"
                 + "{\"id\":2,\"name\":\"Company-Wahid\","
                 + "\"date\":\"2020-12-28T00:43:32Z\","

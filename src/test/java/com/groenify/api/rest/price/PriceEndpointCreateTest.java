@@ -11,7 +11,6 @@ import com.groenify.api.repository.factor.FactorTypeRepository;
 import com.groenify.api.repository.factor.answer.FactorAnswerRepository;
 import com.groenify.api.repository.price.FactorAnswerPriceRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.RestTestUtil;
 import com.groenify.api.service.price.FactorAnswerPriceService;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
@@ -53,6 +52,15 @@ class PriceEndpointCreateTest extends EndpointTest {
     @Autowired
     private FactorAnswerRepository factorAnswerRepository;
 
+
+    public static void setCompanyEPoleId(final long var) {
+        PriceEndpointCreateTest.companyEPoleId = var;
+    }
+
+    public static void setAnswerId(final long var) {
+        PriceEndpointCreateTest.answerId = var;
+    }
+
     @Override
     protected String getEndpoint() {
         return BASE_OF_PATH + companyEPoleId + END_OF_PATH + answerId
@@ -77,8 +85,8 @@ class PriceEndpointCreateTest extends EndpointTest {
         ApplicationLoader.loadFactorTypeEnumerators(typeRepository);
         ePole = newCompanyEPole(500d, this);
         factorAnswer = newFactorAnswerBoolean(true, this);
-        companyEPoleId = ePole.getId();
-        answerId = factorAnswer.getId();
+        setCompanyEPoleId(ePole.getId());
+        setAnswerId(factorAnswer.getId());
     }
 
     @BeforeEach
@@ -119,7 +127,8 @@ class PriceEndpointCreateTest extends EndpointTest {
                         .content("{\"price\":100}"))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", Matchers.greaterThanOrEqualTo(1)))
-                .andExpect(jsonPathIdOfModelId("$.factor_answer.id", factorAnswer))
+                .andExpect(jsonPathIdOfModelId(
+                        "$.factor_answer.id", factorAnswer))
                 .andExpect(jsonPathIdOfModelId("$.company_epole.id", ePole))
                 .andExpect(jsonPath("$.price", is(100d)));
 

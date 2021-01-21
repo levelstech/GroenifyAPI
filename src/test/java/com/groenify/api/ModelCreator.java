@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public interface ModelCreator {
     TestEntityManager getEntityManager();
 
-    void setEntityManager(final TestEntityManager manager);
+    void setEntityManager(TestEntityManager manager);
 
     default <T extends IdModel> T storeNew(final T model) {
         model.setId(null);
