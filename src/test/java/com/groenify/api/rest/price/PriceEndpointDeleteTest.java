@@ -6,10 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -44,7 +42,7 @@ class PriceEndpointDeleteTest extends PriceEndpointById {
 
     @Test
     void deletePriceDeleteInvalid() throws Exception {
-        final Long originalId =getPriceId();
+        final Long originalId = getPriceId();
         setPriceId(-1L);
         getMockMvc()
                 .perform(delete(getEndpoint()))

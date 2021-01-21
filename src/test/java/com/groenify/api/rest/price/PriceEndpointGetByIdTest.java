@@ -16,9 +16,6 @@ class PriceEndpointGetByIdTest extends PriceEndpointById {
 
     @Test
     void getEFromFactorValidateJsonKeyNames() throws Exception {
-
-        System.out.println(getEndpoint());
-
         final String resBody = getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())

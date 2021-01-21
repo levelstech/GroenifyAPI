@@ -9,8 +9,6 @@ import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.database.factor.Factor;
 import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.database.factor.answer.FactorAnswer;
-import com.groenify.api.database.factor.answer.FactorAnswerBoolean;
-import com.groenify.api.database.factor.answer.FactorAnswerMultipleChoice;
 import com.groenify.api.database.price.FactorAnswerPrice;
 import com.groenify.api.repository.factor.FactorTypeRepository;
 import com.groenify.api.repository.price.FactorAnswerPriceRepository;
@@ -27,6 +25,15 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 import java.util.List;
 
 import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
+import static com.groenify.api.util.TestModelCreatorUtil.newCompany;
+import static com.groenify.api.util.TestModelCreatorUtil.newCompanyEPole;
+import static com.groenify.api.util.TestModelCreatorUtil.newEPole;
+import static com.groenify.api.util.TestModelCreatorUtil.newEPoleBrand;
+import static com.groenify.api.util.TestModelCreatorUtil.newFactor;
+import static com.groenify.api.util.TestModelCreatorUtil.newFactorAnswerBoolean;
+import static com.groenify.api.util.TestModelCreatorUtil.newFactorAnswerPrice;
+import static com.groenify.api.util.TestModelCreatorUtil.newFactorText;
+import static com.groenify.api.util.TestModelCreatorUtil.newFactorType;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -69,54 +76,24 @@ class PriceEndpointGetAllTest extends EndpointTest {
 
         ApplicationLoader.loadFactorTypeEnumerators(typeRepository);
 
-        final Company companyWahid = storeNew(Company.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Company-Wahid\","
-                        + "\"date\":\"2020-12-28T00:43:32Z\","
-                        + "\"url\":\"https://google.de\"}"));
+        final Company companyWahid = storeNew(newCompany());
+        final EPoleBrand brandWahid = storeNew(newEPoleBrand());
+        final EPole ePoleWahid = storeNew(newEPole(brandWahid));
+        final CompanyEPole companyEPoleWahid = storeNew(
+                newCompanyEPole(121d, companyWahid, ePoleWahid));
+        final FactorType type = storeNew(newFactorType());
+        final Factor factorWahid = storeNew(newFactor(type));
 
-        final EPoleBrand brandWahid = storeNew(EPoleBrand.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Brand-Wahid\"}"));
-        EPole ePoleWahid = EPole.ofJsonObjStr(
-                "{\"id\":1, \"type\":\"Brand-Wahid\"}");
-        ePoleWahid.setBrand(brandWahid);
-        ePoleWahid = storeNew(ePoleWahid);
+        final FactorAnswer answer1 = storeNew(
+                newFactorAnswerBoolean(true, factorWahid));
 
+        final FactorAnswer answer3 = storeNew(
+                newFactorText("text", factorWahid));
 
-        CompanyEPole companyEPoleWahid =
-                CompanyEPole.ofJsonObjStr("{\"base_price\":121.0}");
-        companyEPoleWahid.setCompany(companyWahid);
-        companyEPoleWahid.setePole(ePoleWahid);
-
-        companyEPoleWahid = storeNew(companyEPoleWahid);
-
-        final FactorType typeWahid = FactorType.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Type-Wahid\"}");
-        final FactorType type = storeNew(typeWahid);
-        Factor factorWahid = Factor.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Factor-Wahid1\","
-                        + "\"question\":\"Q11?\","
-                        + "\"description\":\"dd\"}");
-        factorWahid.setType(type);
-        factorWahid = storeNew(factorWahid);
-        final FactorAnswerBoolean answerBoolean =
-                FactorAnswerBoolean.ofJsonObjStr(
-                        "{\"id\":1, \"answer_boolean\":true}");
-        answerBoolean.setFactor(factorWahid);
-        final FactorAnswerMultipleChoice answerMulti =
-                FactorAnswerMultipleChoice.ofJsonObjStr(
-                        "{\"id\":1, \"answer_multiple\":\"text\"}");
-        answerMulti.setFactor(factorWahid);
-
-        final FactorAnswer answer1 = storeNew(answerBoolean);
-        final FactorAnswer answer3 = storeNew(answerMulti);
         final FactorAnswerPrice price =
-                FactorAnswerPrice.ofJsonObjSr("{\"price\":100}");
-        price.setFactorAnswer(answer1);
-        price.setPole(companyEPoleWahid);
+                newFactorAnswerPrice(100d, answer1, companyEPoleWahid);
         final FactorAnswerPrice price2 =
-                FactorAnswerPrice.ofJsonObjSr("{\"price\":50}");
-        price2.setFactorAnswer(answer3);
-        price2.setPole(companyEPoleWahid);
+                newFactorAnswerPrice(50d, answer3, companyEPoleWahid);
         setTestPrices(storeNews(List.of(price, price2)));
     }
 

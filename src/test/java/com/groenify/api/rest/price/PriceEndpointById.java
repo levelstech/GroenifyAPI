@@ -12,13 +12,9 @@ import com.groenify.api.database.factor.answer.FactorAnswerBoolean;
 import com.groenify.api.database.factor.answer.FactorAnswerMultipleChoice;
 import com.groenify.api.database.price.FactorAnswerPrice;
 import com.groenify.api.framework.annotation.resolver.FactorAnswerPriceInPathResolver;
-import com.groenify.api.framework.annotation.resolver.FactorInPathResolver;
-import com.groenify.api.repository.factor.FactorRepository;
 import com.groenify.api.repository.factor.FactorTypeRepository;
 import com.groenify.api.repository.price.FactorAnswerPriceRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.rest.factor.FactorEndpoint;
-import com.groenify.api.service.factor.FactorService;
 import com.groenify.api.service.price.FactorAnswerPriceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +22,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
-
-import java.util.List;
 
 @DataJpaTest()
 @EnableAutoConfiguration
