@@ -44,6 +44,10 @@ abstract class PriceEndpointById extends EndpointTest {
     @Autowired
     private FactorAnswerPriceRepository repository;
 
+    public static Long getPriceId() {
+        return priceId;
+    }
+
     protected static void setPriceId(final Long var) {
         PriceEndpointById.priceId = var;
     }
@@ -67,7 +71,8 @@ abstract class PriceEndpointById extends EndpointTest {
 
     protected final void setUpMock() {
         final FactorAnswerPriceEndpoint endpoint =
-                new FactorAnswerPriceEndpoint(new FactorAnswerPriceService(repository));
+                new FactorAnswerPriceEndpoint(
+                        new FactorAnswerPriceService(repository));
         final StandaloneMockMvcBuilder mvcBuilder =
                 MockMvcBuilders.standaloneSetup(endpoint);
 
@@ -126,6 +131,7 @@ abstract class PriceEndpointById extends EndpointTest {
         price.setFactorAnswer(answer1);
         price.setPole(companyEPoleWahid);
         setTestPrice(storeNew(price));
+        setPriceId(getTestPrice().getId());
 
     }
 
