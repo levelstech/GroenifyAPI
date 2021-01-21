@@ -78,7 +78,6 @@ abstract class PriceEndpointById extends EndpointTest {
 
     protected final void setUpData() {
 
-
         ApplicationLoader.loadFactorTypeEnumerators(typeRepository);
 
         final Company companyWahid = storeNew(Company.ofJsonObjStr(

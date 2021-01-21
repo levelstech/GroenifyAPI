@@ -1,4 +1,4 @@
-package com.groenify.api.util;
+package com.groenify.api;
 
 import com.groenify.api.database.company.Company;
 import com.groenify.api.database.company.CompanyEPole;
@@ -18,7 +18,6 @@ public final class TestModelCreatorUtil {
     }
 
     public static Company newCompany() {
-
         final String companyName = String.format("Company-%s", ++counter);
         return Company.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"" + companyName + "\","
@@ -27,10 +26,19 @@ public final class TestModelCreatorUtil {
 
     }
 
+    public static Company newCompany(final ModelCreator creator) {
+        return creator.storeNew(newCompany());
+    }
+
+
     public static EPoleBrand newEPoleBrand() {
         final String brandName = String.format("Brand-%s", ++counter);
         return EPoleBrand.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"" + brandName + "\"}");
+    }
+
+    public static EPoleBrand newEPoleBrand(final ModelCreator creator) {
+        return creator.storeNew(newEPoleBrand());
     }
 
     public static EPole newEPole() {
@@ -45,9 +53,14 @@ public final class TestModelCreatorUtil {
         return ePole;
     }
 
+    public static EPole newEPole(final ModelCreator creator) {
+        final EPoleBrand brand = newEPoleBrand(creator);
+        final EPole ePole = newEPole(brand);
+        return creator.storeNew(ePole);
+    }
+
     public static CompanyEPole newCompanyEPole(final Double price) {
         return CompanyEPole.ofJsonObjStr("{\"base_price\":" + price + "}");
-
     }
 
     public static CompanyEPole newCompanyEPole(
@@ -60,10 +73,24 @@ public final class TestModelCreatorUtil {
         return companyEPole;
     }
 
+    public static CompanyEPole newCompanyEPole(
+            final Double price, final ModelCreator creator) {
+        final Company company = newCompany(creator);
+        final EPole ePole = newEPole(creator);
+
+        final CompanyEPole companyEPole =
+                newCompanyEPole(price, company, ePole);
+        return creator.storeNew(companyEPole);
+    }
+
     public static FactorType newFactorType() {
         final String epoleType = String.format("FactorType-%s", ++counter);
         return FactorType.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"" + epoleType + "\"}");
+    }
+
+    public static FactorType newFactorType(final ModelCreator creator) {
+        return creator.storeNew(newFactorType());
     }
 
     public static Factor newFactor() {
@@ -80,6 +107,13 @@ public final class TestModelCreatorUtil {
         return factor;
     }
 
+
+    public static Factor newFactor(final ModelCreator creator) {
+        final FactorType type = newFactorType(creator);
+        final Factor factor = newFactor(type);
+        return creator.storeNew(factor);
+    }
+
     public static FactorAnswerBoolean newFactorAnswerBoolean(
             final Boolean answer) {
         return FactorAnswerBoolean.ofJsonObjStr(
@@ -90,8 +124,16 @@ public final class TestModelCreatorUtil {
             final Boolean a, final Factor factor) {
         final FactorAnswerBoolean answer = newFactorAnswerBoolean(a);
         answer.setFactor(factor);
+        answer.setType(factor.getType());
         return answer;
+    }
 
+    public static FactorAnswerBoolean newFactorAnswerBoolean(
+            final Boolean answerBoolean, final ModelCreator creator) {
+        final Factor factor = newFactor(creator);
+        final FactorAnswerBoolean answer =
+                newFactorAnswerBoolean(answerBoolean, factor);
+        return creator.storeNew(answer);
     }
 
     public static FactorAnswerMultipleChoice newFactorText(final String text) {
@@ -104,6 +146,13 @@ public final class TestModelCreatorUtil {
         final FactorAnswerMultipleChoice answer = newFactorText(text);
         answer.setFactor(factor);
         return answer;
+    }
+
+    public static FactorAnswerMultipleChoice newFactorText(
+            final String text, final ModelCreator creator) {
+        final Factor factor = newFactor(creator);
+        final FactorAnswerMultipleChoice answer = newFactorText(text, factor);
+        return creator.storeNew(answer);
     }
 
 
@@ -120,5 +169,17 @@ public final class TestModelCreatorUtil {
         answerPrice.setFactorAnswer(answer);
         answerPrice.setPole(pole);
         return answerPrice;
+    }
+
+    public static FactorAnswerPrice newFactorAnswerPrice(
+            final Double price,
+            final Double polePrice,
+            final FactorAnswer answer,
+            final ModelCreator creator) {
+        final CompanyEPole pole = newCompanyEPole(polePrice, creator);
+
+        final FactorAnswerPrice answerPrice =
+                newFactorAnswerPrice(price, answer, pole);
+        return creator.storeNew(answerPrice);
     }
 }

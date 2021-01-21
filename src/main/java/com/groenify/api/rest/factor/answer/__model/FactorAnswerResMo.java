@@ -39,7 +39,7 @@ public abstract class FactorAnswerResMo {
 
     @JsonProperty("type")
     public final Long getType() {
-        return type.getNumber();
+        return type == null ? null : type.getNumber();
     }
 
     @JsonProperty("answer")

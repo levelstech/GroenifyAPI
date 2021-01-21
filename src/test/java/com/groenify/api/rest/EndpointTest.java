@@ -1,6 +1,6 @@
 package com.groenify.api.rest;
 
-import com.groenify.api.database.IdModel;
+import com.groenify.api.ModelCreator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,15 +9,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.options;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 @DataJpaTest(showSql = false)
 @EnableAutoConfiguration
-public abstract class EndpointTest {
+public abstract class EndpointTest implements ModelCreator {
 
     @Autowired
     private TestEntityManager entityManager;
@@ -31,23 +28,14 @@ public abstract class EndpointTest {
         return mockMvc;
     }
 
+    @Override
     public final void setEntityManager(final TestEntityManager var) {
         this.entityManager = var;
     }
 
+    @Override
     public final TestEntityManager getEntityManager() {
         return entityManager;
-    }
-
-    protected final <T extends IdModel> T storeNew(final T model) {
-        model.setId(null);
-        return getEntityManager().persist(model);
-    }
-
-    protected final <T extends IdModel> List<T> storeNews(final List<T> model) {
-        return model.stream()
-                .map(this::storeNew)
-                .collect(Collectors.toList());
     }
 
     protected abstract String getEndpoint();
