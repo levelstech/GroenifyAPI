@@ -2,13 +2,18 @@ package com.groenify.api.database.factor;
 
 import com.groenify.api.rest.factor.answer.__model.FactorAnswerBooleanReqMo;
 import com.groenify.api.rest.factor.answer.__model.FactorAnswerMultipleChoiceReqMo;
+import com.groenify.api.rest.factor.answer.__model.FactorAnswerNumberReqMo;
 import com.groenify.api.rest.factor.answer.__model.FactorAnswerReqMo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public enum FactorTypeEnum {
 
     BOOLEAN_QUESTION(FactorAnswerBooleanReqMo.class),
     MULTIPLE_CHOICE(FactorAnswerMultipleChoiceReqMo.class),
-    NUMBER(null), DOUBLE_NUMBER(null);
+    NUMBER(FactorAnswerNumberReqMo.class), DOUBLE_NUMBER(null);
+
+    private static final Logger L = LoggerFactory.getLogger(FactorTypeEnum.class);
 
     private final Class<? extends FactorAnswerReqMo> clazz;
     private Long number;
@@ -22,6 +27,7 @@ public enum FactorTypeEnum {
         for (final FactorTypeEnum e : values())
             if (e.hasMappedTo(type)) return e;
 
+        L.warn("Could not parse FactorType {} to a valid enum", type);
         return null;
     }
 
@@ -29,6 +35,7 @@ public enum FactorTypeEnum {
         for (final FactorTypeEnum e : values())
             if (e.hasNumber(type)) return e;
 
+        L.warn("Could not parse LongType {} to a valid enum", type);
         return null;
     }
 

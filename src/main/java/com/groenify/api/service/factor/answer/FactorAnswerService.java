@@ -31,6 +31,8 @@ public class FactorAnswerService {
             final Factor factor,
             final FactorAnswerReqMo body) {
         final FactorAnswer answer = body.mapToDatabaseModel(factor);
+        System.out.println(answer.getClass());
+        System.out.println(answer.getFactor());
         return repository.save(answer);
     }
 

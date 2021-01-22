@@ -12,6 +12,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -21,6 +23,10 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "factor_answer_id")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class FactorAnswerBoolean extends FactorAnswer {
+
+    @ManyToOne
+    @JoinColumn(name = "factor_id", nullable = false)
+    private Factor factor;
 
     @JsonProperty("answer_boolean")
     @Column(name = "answer_boolean", nullable = false)
