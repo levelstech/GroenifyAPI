@@ -32,7 +32,6 @@ public final class CompanyEPoleResMo {
         return new CompanyEPoleResMo(pole);
     }
 
-    @JsonProperty("id")
     public Long getId() {
         return id;
     }

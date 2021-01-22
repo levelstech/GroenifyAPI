@@ -13,6 +13,8 @@
     <suppress files="com[\\/]groenify[\\/]api[\\/]database[\\/]"
               checks="DesignForExtensionCheck"/>
 
+    <suppress files="PathResolverContainer.java"
+              checks="ParameterNumber"/>
 
     <suppress files="[\\/]main[\\/]|[\\/]test[\\/]"
               checks="MagicNumberCheck"/>
