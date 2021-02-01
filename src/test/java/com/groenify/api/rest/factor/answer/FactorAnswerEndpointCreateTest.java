@@ -3,7 +3,6 @@ package com.groenify.api.rest.factor.answer;
 import com.groenify.api.JsonTestUtil;
 import com.groenify.api.config.ApplicationLoader;
 import com.groenify.api.database.factor.Factor;
-import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.database.factor.FactorTypeEnum;
 import com.groenify.api.framework.annotation.resolver.FactorInPathResolver;
 import com.groenify.api.repository.factor.FactorRepository;
@@ -20,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
+import static com.groenify.api.TestModelCreatorUtil.newFactor;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -74,16 +74,8 @@ class FactorAnswerEndpointCreateTest extends EndpointTest {
     protected void setUpData() {
 
         ApplicationLoader.loadFactorTypeEnumerators(typeRepository);
-
-        final FactorType typeWahid = FactorType.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Type-Wahid\"}");
-        final FactorType type = storeNew(typeWahid);
-        Factor factorWahid = Factor.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Factor-Wahid1\","
-                        + "\"question\":\"Q11?\","
-                        + "\"description\":\"dd\"}");
-        factorWahid.setType(type);
-        factorWahid = storeNew(factorWahid);
+        final Factor factorWahid =
+                newFactor(this, FactorTypeEnum.BOOLEAN_QUESTION);
         setFactorId(factorWahid.getId());
         setFactorType(FactorTypeEnum.BOOLEAN_QUESTION.getNumber());
     }

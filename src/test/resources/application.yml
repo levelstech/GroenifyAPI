@@ -16,7 +16,8 @@ spring:
 logging:
   level:
     root: WARN
-    com.groenify.api.JsonTestUtil: WARN
+    com.groenify.api: DEBUG
+    com.groenify.api.JsonTestUtil: DEBUG
     org.hibernate.SQL: WARN
     org.hibernate.type.descriptor.sql.BasicBinder: WARN
     org.springframework: WARN

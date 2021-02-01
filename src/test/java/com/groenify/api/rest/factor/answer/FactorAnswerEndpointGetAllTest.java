@@ -1,9 +1,8 @@
 package com.groenify.api.rest.factor.answer;
 
 import com.groenify.api.JsonTestUtil;
+import com.groenify.api.TestModelCreatorUtil;
 import com.groenify.api.config.ApplicationLoader;
-import com.groenify.api.database.factor.Factor;
-import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.database.factor.answer.FactorAnswer;
 import com.groenify.api.database.factor.answer.FactorAnswerBoolean;
 import com.groenify.api.database.factor.answer.FactorAnswerMultipleChoice;
@@ -61,31 +60,13 @@ class FactorAnswerEndpointGetAllTest extends EndpointTest {
 
         ApplicationLoader.loadFactorTypeEnumerators(typeRepository);
 
-        final FactorType typeWahid = FactorType.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Type-Wahid\"}");
-        final FactorType type = storeNew(typeWahid);
-        Factor factorWahid = Factor.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Factor-Wahid1\","
-                        + "\"question\":\"Q11?\","
-                        + "\"description\":\"dd\"}");
-        factorWahid.setType(type);
-        factorWahid = storeNew(factorWahid);
-        final FactorAnswerBoolean answerBoolean =
-                FactorAnswerBoolean.ofJsonObjStr(
-                        "{\"id\":1, \"answer_boolean\":true}");
-        answerBoolean.setFactor(factorWahid);
-        final FactorAnswerBoolean answerBoolean2 =
-                FactorAnswerBoolean.ofJsonObjStr(
-                        "{\"id\":1, \"answer_boolean\":false}");
-        answerBoolean2.setFactor(factorWahid);
-        final FactorAnswerMultipleChoice answerMulti =
-                FactorAnswerMultipleChoice.ofJsonObjStr(
-                        "{\"id\":1, \"answer_multiple\":\"text\"}");
-        answerMulti.setFactor(factorWahid);
+        final FactorAnswerBoolean answer1 =
+                TestModelCreatorUtil.newFactorAnswerBoolean(true, this);
+        final FactorAnswerBoolean answer2 =
+                TestModelCreatorUtil.newFactorAnswerBoolean(false, this);
+        final FactorAnswerMultipleChoice answer3 =
+                TestModelCreatorUtil.newFactorText("text", this);
 
-        final FactorAnswer answer1 = storeNew(answerBoolean);
-        final FactorAnswer answer2 = storeNew(answerBoolean2);
-        final FactorAnswer answer3 = storeNew(answerMulti);
         setTestAnswers(List.of(answer1, answer2, answer3));
     }
 
@@ -143,7 +124,7 @@ class FactorAnswerEndpointGetAllTest extends EndpointTest {
                 .andExpect(jsonPathIdOfModelId(
                         "$[1].factor.id", answerThanie.getFactor()))
                 .andExpect(jsonPathIdOfModelId(
-                        "$[1].factor.id", answerThalith.getFactor()))
+                        "$[2].factor.id", answerThalith.getFactor()))
 
                 .andExpect(jsonPathIdOfModelId(
                         "$[0].type", answerWahid.getType()))

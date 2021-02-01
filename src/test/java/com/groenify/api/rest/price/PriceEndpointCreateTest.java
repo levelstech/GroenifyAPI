@@ -108,7 +108,7 @@ class PriceEndpointCreateTest extends EndpointTest {
                 + ":{\"id\":4,\"factor\":{\"id\":4,\"type\":{\"id\":20,"
                 + "\"name\":\"FactorType-19\",\"description\":null},"
                 + "\"name\":\"Factor-20\",\"question\":\"Q11?\","
-                + "\"description\":\"dd\"},\"type\":null,\"answer\":true},"
+                + "\"description\":\"dd\"},\"type\":2,\"answer\":true},"
                 + "\"company_epole\":{\"id\":4,\"company\":{\"id\":4,"
                 + "\"name\":\"Company-16\",\"date\":\"2020-12-28T00:43:32Z\","
                 + "\"url\":\"https://google.de\"},\"base_price\":500.0,"

@@ -262,6 +262,7 @@ CREATE TABLE `factor_answer`
     `factor_id`   bigint(20) NOT NULL,
     `factor_type` bigint(20) NOT NULL,
     PRIMARY KEY (`id`),
+    UNIQUE KEY `factor_answer_UN` (`id`, `factor_id`),
     KEY `factor_answer_FK` (`factor_id`),
     KEY `factor_answer_FK_1` (`factor_type`),
     CONSTRAINT `factor_answer_FK` FOREIGN KEY (`factor_id`) REFERENCES `factor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -295,10 +296,15 @@ DROP TABLE IF EXISTS `factor_answer_boolean`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `factor_answer_boolean`
 (
-    `factor_answer_id` bigint(20) NOT NULL,
-    `answer_boolean`   tinyint(1) NOT NULL,
+    `factor_answer_id`        bigint(20) NOT NULL,
+    `factor_answer_factor_id` bigint(20) NOT NULL,
+    `answer_boolean`          tinyint(1) NOT NULL,
     PRIMARY KEY (`factor_answer_id`),
-    CONSTRAINT `factor_answer_boolean_FK` FOREIGN KEY (`factor_answer_id`) REFERENCES `factor_answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    UNIQUE KEY `factor_answer_boolean_UN` (`factor_answer_id`,
+                                           `factor_answer_factor_id`,
+                                           `answer_boolean`),
+    CONSTRAINT `factor_answer_boolean_FK` FOREIGN KEY (`factor_answer_id`) REFERENCES `factor_answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `factor_answer_boolean_FK_1` FOREIGN KEY (`factor_answer_id`, `factor_answer_factor_id`) REFERENCES `factor_answer` (`id`, `factor_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
@@ -312,9 +318,81 @@ LOCK TABLES `factor_answer_boolean` WRITE;
 /*!40000 ALTER TABLE `factor_answer_boolean`
     DISABLE KEYS */;
 INSERT INTO `factor_answer_boolean`
-VALUES (1, 1),
-       (2, 0);
+VALUES (1, 2, 1),
+       (2, 2, 0);
 /*!40000 ALTER TABLE `factor_answer_boolean`
+    ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `factor_answer_multiple_choice`
+--
+
+DROP TABLE IF EXISTS `factor_answer_multiple_choice`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `factor_answer_multiple_choice`
+(
+    `factor_answer_id`        bigint(20)                    NOT NULL,
+    `factor_answer_factor_id` bigint(20)                    NOT NULL,
+    `answer_multiple`         mediumtext COLLATE utf8_bin   NOT NULL,
+    `lower_answer_hash`       varchar(512) COLLATE utf8_bin NOT NULL,
+    PRIMARY KEY (`factor_answer_id`),
+    UNIQUE KEY `factor_answer_multiple_choice_UN` (`factor_answer_factor_id`,
+                                                   `factor_answer_id`,
+                                                   `lower_answer_hash`),
+    KEY `factor_answer_multiple_choice_FK_1` (`factor_answer_id`, `factor_answer_factor_id`),
+    CONSTRAINT `factor_answer_multiple_choice_FK` FOREIGN KEY (`factor_answer_id`) REFERENCES `factor_answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `factor_answer_multiple_choice_FK_1` FOREIGN KEY (`factor_answer_id`, `factor_answer_factor_id`) REFERENCES `factor_answer` (`id`, `factor_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `factor_answer_multiple_choice`
+--
+
+LOCK TABLES `factor_answer_multiple_choice` WRITE;
+/*!40000 ALTER TABLE `factor_answer_multiple_choice`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `factor_answer_multiple_choice`
+    ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `factor_answer_number`
+--
+
+DROP TABLE IF EXISTS `factor_answer_number`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `factor_answer_number`
+(
+    `factor_answer_id`        bigint(20) NOT NULL,
+    `factor_answer_factor_id` bigint(20) NOT NULL,
+    `min_number`              double DEFAULT NULL,
+    `max_number`              double DEFAULT NULL,
+    PRIMARY KEY (`factor_answer_id`),
+    UNIQUE KEY `factor_answer_number_UN` (`max_number`, `min_number`,
+                                          `factor_answer_factor_id`,
+                                          `factor_answer_id`),
+    KEY `factor_answer_number_FK_1` (`factor_answer_id`, `factor_answer_factor_id`),
+    CONSTRAINT `factor_answer_number_FK` FOREIGN KEY (`factor_answer_id`) REFERENCES `factor_answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `factor_answer_number_FK_1` FOREIGN KEY (`factor_answer_id`, `factor_answer_factor_id`) REFERENCES `factor_answer` (`id`, `factor_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `factor_answer_number`
+--
+
+LOCK TABLES `factor_answer_number` WRITE;
+/*!40000 ALTER TABLE `factor_answer_number`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `factor_answer_number`
     ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -346,13 +424,14 @@ LOCK TABLES `factor_type` WRITE;
 /*!40000 ALTER TABLE `factor_type`
     DISABLE KEYS */;
 INSERT INTO `factor_type`
-VALUES (1, 'boolean_question', NULL),
-       (2, 'multiple_choice', NULL),
-       (3, 'number', NULL),
-       (4, 'doube_number', NULL);
+VALUES (1, 'BOOLEAN_QUESTION', NULL),
+       (2, 'MULTIPLE_CHOICE', NULL),
+       (3, 'NUMBER', NULL),
+       (4, 'DOUBLE_NUMBER', NULL);
 /*!40000 ALTER TABLE `factor_type`
     ENABLE KEYS */;
 UNLOCK TABLES;
+
 /*!40103 SET TIME_ZONE = @OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE = @OLD_SQL_MODE */;
@@ -363,4 +442,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-31 12:01:19
+-- Dump completed on 2021-01-28  8:50:21

@@ -12,6 +12,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import java.util.Locale;
@@ -22,10 +24,15 @@ import java.util.Locale;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class FactorAnswerMultipleChoice extends FactorAnswer {
 
+    @ManyToOne
+    @JoinColumn(name = "factor_answer_factor_id", nullable = false)
+    private Factor ownFactor;
+
     @JsonProperty("answer_multiple")
     @Column(name = "answer_multiple", nullable = false,
             columnDefinition = "mediumtext")
     private String answerMultipleChoice;
+
     @Column(name = "lower_answer_hash", nullable = false)
     private String hash;
 
@@ -38,7 +45,7 @@ public class FactorAnswerMultipleChoice extends FactorAnswer {
             final FactorAnswerMultipleChoiceReqMo reqMo) {
         final FactorAnswerMultipleChoice answer =
                 new FactorAnswerMultipleChoice();
-        answer.setFactor(factor);
+        answer.setOwnFactor(factor);
         return answer.update(reqMo);
     }
 
@@ -64,6 +71,18 @@ public class FactorAnswerMultipleChoice extends FactorAnswer {
     private void setAnswerMultipleChoiceWithHash(final String answer) {
         setAnswerMultipleChoice(answer);
         setHash(answer.toLowerCase(Locale.ROOT));
+    }
+
+    @Override
+    public void setOwnFactor(final Factor var) {
+        super.setFactor(var);
+        super.setType(var.getType());
+        this.ownFactor = var;
+    }
+
+    @Override
+    public Factor getOwnFactor() {
+        return ownFactor;
     }
 
     public String getHash() {
