@@ -417,6 +417,45 @@ CREATE TABLE `factor_type`
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `factor_answer_double_number`
+--
+
+DROP TABLE IF EXISTS `factor_answer_double_number`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `factor_answer_double_number`
+(
+    `factor_answer_id`        bigint(20) NOT NULL,
+    `factor_answer_factor_id` bigint(20) NOT NULL,
+    `min_number_a`            double DEFAULT NULL,
+    `max_number_a`            double DEFAULT NULL,
+    `min_number_b`            double DEFAULT NULL,
+    `max_number_b`            double DEFAULT NULL,
+    PRIMARY KEY (`factor_answer_id`),
+    UNIQUE KEY `factor_answer_double_number_UN` (`max_number_a`, `min_number_a`,
+                                                 `max_number_b`, min_number_b,
+                                                 `factor_answer_factor_id`,
+                                                 `factor_answer_id`),
+    KEY `factor_answer_double_number_FK_1` (`factor_answer_id`, `factor_answer_factor_id`),
+    CONSTRAINT `factor_answer_double_number_FK` FOREIGN KEY (`factor_answer_id`) REFERENCES `factor_answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `factor_answer_double_number_FK_1` FOREIGN KEY (`factor_answer_id`, `factor_answer_factor_id`) REFERENCES `factor_answer` (`id`, `factor_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `factor_answer_double_number`
+--
+
+LOCK TABLES `factor_answer_double_number` WRITE;
+/*!40000 ALTER TABLE `factor_answer_double_number`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `factor_answer_double_number`
+    ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `factor_type`
 --
 
