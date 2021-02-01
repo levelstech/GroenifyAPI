@@ -13,4 +13,31 @@ public final class ListUtil {
         return StreamSupport.stream(iterable.spliterator(), false)
                 .collect(Collectors.toList());
     }
+
+    public static <T> T findFirstOrElse(
+            final List<T> list,
+            final T returnIfListHasNoIndex) {
+        return findIndexOrElse(list, 0, returnIfListHasNoIndex);
+    }
+
+    public static <T> T findSecondOrElse(
+            final List<T> list,
+            final T returnIfListHasNoIndex) {
+        return findIndexOrElse(list, 1, returnIfListHasNoIndex);
+    }
+
+    public static <T> T findLastOrElse(
+            final List<T> list,
+            final T returnIfListHasNoIndex) {
+        return findIndexOrElse(list, list.size(), returnIfListHasNoIndex);
+    }
+
+    public static <T> T findIndexOrElse(
+            final List<T> list,
+            final Integer index,
+            final T returnIfListHasNoIndex) {
+        if (list.size() > index) return list.get(index);
+
+        else return returnIfListHasNoIndex;
+    }
 }
