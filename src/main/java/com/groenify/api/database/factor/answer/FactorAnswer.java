@@ -59,7 +59,7 @@ public abstract class FactorAnswer implements IdModel {
         this.factor = var;
     }
 
-    public abstract void setOwnFactor(final Factor var);
+    public abstract void setOwnFactor(Factor var);
 
     public abstract Factor getOwnFactor();
 

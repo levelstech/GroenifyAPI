@@ -1,10 +1,8 @@
 package com.groenify.api.rest.factor.answer;
 
 import com.groenify.api.JsonTestUtil;
-import com.groenify.api.TestModelCreatorUtil;
 import com.groenify.api.config.ApplicationLoader;
 import com.groenify.api.database.factor.Factor;
-import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.database.factor.FactorTypeEnum;
 import com.groenify.api.framework.annotation.resolver.FactorInPathResolver;
 import com.groenify.api.repository.factor.FactorRepository;

@@ -13,7 +13,8 @@ public enum FactorTypeEnum {
     MULTIPLE_CHOICE(FactorAnswerMultipleChoiceReqMo.class),
     NUMBER(FactorAnswerNumberReqMo.class), DOUBLE_NUMBER(null);
 
-    private static final Logger L = LoggerFactory.getLogger(FactorTypeEnum.class);
+    private static final Logger L =
+            LoggerFactory.getLogger(FactorTypeEnum.class);
 
     private final Class<? extends FactorAnswerReqMo> clazz;
     private Long number;

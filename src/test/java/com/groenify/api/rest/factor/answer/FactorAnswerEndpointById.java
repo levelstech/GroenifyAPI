@@ -2,8 +2,6 @@ package com.groenify.api.rest.factor.answer;
 
 import com.groenify.api.TestModelCreatorUtil;
 import com.groenify.api.config.ApplicationLoader;
-import com.groenify.api.database.factor.Factor;
-import com.groenify.api.database.factor.FactorType;
 import com.groenify.api.database.factor.answer.FactorAnswer;
 import com.groenify.api.database.factor.answer.FactorAnswerBoolean;
 import com.groenify.api.framework.annotation.resolver.FactorAnswerInPathResolver;

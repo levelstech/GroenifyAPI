@@ -80,8 +80,8 @@ abstract class PriceEndpointById extends EndpointTest {
         final double answerPrice = 100d;
         final double polePrice = 50d;
 
-        final FactorAnswerPrice price =
-                newFactorAnswerPrice(answerPrice, polePrice, answerBoolean, this);
+        final FactorAnswerPrice price = newFactorAnswerPrice(
+                answerPrice, polePrice, answerBoolean, this);
         setTestPrice(price);
         setPriceId(getTestPrice().getId());
 

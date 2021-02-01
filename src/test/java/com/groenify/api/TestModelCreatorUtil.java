@@ -88,8 +88,8 @@ public final class TestModelCreatorUtil {
         return FactorTypeEnum.BOOLEAN_QUESTION.getMappedTo();
     }
 
-    public static FactorType newFactorTypeFromEnum(final FactorTypeEnum typeEnum) {
-        return typeEnum.getMappedTo();
+    public static FactorType newFactorTypeFromEnum(final FactorTypeEnum type) {
+        return type.getMappedTo();
     }
 
     public static FactorType newFactorType() {
