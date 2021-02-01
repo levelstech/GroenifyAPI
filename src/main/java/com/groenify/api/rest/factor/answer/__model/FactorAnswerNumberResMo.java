@@ -6,7 +6,7 @@ import java.util.List;
 
 public final class FactorAnswerNumberResMo extends FactorAnswerResMo {
 
-    private final List<Integer> answer;
+    private final List<Double> answer;
 
     private FactorAnswerNumberResMo(final FactorAnswerNumber var) {
         super(var);
@@ -19,7 +19,7 @@ public final class FactorAnswerNumberResMo extends FactorAnswerResMo {
     }
 
     @Override
-    public List<Integer> getAnswer() {
+    public List<Double> getAnswer() {
         return answer;
     }
 }

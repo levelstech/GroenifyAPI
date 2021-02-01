@@ -31,11 +31,11 @@ public class FactorAnswerNumber extends FactorAnswer {
 
     @JsonProperty("min_number")
     @Column(name = "min_number", nullable = false)
-    private Integer minNumber;
+    private Double minNumber;
 
     @JsonProperty("max_number")
     @Column(name = "max_number", nullable = false)
-    private Integer maxNumber;
+    private Double maxNumber;
 
     public FactorAnswerNumber() {
         super(FactorTypeEnum.NUMBER);
@@ -54,34 +54,36 @@ public class FactorAnswerNumber extends FactorAnswer {
         return MapperUtil.readObject(jsonStr, FactorAnswerNumber.class);
     }
 
+    @Override
     public void setOwnFactor(final Factor var) {
         super.setFactor(var);
         super.setType(var.getType());
         this.ownFactor = var;
     }
 
+    @Override
     public Factor getOwnFactor() {
         return ownFactor;
     }
 
-    public Integer getMinNumber() {
+    public Double getMinNumber() {
         return minNumber;
     }
 
-    public void setMinNumber(final Integer var) {
+    public void setMinNumber(final Double var) {
         this.minNumber = var;
     }
 
-    public Integer getMaxNumber() {
+    public Double getMaxNumber() {
         return maxNumber;
     }
 
-    public void setMaxNumber(final Integer var) {
+    public void setMaxNumber(final Double var) {
         this.maxNumber = var;
     }
 
     @Override
-    public Pair<Integer> getAnswer() {
+    public Pair<Double> getAnswer() {
         return Pair.of(getMinNumber(), getMaxNumber());
     }
 
@@ -95,7 +97,7 @@ public class FactorAnswerNumber extends FactorAnswer {
 
     private FactorAnswerNumber update(final FactorAnswerNumberReqMo reqMo) {
         if (reqMo == null) return this;
-        final Pair<Integer> bounds = reqMo.getBoundsAsPair();
+        final Pair<Double> bounds = reqMo.getBoundsAsPair();
         this.setMinNumber(bounds.getLeft());
         this.setMaxNumber(bounds.getRight());
         return this;

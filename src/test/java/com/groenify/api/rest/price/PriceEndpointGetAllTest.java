@@ -102,7 +102,7 @@ class PriceEndpointGetAllTest extends EndpointTest {
                 + "\"type\":{\"id\":10,\"name\":\"Type-Wahid\","
                 + "\"description\":null},"
                 + "\"name\":\"Factor-Wahid1\",\"question\":\"Q11?\","
-                + "\"description\":\"dd\"},\"type\":null,\"answer\":true},"
+                + "\"description\":\"dd\"},\"type\":2,\"answer\":true},"
                 + "\"company_epole\":{\"id\":2,\"company\":"
                 + "{\"id\":2,\"name\":\"Company-Wahid\","
                 + "\"date\":\"2020-12-28T00:43:32Z\","

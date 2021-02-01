@@ -11,4 +11,6 @@ public interface FactorRepository extends CrudRepository<Factor, Long> {
     List<Factor> findAllByType(FactorType type);
 
     Boolean existsByNameIgnoreCase(String var);
+
+    Boolean existsByNameContaining(String var);
 }

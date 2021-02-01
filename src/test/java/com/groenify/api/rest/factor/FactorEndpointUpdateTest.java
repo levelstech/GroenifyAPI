@@ -44,10 +44,12 @@ class FactorEndpointUpdateTest extends FactorEndpointById {
     @Test
     void getFactorValidateDatabaseValues() throws Exception {
 
+        final String oldName = getTestFactor().getName();
+        final String newName = "Factor-Wahid(1)";
         getMockMvc()
                 .perform(put(getEndpoint())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{ \"name\":\"Factor-Wahid(1)\","
+                        .content("{ \"name\":\"" + newName + "\","
                                 + "\"question\":\"Q(1)?\","
                                 + "\"description\":\"bb\"}"))
                 .andExpect(status().isOk())
@@ -61,27 +63,29 @@ class FactorEndpointUpdateTest extends FactorEndpointById {
                 .andExpect(jsonPath("$.description", is("bb")));
 
         Assertions.assertThat(getRepository().existsByNameIgnoreCase(
-                "Factor-Wahid")).isFalse();
+                newName)).isTrue();
         Assertions.assertThat(getRepository().existsByNameIgnoreCase(
-                "Factor-Wahid(1)")).isTrue();
+                oldName)).isFalse();
     }
 
     @Test
     void getFactorInvalid() throws Exception {
         setFactorId(-1L);
+        final String oldName = getTestFactor().getName();
+        final String newName = "Factor-Wahid(1)";
 
         getMockMvc()
                 .perform(put(getEndpoint())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{ \"name\":\"Factor-Wahid(1)\","
+                        .content("{ \"name\":\"" + newName + "\","
                                 + "\"question\":\"Q(1)?\","
                                 + "\"description\":\"bb\"}"))
                 .andExpect(status().isNotFound());
 
         Assertions.assertThat(getRepository().existsByNameIgnoreCase(
-                "Factor-Wahid")).isTrue();
+                oldName)).isTrue();
         Assertions.assertThat(getRepository().existsByNameIgnoreCase(
-                "Factor-Wahid(1)")).isFalse();
+                newName)).isFalse();
 
         setFactorId(getTestFactor().getId());
     }

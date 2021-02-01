@@ -1,5 +1,6 @@
 package com.groenify.api.rest.factor.answer;
 
+import com.groenify.api.TestModelCreatorUtil;
 import com.groenify.api.config.ApplicationLoader;
 import com.groenify.api.database.factor.Factor;
 import com.groenify.api.database.factor.FactorType;
@@ -67,21 +68,10 @@ class FactorAnswerEndpointById extends EndpointTest {
 
         ApplicationLoader.loadFactorTypeEnumerators(typeRepository);
 
-        final FactorType typeWahid = FactorType.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Type-Wahid\"}");
-        final FactorType type = storeNew(typeWahid);
-        Factor factorWahid = Factor.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Factor-Wahid1\","
-                        + "\"question\":\"Q11?\","
-                        + "\"description\":\"dd\"}");
-        factorWahid.setType(type);
-        factorWahid = storeNew(factorWahid);
         final FactorAnswerBoolean answerBoolean =
-                FactorAnswerBoolean.ofJsonObjStr(
-                        "{\"id\":1, \"answer_boolean\":true}");
-        answerBoolean.setFactor(factorWahid);
+                TestModelCreatorUtil.newFactorAnswerBoolean(true, this);
 
-        setTestAnswer(storeNew(answerBoolean));
+        setTestAnswer(answerBoolean);
         setAnswerId(testAnswer.getId());
     }
     @BeforeEach

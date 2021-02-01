@@ -28,6 +28,7 @@ public class ApplicationLoader
     private static FactorType storeFactorTypeFromEnum(
             final FactorTypeEnum typeEnum,
             final FactorTypeRepository repository) {
+
         L.debug("FactorTypeEnum not found with title = {}, storing in database",
                 typeEnum.toString());
         return repository.save(FactorType.ofFactorTypeEnum(typeEnum));

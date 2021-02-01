@@ -28,6 +28,9 @@ public enum FactorTypeEnum {
             if (e.hasMappedTo(type)) return e;
 
         L.warn("Could not parse FactorType {} to a valid enum", type);
+        if (type != null)
+            L.debug("FactorType(id,name) {}, {}", type.getId(), type.getName());
+        L.debug("Stored Enums {}", (Object) values());
         return null;
     }
 

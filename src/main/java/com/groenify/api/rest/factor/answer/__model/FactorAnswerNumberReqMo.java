@@ -16,18 +16,18 @@ public final class FactorAnswerNumberReqMo extends FactorAnswerReqMo {
     @NotNull(message = "'bounds' is a required field")
     @Size(min = 2, max = 2, message = "size of 'bounds' must be 2")
     @JsonProperty("bounds")
-    private List<Integer> bounds;
+    private List<Double> bounds;
 
-    public List<Integer> getBounds() {
+    public List<Double> getBounds() {
         return bounds;
     }
 
     @JsonIgnore
-    public Pair<Integer> getBoundsAsPair() {
+    public Pair<Double> getBoundsAsPair() {
         return Pair.ofList(getBounds());
     }
 
-    public void setBounds(final List<Integer> var) {
+    public void setBounds(final List<Double> var) {
         this.bounds = var;
     }
 

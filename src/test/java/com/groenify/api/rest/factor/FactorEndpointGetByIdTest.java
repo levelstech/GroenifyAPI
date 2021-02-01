@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -32,18 +33,21 @@ class FactorEndpointGetByIdTest extends FactorEndpointById {
 
     @Test
     void getFactorValidateDatabaseValues() throws Exception {
+        final String name = getTestFactor().getName();
+        final String question = getTestFactor().getQuestion();
+        final String description = getTestFactor().getDescription();
 
         getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPathIdOfModelId("$.id", getTestFactor()))
-                .andExpect(jsonPath("$.name", is("Factor-Wahid")))
-                .andExpect(jsonPath("$.question", is("Q?")))
+                .andExpect(jsonPath("$.name", is(name)))
+                .andExpect(jsonPath("$.question", is(question)))
                 .andExpect(jsonPathIdOfModelId(
                         "$.type.id", getTestFactor().getType()))
                 .andExpect(jsonPath(
                         "$.type.name", is(getTestFactor().getType().getName())))
-                .andExpect(jsonPath("$.description", is("aa")));
+                .andExpect(jsonPath("$.description", is(description)));
     }
 
     @Test

@@ -25,8 +25,8 @@ import java.util.Locale;
 public class FactorAnswerMultipleChoice extends FactorAnswer {
 
     @ManyToOne
-    @JoinColumn(name = "factor_id", nullable = false)
-    private Factor factor;
+    @JoinColumn(name = "factor_answer_factor_id", nullable = false)
+    private Factor ownFactor;
 
     @JsonProperty("answer_multiple")
     @Column(name = "answer_multiple", nullable = false,
@@ -45,7 +45,7 @@ public class FactorAnswerMultipleChoice extends FactorAnswer {
             final FactorAnswerMultipleChoiceReqMo reqMo) {
         final FactorAnswerMultipleChoice answer =
                 new FactorAnswerMultipleChoice();
-        answer.setFactor(factor);
+        answer.setOwnFactor(factor);
         return answer.update(reqMo);
     }
 
@@ -71,6 +71,18 @@ public class FactorAnswerMultipleChoice extends FactorAnswer {
     private void setAnswerMultipleChoiceWithHash(final String answer) {
         setAnswerMultipleChoice(answer);
         setHash(answer.toLowerCase(Locale.ROOT));
+    }
+
+    @Override
+    public void setOwnFactor(final Factor var) {
+        super.setFactor(var);
+        super.setType(var.getType());
+        this.ownFactor = var;
+    }
+
+    @Override
+    public Factor getOwnFactor() {
+        return ownFactor;
     }
 
     public String getHash() {

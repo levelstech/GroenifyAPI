@@ -6,6 +6,7 @@ import com.groenify.api.database.epole.EPole;
 import com.groenify.api.database.epole.EPoleBrand;
 import com.groenify.api.database.factor.Factor;
 import com.groenify.api.database.factor.FactorType;
+import com.groenify.api.database.factor.FactorTypeEnum;
 import com.groenify.api.database.factor.answer.FactorAnswer;
 import com.groenify.api.database.factor.answer.FactorAnswerBoolean;
 import com.groenify.api.database.factor.answer.FactorAnswerMultipleChoice;
@@ -83,6 +84,14 @@ public final class TestModelCreatorUtil {
         return creator.storeNew(companyEPole);
     }
 
+    public static FactorType newBooleanFactorType() {
+        return FactorTypeEnum.BOOLEAN_QUESTION.getMappedTo();
+    }
+
+    public static FactorType newFactorTypeFromEnum(final FactorTypeEnum typeEnum) {
+        return typeEnum.getMappedTo();
+    }
+
     public static FactorType newFactorType() {
         final String epoleType = String.format("FactorType-%s", ++counter);
         return FactorType.ofJsonObjStr(
@@ -107,9 +116,10 @@ public final class TestModelCreatorUtil {
         return factor;
     }
 
-
-    public static Factor newFactor(final ModelCreator creator) {
-        final FactorType type = newFactorType(creator);
+    public static Factor newFactor(
+            final ModelCreator creator,
+            final FactorTypeEnum typeEnum) {
+        final FactorType type = newFactorTypeFromEnum(typeEnum);
         final Factor factor = newFactor(type);
         return creator.storeNew(factor);
     }
@@ -123,14 +133,15 @@ public final class TestModelCreatorUtil {
     public static FactorAnswerBoolean newFactorAnswerBoolean(
             final Boolean a, final Factor factor) {
         final FactorAnswerBoolean answer = newFactorAnswerBoolean(a);
-        answer.setFactor(factor);
+        answer.setOwnFactor(factor);
         answer.setType(factor.getType());
         return answer;
     }
 
     public static FactorAnswerBoolean newFactorAnswerBoolean(
             final Boolean answerBoolean, final ModelCreator creator) {
-        final Factor factor = newFactor(creator);
+        final Factor factor = newFactor(
+                creator, FactorTypeEnum.BOOLEAN_QUESTION);
         final FactorAnswerBoolean answer =
                 newFactorAnswerBoolean(answerBoolean, factor);
         return creator.storeNew(answer);
@@ -144,13 +155,14 @@ public final class TestModelCreatorUtil {
     public static FactorAnswerMultipleChoice newFactorText(
             final String text, final Factor factor) {
         final FactorAnswerMultipleChoice answer = newFactorText(text);
-        answer.setFactor(factor);
+        answer.setOwnFactor(factor);
         return answer;
     }
 
     public static FactorAnswerMultipleChoice newFactorText(
             final String text, final ModelCreator creator) {
-        final Factor factor = newFactor(creator);
+        final Factor factor = newFactor(
+                creator, FactorTypeEnum.MULTIPLE_CHOICE);
         final FactorAnswerMultipleChoice answer = newFactorText(text, factor);
         return creator.storeNew(answer);
     }
