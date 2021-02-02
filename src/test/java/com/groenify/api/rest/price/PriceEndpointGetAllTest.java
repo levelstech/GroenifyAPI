@@ -1,14 +1,14 @@
 package com.groenify.api.rest.price;
 
 import com.groenify.api.JsonTestUtil;
-import com.groenify.api.config.ApplicationLoader;
-import com.groenify.api.database.company.CompanyEPole;
-import com.groenify.api.database.factor.answer.FactorAnswer;
-import com.groenify.api.database.price.FactorAnswerPrice;
-import com.groenify.api.repository.factor.FactorTypeRepository;
-import com.groenify.api.repository.price.FactorAnswerPriceRepository;
+import com.groenify.api.loader.FactorTypeLoader;
+import com.groenify.api.database.model.company.CompanyEPole;
+import com.groenify.api.database.model.factor.answer.FactorAnswer;
+import com.groenify.api.database.model.price.FactorAnswerPrice;
+import com.groenify.api.database.repository.factor.FactorTypeRepository;
+import com.groenify.api.database.repository.price.FactorAnswerPriceRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.service.price.FactorAnswerPriceService;
+import com.groenify.api.database.service.price.FactorAnswerPriceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +64,7 @@ class PriceEndpointGetAllTest extends EndpointTest {
 
     protected void setUpData() {
 
-        ApplicationLoader.loadFactorTypeEnumerators(typeRepository);
+        FactorTypeLoader.loadFactorTypeEnumerators(typeRepository);
 
         final CompanyEPole companyEPoleWahid =
                 newCompanyEPole(121d, this);

@@ -2,9 +2,9 @@ package com.groenify.api.rest.factor;
 
 import com.groenify.api.JsonTestUtil;
 import com.groenify.api.framework.annotation.resolver.FactorTypeInPathResolver;
-import com.groenify.api.repository.factor.FactorTypeRepository;
+import com.groenify.api.database.repository.factor.FactorTypeRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.service.factor.FactorTypeService;
+import com.groenify.api.database.service.factor.FactorTypeService;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;

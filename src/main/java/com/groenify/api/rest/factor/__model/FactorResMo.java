@@ -1,7 +1,7 @@
 package com.groenify.api.rest.factor.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.groenify.api.database.factor.Factor;
+import com.groenify.api.database.model.factor.Factor;
 
 import java.util.List;
 import java.util.stream.Collectors;

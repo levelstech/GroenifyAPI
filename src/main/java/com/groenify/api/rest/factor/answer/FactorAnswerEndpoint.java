@@ -1,13 +1,13 @@
 package com.groenify.api.rest.factor.answer;
 
-import com.groenify.api.database.factor.Factor;
-import com.groenify.api.database.factor.FactorTypeEnum;
-import com.groenify.api.database.factor.answer.FactorAnswer;
+import com.groenify.api.database.model.factor.Factor;
+import com.groenify.api.database.model.factor.FactorTypeEnum;
+import com.groenify.api.database.model.factor.answer.FactorAnswer;
 import com.groenify.api.framework.annotation.FactorAnswerInPath;
 import com.groenify.api.framework.annotation.FactorInPath;
 import com.groenify.api.rest.factor.answer.__model.FactorAnswerReqMo;
 import com.groenify.api.rest.factor.answer.__model.FactorAnswerResMo;
-import com.groenify.api.service.factor.answer.FactorAnswerService;
+import com.groenify.api.database.service.factor.answer.FactorAnswerService;
 import com.groenify.api.util.LongUtil;
 import com.groenify.api.util.MapperUtil;
 import org.springframework.http.HttpStatus;
@@ -39,7 +39,7 @@ public class FactorAnswerEndpoint {
             final FactorTypeEnum typeEnum) {
         final Class<? extends FactorAnswerReqMo> requestModelClazz =
                 FactorAnswerReqMo.getClassOf(typeEnum);
-        return MapperUtil.readObject(body, requestModelClazz);
+        return MapperUtil.readObjectFromJsonString(body, requestModelClazz);
     }
 
     private static FactorAnswerReqMo parseReqMoOfLong(

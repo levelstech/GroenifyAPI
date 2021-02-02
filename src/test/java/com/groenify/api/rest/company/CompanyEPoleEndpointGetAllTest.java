@@ -1,13 +1,13 @@
 package com.groenify.api.rest.company;
 
 import com.groenify.api.JsonTestUtil;
-import com.groenify.api.database.company.Company;
-import com.groenify.api.database.company.CompanyEPole;
-import com.groenify.api.database.epole.EPole;
-import com.groenify.api.database.epole.EPoleBrand;
-import com.groenify.api.repository.company.CompanyEPoleRepository;
+import com.groenify.api.database.model.company.Company;
+import com.groenify.api.database.model.company.CompanyEPole;
+import com.groenify.api.database.model.epole.EPole;
+import com.groenify.api.database.model.epole.EPoleBrand;
+import com.groenify.api.database.repository.company.CompanyEPoleRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.service.company.CompanyEPoleService;
+import com.groenify.api.database.service.company.CompanyEPoleService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,15 +80,15 @@ class CompanyEPoleEndpointGetAllTest extends EndpointTest {
         final CompanyEPole companyEPoleWahid =
                 CompanyEPole.ofJsonObjStr("{\"base_price\":121.0}");
         companyEPoleWahid.setCompany(companyWahid);
-        companyEPoleWahid.setePole(ePoleWahid);
+        companyEPoleWahid.setEPole(ePoleWahid);
         final CompanyEPole companyEPoleThanie =
                 CompanyEPole.ofJsonObjStr("{\"base_price\":122.0}");
         companyEPoleThanie.setCompany(companyWahid);
-        companyEPoleThanie.setePole(ePoleThanie);
+        companyEPoleThanie.setEPole(ePoleThanie);
         final CompanyEPole companyEPoleThalith =
                 CompanyEPole.ofJsonObjStr("{\"base_price\":222.0}");
         companyEPoleThalith.setCompany(companyThanie);
-        companyEPoleThalith.setePole(ePoleThanie);
+        companyEPoleThalith.setEPole(ePoleThanie);
 
         setTestPoles(storeNews(List.of(companyEPoleWahid,
                 companyEPoleThanie, companyEPoleThalith)));

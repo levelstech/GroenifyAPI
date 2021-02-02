@@ -1,16 +1,16 @@
 package com.groenify.api.rest.price;
 
-import com.groenify.api.database.company.CompanyEPole;
-import com.groenify.api.database.price.FactorAnswerPrice;
-import com.groenify.api.database.factor.Factor;
-import com.groenify.api.database.factor.answer.FactorAnswer;
+import com.groenify.api.database.model.company.CompanyEPole;
+import com.groenify.api.database.model.price.FactorAnswerPrice;
+import com.groenify.api.database.model.factor.Factor;
+import com.groenify.api.database.model.factor.answer.FactorAnswer;
 import com.groenify.api.framework.annotation.CompanyEPoleInPath;
 import com.groenify.api.framework.annotation.FactorAnswerInPath;
 import com.groenify.api.framework.annotation.FactorAnswerPriceInPath;
 import com.groenify.api.framework.annotation.FactorInPath;
 import com.groenify.api.rest.price.__model.FactorAnswerPriceReqMo;
 import com.groenify.api.rest.price.__model.FactorAnswerPriceResMo;
-import com.groenify.api.service.price.FactorAnswerPriceService;
+import com.groenify.api.database.service.price.FactorAnswerPriceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/v1/company_epoles")
@@ -60,10 +61,12 @@ public class FactorAnswerPriceEndpoint {
     public final List<FactorAnswerPriceResMo> getPriceByPoleAndAnswer(
             final @CompanyEPoleInPath CompanyEPole companyEPole,
             final @FactorAnswerInPath FactorAnswer factorAnswer) {
-        final List<FactorAnswerPrice> list =
-                service.getAllFromCompanyEPoleAndFactorAnswer(
+        final Optional<FactorAnswerPrice> opt =
+                service.getFromCompanyEPoleAndFactorAnswer(
                         companyEPole, factorAnswer);
-        return FactorAnswerPriceResMo.mapCompanyEPoleToResMoList(list);
+        return opt.map(x -> List.of(
+                FactorAnswerPriceResMo.mapCompanyEPoleToResMo(x)))
+                .orElseGet(List::of);
     }
 
     @PostMapping(value = "/{companyEPoleId}/factors/answers/{answerId}/prices",

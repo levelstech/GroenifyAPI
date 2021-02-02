@@ -1,13 +1,13 @@
 package com.groenify.api.rest.company;
 
-import com.groenify.api.database.company.Company;
-import com.groenify.api.database.company.CompanyEPole;
-import com.groenify.api.database.epole.EPole;
+import com.groenify.api.database.model.company.Company;
+import com.groenify.api.database.model.company.CompanyEPole;
+import com.groenify.api.database.model.epole.EPole;
 import com.groenify.api.framework.annotation.CompanyInPath;
 import com.groenify.api.framework.annotation.EPoleInPath;
 import com.groenify.api.rest.company.__model.CompanyEPoleReqMo;
 import com.groenify.api.rest.company.__model.CompanyEPoleResMo;
-import com.groenify.api.service.company.CompanyEPoleService;
+import com.groenify.api.database.service.company.CompanyEPoleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;

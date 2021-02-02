@@ -1,17 +1,17 @@
 package com.groenify.api.rest.price;
 
 import com.groenify.api.JsonTestUtil;
-import com.groenify.api.config.ApplicationLoader;
-import com.groenify.api.database.company.CompanyEPole;
-import com.groenify.api.database.factor.answer.FactorAnswer;
+import com.groenify.api.loader.FactorTypeLoader;
+import com.groenify.api.database.model.company.CompanyEPole;
+import com.groenify.api.database.model.factor.answer.FactorAnswer;
 import com.groenify.api.framework.annotation.resolver.CompanyEPoleInPathResolver;
 import com.groenify.api.framework.annotation.resolver.FactorAnswerInPathResolver;
-import com.groenify.api.repository.company.CompanyEPoleRepository;
-import com.groenify.api.repository.factor.FactorTypeRepository;
-import com.groenify.api.repository.factor.answer.FactorAnswerRepository;
-import com.groenify.api.repository.price.FactorAnswerPriceRepository;
+import com.groenify.api.database.repository.company.CompanyEPoleRepository;
+import com.groenify.api.database.repository.factor.FactorTypeRepository;
+import com.groenify.api.database.repository.factor.answer.FactorAnswerRepository;
+import com.groenify.api.database.repository.price.FactorAnswerPriceRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.service.price.FactorAnswerPriceService;
+import com.groenify.api.database.service.price.FactorAnswerPriceService;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -82,7 +82,7 @@ class PriceEndpointCreateTest extends EndpointTest {
 
     protected void setUpData() {
 
-        ApplicationLoader.loadFactorTypeEnumerators(typeRepository);
+        FactorTypeLoader.loadFactorTypeEnumerators(typeRepository);
         ePole = newCompanyEPole(500d, this);
         factorAnswer = newFactorAnswerBoolean(true, this);
         setCompanyEPoleId(ePole.getId());
@@ -116,7 +116,7 @@ class PriceEndpointCreateTest extends EndpointTest {
                 + "\"name\":\"Brand-17\"},\"type\":\"PoleType-18\","
                 + "\"description\":null}}}");
         Assertions.assertThat(repository.findAllByPoleAndFactorAnswer(
-                ePole, factorAnswer)).hasSize(1);
+                ePole, factorAnswer)).isPresent();
     }
 
     @Test
@@ -133,7 +133,7 @@ class PriceEndpointCreateTest extends EndpointTest {
                 .andExpect(jsonPath("$.price", is(100d)));
 
         Assertions.assertThat(repository.findAllByPoleAndFactorAnswer(
-                ePole, factorAnswer)).hasSize(1);
+                ePole, factorAnswer)).isPresent();
     }
 
     @Test
@@ -144,6 +144,6 @@ class PriceEndpointCreateTest extends EndpointTest {
                         .content("{\"price_\":100}"))
                 .andExpect(status().isBadRequest());
         Assertions.assertThat(repository.findAllByPoleAndFactorAnswer(
-                ePole, factorAnswer)).hasSize(0);
+                ePole, factorAnswer)).isEmpty();
     }
 }

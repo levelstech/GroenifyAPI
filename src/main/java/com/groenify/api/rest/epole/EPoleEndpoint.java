@@ -1,10 +1,10 @@
 package com.groenify.api.rest.epole;
 
-import com.groenify.api.database.epole.EPole;
+import com.groenify.api.database.model.epole.EPole;
 import com.groenify.api.framework.annotation.EPoleInPath;
 import com.groenify.api.rest.epole.__model.EPoleReqMo;
 import com.groenify.api.rest.epole.__model.EPoleResMo;
-import com.groenify.api.service.epole.EPoleService;
+import com.groenify.api.database.service.epole.EPoleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;

@@ -1,13 +1,13 @@
 package com.groenify.api.rest.factor;
 
-import com.groenify.api.config.ApplicationLoader;
-import com.groenify.api.database.factor.Factor;
-import com.groenify.api.database.factor.FactorTypeEnum;
+import com.groenify.api.loader.FactorTypeLoader;
+import com.groenify.api.database.model.factor.Factor;
+import com.groenify.api.database.model.factor.FactorTypeEnum;
 import com.groenify.api.framework.annotation.resolver.FactorInPathResolver;
-import com.groenify.api.repository.factor.FactorRepository;
-import com.groenify.api.repository.factor.FactorTypeRepository;
+import com.groenify.api.database.repository.factor.FactorRepository;
+import com.groenify.api.database.repository.factor.FactorTypeRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.service.factor.FactorService;
+import com.groenify.api.database.service.factor.FactorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -65,7 +65,7 @@ abstract class FactorEndpointById extends EndpointTest {
 
     protected final void setUpData() {
 
-        ApplicationLoader.loadFactorTypeEnumerators(typeRepository);
+        FactorTypeLoader.loadFactorTypeEnumerators(typeRepository);
 
         final Factor factorWahid =
                 newFactor(this, FactorTypeEnum.BOOLEAN_QUESTION);

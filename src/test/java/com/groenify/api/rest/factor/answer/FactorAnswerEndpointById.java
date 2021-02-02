@@ -1,14 +1,14 @@
 package com.groenify.api.rest.factor.answer;
 
 import com.groenify.api.TestModelCreatorUtil;
-import com.groenify.api.config.ApplicationLoader;
-import com.groenify.api.database.factor.answer.FactorAnswer;
-import com.groenify.api.database.factor.answer.FactorAnswerBoolean;
+import com.groenify.api.loader.FactorTypeLoader;
+import com.groenify.api.database.model.factor.answer.FactorAnswer;
+import com.groenify.api.database.model.factor.answer.FactorAnswerBoolean;
 import com.groenify.api.framework.annotation.resolver.FactorAnswerInPathResolver;
-import com.groenify.api.repository.factor.FactorTypeRepository;
-import com.groenify.api.repository.factor.answer.FactorAnswerRepository;
+import com.groenify.api.database.repository.factor.FactorTypeRepository;
+import com.groenify.api.database.repository.factor.answer.FactorAnswerRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.service.factor.answer.FactorAnswerService;
+import com.groenify.api.database.service.factor.answer.FactorAnswerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -64,7 +64,7 @@ class FactorAnswerEndpointById extends EndpointTest {
 
     protected void setUpData() {
 
-        ApplicationLoader.loadFactorTypeEnumerators(typeRepository);
+        FactorTypeLoader.loadFactorTypeEnumerators(typeRepository);
 
         final FactorAnswerBoolean answerBoolean =
                 TestModelCreatorUtil.newFactorAnswerBoolean(true, this);

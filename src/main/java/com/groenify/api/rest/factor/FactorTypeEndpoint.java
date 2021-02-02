@@ -1,10 +1,10 @@
 package com.groenify.api.rest.factor;
 
-import com.groenify.api.database.factor.FactorType;
+import com.groenify.api.database.model.factor.FactorType;
 import com.groenify.api.framework.annotation.FactorTypeInPath;
 import com.groenify.api.rest.factor.__model.FactorTypeReqMo;
 import com.groenify.api.rest.factor.__model.FactorTypeResMo;
-import com.groenify.api.service.factor.FactorTypeService;
+import com.groenify.api.database.service.factor.FactorTypeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;

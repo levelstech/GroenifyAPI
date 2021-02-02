@@ -1,11 +1,13 @@
 package com.groenify.api.rest.factor.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.groenify.api.database.model.factor.Factor;
+import com.groenify.api.database.methods.factor.FactorMethods;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public final class FactorReqMo {
+public final class FactorReqMo implements FactorMethods {
 
     @JsonProperty("name")
     @NotNull(message = "'name' is a required field")
@@ -20,7 +22,17 @@ public final class FactorReqMo {
     @JsonProperty("description")
     private String description;
 
-    public String getName() {
+    public FactorReqMo() {
+    }
+
+    protected FactorReqMo(final Factor factor) {
+        this.name = factor.getName();
+        this.question = factor.getQuestion();
+        this.description = factor.getDescription();
+    }
+
+    @Override
+    public String getFactorName() {
         return name;
     }
 
@@ -28,7 +40,8 @@ public final class FactorReqMo {
         this.name = var;
     }
 
-    public String getQuestion() {
+    @Override
+    public String getFactorQuestion() {
         return question;
     }
 
@@ -36,7 +49,8 @@ public final class FactorReqMo {
         this.question = var;
     }
 
-    public String getDescription() {
+    @Override
+    public String getFactorDescription() {
         return description;
     }
 

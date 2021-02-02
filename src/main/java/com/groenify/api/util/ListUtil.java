@@ -2,6 +2,7 @@ package com.groenify.api.util;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 public final class ListUtil {
@@ -39,5 +40,14 @@ public final class ListUtil {
         if (list.size() > index) return list.get(index);
 
         else return returnIfListHasNoIndex;
+    }
+
+    public static List<?> parseFromString(final String string) {
+        final String regex = string.contains("[") ? "(?<=]),(?=\\[)" : ",";
+        final String[] items = string.split(regex);
+
+        return Stream.of(items)
+                .map(MapperUtil::mapToBasicObject)
+                .collect(Collectors.toList());
     }
 }

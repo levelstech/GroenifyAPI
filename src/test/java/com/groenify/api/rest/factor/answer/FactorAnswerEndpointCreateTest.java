@@ -1,15 +1,15 @@
 package com.groenify.api.rest.factor.answer;
 
 import com.groenify.api.JsonTestUtil;
-import com.groenify.api.config.ApplicationLoader;
-import com.groenify.api.database.factor.Factor;
-import com.groenify.api.database.factor.FactorTypeEnum;
+import com.groenify.api.loader.FactorTypeLoader;
+import com.groenify.api.database.model.factor.Factor;
+import com.groenify.api.database.model.factor.FactorTypeEnum;
 import com.groenify.api.framework.annotation.resolver.FactorInPathResolver;
-import com.groenify.api.repository.factor.FactorRepository;
-import com.groenify.api.repository.factor.FactorTypeRepository;
-import com.groenify.api.repository.factor.answer.FactorAnswerRepository;
+import com.groenify.api.database.repository.factor.FactorRepository;
+import com.groenify.api.database.repository.factor.FactorTypeRepository;
+import com.groenify.api.database.repository.factor.answer.FactorAnswerRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.service.factor.answer.FactorAnswerService;
+import com.groenify.api.database.service.factor.answer.FactorAnswerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +73,7 @@ class FactorAnswerEndpointCreateTest extends EndpointTest {
 
     protected void setUpData() {
 
-        ApplicationLoader.loadFactorTypeEnumerators(typeRepository);
+        FactorTypeLoader.loadFactorTypeEnumerators(typeRepository);
         final Factor factorWahid =
                 newFactor(this, FactorTypeEnum.BOOLEAN_QUESTION);
         setFactorId(factorWahid.getId());
