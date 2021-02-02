@@ -84,7 +84,9 @@ public final class MapperUtil {
     }
 
     public static Object mapToBasicObject(final String value) {
-        if (value.startsWith("[") && value.endsWith("]"))
+        if (value.equalsIgnoreCase("true")) return true;
+        else if (value.equalsIgnoreCase("false")) return false;
+        else if (value.startsWith("[") && value.endsWith("]"))
             return ListUtil.parseFromString(
                     value.substring(1, value.length() - 1));
         return value;
