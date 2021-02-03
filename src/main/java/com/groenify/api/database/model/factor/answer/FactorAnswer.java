@@ -6,6 +6,7 @@ import com.groenify.api.database.model.factor.FactorType;
 import com.groenify.api.database.model.factor.FactorTypeEnum;
 import com.groenify.api.rest.factor.answer.__model.FactorAnswerReqMo;
 import com.groenify.api.rest.factor.answer.__model.FactorAnswerResMo;
+import com.groenify.api.util.MapperUtil;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +18,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.util.Objects;
 
 @Entity
 @Table(name = "factor_answer")
@@ -79,11 +79,11 @@ public abstract class FactorAnswer implements IdModel {
     public abstract Object getAnswer();
 
     public final Boolean hasStringedAnswer(final String answer) {
-        return Objects.equals(getStringedAnswer(), answer);
+        return getStringedAnswer().equalsIgnoreCase(answer);
     }
 
     public final String getStringedAnswer() {
-        return String.valueOf(getAnswer());
+        return MapperUtil.mapBasicObjectToString(getAnswer());
     }
 
     public abstract FactorAnswer update(FactorAnswerReqMo reqMo);

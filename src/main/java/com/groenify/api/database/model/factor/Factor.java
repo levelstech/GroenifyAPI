@@ -27,7 +27,8 @@ public class Factor implements IdModel {
     @JoinColumn(name = "factor_type", nullable = false)
     private FactorType type;
 
-    @Column(name = "name", nullable = false, columnDefinition = "mediumtext")
+    @Column(name = "name", nullable = false, columnDefinition = "mediumtext",
+            unique = true)
     private String name;
 
     @Column(name = "question",

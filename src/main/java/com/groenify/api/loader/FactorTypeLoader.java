@@ -6,6 +6,7 @@ import com.groenify.api.framework.config.LoadOrder;
 import com.groenify.api.framework.config.ReadyEventLoader;
 import com.groenify.api.database.repository.factor.FactorTypeRepository;
 import com.groenify.api.database.service.factor.FactorTypeService;
+import com.groenify.api.framework.config.RequiredLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,7 @@ public class FactorTypeLoader implements ReadyEventLoader {
         }
     }
 
+    @RequiredLoader
     @LoadOrder(1)
     @Override
     public final void loadOnReady() {

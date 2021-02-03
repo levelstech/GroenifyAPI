@@ -16,10 +16,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 
 @Entity
-@Table(name = "factor_answer_boolean")
+@Table(name = "factor_answer_boolean",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"factor_answer_factor_id", "answer_boolean"}))
 @PrimaryKeyJoinColumn(name = "factor_answer_id")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class FactorAnswerBoolean extends FactorAnswer {

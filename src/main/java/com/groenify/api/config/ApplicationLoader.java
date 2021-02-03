@@ -1,13 +1,15 @@
 package com.groenify.api.config;
 
+import com.groenify.api.framework.config.RequiredLoaderResolver;
 import com.groenify.api.loader.FactorLoader;
 import com.groenify.api.loader.FactorPriceAnswerLoader;
 import com.groenify.api.loader.FactorTypeLoader;
-import com.groenify.api.framework.config.LoadOrderFetcher;
+import com.groenify.api.framework.config.LoadOrderResolver;
 import com.groenify.api.framework.config.ReadyEventLoader;
 import com.sun.istack.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -24,6 +26,9 @@ public class ApplicationLoader
 
     private final List<ReadyEventLoader> loaderList;
 
+    @Value("${groenify.enabled_application_loader}")
+    private Boolean enabledApplicationLoader;
+
     public ApplicationLoader(
             final FactorTypeLoader var1,
             final FactorLoader var2,
@@ -34,15 +39,21 @@ public class ApplicationLoader
     private static void runLoader(final ReadyEventLoader loader) {
 
         L.trace("Running loader ({}) with order '{}'",
-                loader.getClass(), LoadOrderFetcher.getOrder(loader));
+                loader.getClass(), LoadOrderResolver.getOrder(loader));
         loader.loadOnReady();
+    }
+
+    private boolean isLoaderEnabled(final ReadyEventLoader x) {
+        return enabledApplicationLoader
+                || RequiredLoaderResolver.isRequiredLoader(x);
     }
 
     @Override
     public final void onApplicationEvent(
             final @NotNull ApplicationReadyEvent event) {
         loaderList.stream()
-                .sorted(Comparator.comparing(LoadOrderFetcher::getOrder))
+                .filter(this::isLoaderEnabled)
+                .sorted(Comparator.comparing(LoadOrderResolver::getOrder))
                 .forEach(ApplicationLoader::runLoader);
     }
 }

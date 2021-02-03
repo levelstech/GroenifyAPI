@@ -83,12 +83,16 @@ public final class MapperUtil {
         return parsedObjects;
     }
 
-    public static Object mapToBasicObject(final String value) {
+    public static Object mapStringToBasicObject(final String value) {
         if (value.equalsIgnoreCase("true")) return true;
         else if (value.equalsIgnoreCase("false")) return false;
         else if (value.startsWith("[") && value.endsWith("]"))
             return ListUtil.parseFromString(
                     value.substring(1, value.length() - 1));
         return value;
+    }
+
+    public static String mapBasicObjectToString(final Object answer) {
+        return answer.toString();
     }
 }

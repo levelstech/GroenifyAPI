@@ -15,6 +15,6 @@ public interface FactorAnswerMethods {
 
     @JsonProperty("answer")
     default Object getAnswer() {
-        return MapperUtil.mapToBasicObject(getFactorAnswer());
+        return MapperUtil.mapStringToBasicObject(getFactorAnswer());
     }
 }

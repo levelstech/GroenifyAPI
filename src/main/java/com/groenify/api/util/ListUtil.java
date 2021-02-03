@@ -47,7 +47,7 @@ public final class ListUtil {
         final String[] items = string.split(regex);
 
         return Stream.of(items)
-                .map(MapperUtil::mapToBasicObject)
+                .map(MapperUtil::mapStringToBasicObject)
                 .collect(Collectors.toList());
     }
 }

@@ -5,42 +5,42 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 
-public final class LoadOrderFetcher {
+public final class RequiredLoaderResolver {
 
-    private LoadOrderFetcher() {
+    private RequiredLoaderResolver() {
     }
 
     private static final Logger L =
-            LoggerFactory.getLogger(LoadOrderFetcher.class);
+            LoggerFactory.getLogger(RequiredLoaderResolver.class);
 
-    private static Integer getOrderFromMethod(final Method method) {
-        final LoadOrder loadOrderAnnotation =
-                method.getAnnotation(LoadOrder.class);
+    private static Boolean getRequiredFromMethod(final Method method) {
+        final RequiredLoader loadOrderAnnotation =
+                method.getAnnotation(RequiredLoader.class);
         if (loadOrderAnnotation == null) {
             L.warn("Annotation 'LoadOrder' was not found for method '{}'",
                     method);
             L.warn("please check the implementation of '{}'",
                     method.getDeclaringClass());
-            return LoadOrder.DEFAULT_VALUE;
+            return RequiredLoader.DEFAULT_VALUE;
         }
 
-        return loadOrderAnnotation.value();
+        return RequiredLoader.ACTIVE;
     }
 
-    private static Integer getOrderFromClass(final Class<?> clazz) {
+    private static Boolean getRequiredFromClass(final Class<?> clazz) {
         try {
             final Method method = clazz.getMethod("loadOnReady");
-            return getOrderFromMethod(method);
+            return getRequiredFromMethod(method);
         } catch (NoSuchMethodException exc) {
             L.error("Method 'loadOnReady()' was not found for on a '{}' class",
                     ReadyEventLoader.class);
             L.error("please check the implementation of '{}'", clazz);
-            return LoadOrder.DEFAULT_VALUE;
+            return RequiredLoader.DEFAULT_VALUE;
         }
     }
 
-    public static Integer getOrder(final ReadyEventLoader loader) {
+    public static Boolean isRequiredLoader(final ReadyEventLoader loader) {
         final Class<?> c = loader.getClass();
-        return getOrderFromClass(c);
+        return getRequiredFromClass(c);
     }
 }

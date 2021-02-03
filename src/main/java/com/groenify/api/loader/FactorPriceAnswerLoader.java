@@ -15,7 +15,8 @@ import java.util.List;
 @Service
 public class FactorPriceAnswerLoader implements ReadyEventLoader {
 
-    private static final String RESOURCE = "data/prices.csv";
+    private static final String DEFAULT_RESOURCE = "data/prices.csv";
+    private static String resource = DEFAULT_RESOURCE;
     private static final Logger L =
             LoggerFactory.getLogger(FactorPriceAnswerLoader.class);
 
@@ -25,11 +26,15 @@ public class FactorPriceAnswerLoader implements ReadyEventLoader {
         this.portable = var;
     }
 
+    static void setResource(final String fileName) {
+        resource = fileName;
+    }
+
     @LoadOrder(3)
     @Override
     public final void loadOnReady() {
         final List<FactorAnswerPriceCSV> priceCSVS = MapperUtil.
-                readObjectFromCSVFile(RESOURCE, FactorAnswerPriceCSV.class);
+                readObjectFromCSVFile(resource, FactorAnswerPriceCSV.class);
         for (final FactorAnswerPriceCSV priceCSV : priceCSVS) {
             final FactorAnswerPrice price = portable.
                     getOrCreateFactorAnswerPriceFromCSV(priceCSV);
