@@ -1,7 +1,7 @@
 package com.groenify.api.rest.epole.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.groenify.api.database.epole.EPoleBrand;
+import com.groenify.api.database.model.epole.EPoleBrand;
 
 import java.util.List;
 import java.util.stream.Collectors;

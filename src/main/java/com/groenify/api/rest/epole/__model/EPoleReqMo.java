@@ -1,11 +1,12 @@
 package com.groenify.api.rest.epole.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.groenify.api.database.methods.epole.EPoleMethods;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public final class EPoleReqMo {
+public final class EPoleReqMo implements EPoleMethods {
 
     @JsonProperty("type")
     @NotNull(message = "'type' is a required field")
@@ -16,7 +17,7 @@ public final class EPoleReqMo {
     private String description;
 
 
-    public String getType() {
+    public String getEPoleType() {
         return type;
     }
 
@@ -24,7 +25,7 @@ public final class EPoleReqMo {
         this.type = var;
     }
 
-    public String getDescription() {
+    public String getEPoleDescription() {
         return description;
     }
 

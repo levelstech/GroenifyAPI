@@ -1,11 +1,12 @@
 package com.groenify.api.rest.company.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.groenify.api.database.methods.company.CompanyMethods;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public final class CompanyReqMo {
+public final class CompanyReqMo implements CompanyMethods {
 
     @JsonProperty("name")
     @NotNull(message = "'name' is a required field")
@@ -18,7 +19,8 @@ public final class CompanyReqMo {
     @JsonProperty("url")
     private String url;
 
-    public String getName() {
+    @Override
+    public String getCompanyName() {
         return name;
     }
 
@@ -26,7 +28,8 @@ public final class CompanyReqMo {
         this.name = var;
     }
 
-    public String getDate() {
+    @Override
+    public String getCompanyDateString() {
         return date;
     }
 
@@ -34,7 +37,8 @@ public final class CompanyReqMo {
         this.date = var;
     }
 
-    public String getUrl() {
+    @Override
+    public String getCompanyUrl() {
         return url;
     }
 

@@ -1,7 +1,7 @@
 package com.groenify.api.rest.company.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.groenify.api.database.company.CompanyEPole;
+import com.groenify.api.database.model.company.CompanyEPole;
 import com.groenify.api.rest.epole.__model.EPoleResMo;
 
 import java.util.List;

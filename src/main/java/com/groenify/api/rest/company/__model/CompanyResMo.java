@@ -1,7 +1,7 @@
 package com.groenify.api.rest.company.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.groenify.api.database.company.Company;
+import com.groenify.api.database.model.company.Company;
 import com.groenify.api.util.DateUtil;
 
 import java.util.List;

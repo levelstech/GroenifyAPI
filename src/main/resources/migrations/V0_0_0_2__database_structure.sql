@@ -213,15 +213,20 @@ DROP TABLE IF EXISTS `factor`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `factor`
 (
-    `id`          bigint(20)                  NOT NULL AUTO_INCREMENT,
-    `name`        mediumtext COLLATE utf8_bin NOT NULL,
-    `question`    mediumtext COLLATE utf8_bin NOT NULL,
-    `factor_type` bigint(20)                  NOT NULL,
-    `description` longtext COLLATE utf8_bin DEFAULT NULL,
+    `id`               bigint(20)                  NOT NULL AUTO_INCREMENT,
+    `name`             mediumtext COLLATE utf8_bin NOT NULL,
+    `question`         mediumtext COLLATE utf8_bin NOT NULL,
+    `factor_type`      bigint(20)                  NOT NULL,
+    `description`      longtext COLLATE utf8_bin DEFAULT NULL,
+    `factor_answer_id` bigint(20)                DEFAULT NULL,
+
     PRIMARY KEY (`id`),
     UNIQUE KEY `factor_UN` (`name`) USING HASH,
     KEY `factor_FK` (`factor_type`),
-    CONSTRAINT `factor_FK` FOREIGN KEY (`factor_type`) REFERENCES `factor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT `factor_FK` FOREIGN KEY (`factor_type`) REFERENCES `factor_type`
+        (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `factor_FK_1` FOREIGN KEY (`factor_answer_id`) REFERENCES
+        `factor_answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 7
   DEFAULT CHARSET = utf8
@@ -236,15 +241,17 @@ LOCK TABLES `factor` WRITE;
 /*!40000 ALTER TABLE `factor`
     DISABLE KEYS */;
 INSERT INTO `factor`
-VALUES (1, 'soort_laadpunt', 'Welk soort laadpunt wilt u hebben?', 2, NULL),
-       (2, 'vaste_laadkabel', 'Wilt u een vaste laadkabel?', 1, NULL),
-       (3, 'lengte_laadkabel', 'Welke lengte zou u de laadkabel willen?', 3,
+VALUES (1, 'soort_laadpunt', 'Welk soort laadpunt wilt u hebben?', 2, NULL,
         NULL),
+       (2, 'vaste_laadkabel', 'Wilt u een vaste laadkabel?', 1, NULL, NULL),
+       (3, 'lengte_laadkabel', 'Welke lengte zou u de laadkabel willen?', 3,
+        NULL, NULL),
        (4, 'installatie_pakket',
         'Wat is de lengte van uw meterkast tot aan de laadpaal? En hoeveel meter is ondergronds?',
-        4, NULL),
-       (5, 'dynamic_load_balancing', 'Wilt u Dynamic Load Balancing?', 1, NULL),
-       (6, 'verzwaren', 'Wilt u de meterkast verzwaren?', 1, NULL);
+        4, NULL, NULL),
+       (5, 'dynamic_load_balancing', 'Wilt u Dynamic Load Balancing?', 1,
+        NULL, NULL),
+       (6, 'verzwaren', 'Wilt u de meterkast verzwaren?', 1, NULL, NULL);
 /*!40000 ALTER TABLE `factor`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -300,8 +307,7 @@ CREATE TABLE `factor_answer_boolean`
     `factor_answer_factor_id` bigint(20) NOT NULL,
     `answer_boolean`          tinyint(1) NOT NULL,
     PRIMARY KEY (`factor_answer_id`),
-    UNIQUE KEY `factor_answer_boolean_UN` (`factor_answer_id`,
-                                           `factor_answer_factor_id`,
+    UNIQUE KEY `factor_answer_boolean_UN` (`factor_answer_factor_id`,
                                            `answer_boolean`),
     CONSTRAINT `factor_answer_boolean_FK` FOREIGN KEY (`factor_answer_id`) REFERENCES `factor_answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `factor_answer_boolean_FK_1` FOREIGN KEY (`factor_answer_id`, `factor_answer_factor_id`) REFERENCES `factor_answer` (`id`, `factor_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -339,7 +345,6 @@ CREATE TABLE `factor_answer_multiple_choice`
     `lower_answer_hash`       varchar(512) COLLATE utf8_bin NOT NULL,
     PRIMARY KEY (`factor_answer_id`),
     UNIQUE KEY `factor_answer_multiple_choice_UN` (`factor_answer_factor_id`,
-                                                   `factor_answer_id`,
                                                    `lower_answer_hash`),
     KEY `factor_answer_multiple_choice_FK_1` (`factor_answer_id`, `factor_answer_factor_id`),
     CONSTRAINT `factor_answer_multiple_choice_FK` FOREIGN KEY (`factor_answer_id`) REFERENCES `factor_answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -375,8 +380,7 @@ CREATE TABLE `factor_answer_number`
     `max_number`              double DEFAULT NULL,
     PRIMARY KEY (`factor_answer_id`),
     UNIQUE KEY `factor_answer_number_UN` (`max_number`, `min_number`,
-                                          `factor_answer_factor_id`,
-                                          `factor_answer_id`),
+                                          `factor_answer_factor_id`),
     KEY `factor_answer_number_FK_1` (`factor_answer_id`, `factor_answer_factor_id`),
     CONSTRAINT `factor_answer_number_FK` FOREIGN KEY (`factor_answer_id`) REFERENCES `factor_answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `factor_answer_number_FK_1` FOREIGN KEY (`factor_answer_id`, `factor_answer_factor_id`) REFERENCES `factor_answer` (`id`, `factor_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -393,6 +397,44 @@ LOCK TABLES `factor_answer_number` WRITE;
 /*!40000 ALTER TABLE `factor_answer_number`
     DISABLE KEYS */;
 /*!40000 ALTER TABLE `factor_answer_number`
+    ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `factor_answer_double_number`
+--
+
+DROP TABLE IF EXISTS `factor_answer_double_number`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `factor_answer_double_number`
+(
+    `factor_answer_id`        bigint(20) NOT NULL,
+    `factor_answer_factor_id` bigint(20) NOT NULL,
+    `min_number_a`            double DEFAULT NULL,
+    `max_number_a`            double DEFAULT NULL,
+    `min_number_b`            double DEFAULT NULL,
+    `max_number_b`            double DEFAULT NULL,
+    PRIMARY KEY (`factor_answer_id`),
+    UNIQUE KEY `factor_answer_double_number_UN` (`max_number_a`, `min_number_a`,
+                                                 `max_number_b`, min_number_b,
+                                                 `factor_answer_factor_id`),
+    KEY `factor_answer_double_number_FK_1` (`factor_answer_id`, `factor_answer_factor_id`),
+    CONSTRAINT `factor_answer_double_number_FK` FOREIGN KEY (`factor_answer_id`) REFERENCES `factor_answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `factor_answer_double_number_FK_1` FOREIGN KEY (`factor_answer_id`, `factor_answer_factor_id`) REFERENCES `factor_answer` (`id`, `factor_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `factor_answer_double_number`
+--
+
+LOCK TABLES `factor_answer_double_number` WRITE;
+/*!40000 ALTER TABLE `factor_answer_double_number`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `factor_answer_double_number`
     ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,45 +457,6 @@ CREATE TABLE `factor_type`
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `factor_answer_double_number`
---
-
-DROP TABLE IF EXISTS `factor_answer_double_number`;
-/*!40101 SET @saved_cs_client = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `factor_answer_double_number`
-(
-    `factor_answer_id`        bigint(20) NOT NULL,
-    `factor_answer_factor_id` bigint(20) NOT NULL,
-    `min_number_a`            double DEFAULT NULL,
-    `max_number_a`            double DEFAULT NULL,
-    `min_number_b`            double DEFAULT NULL,
-    `max_number_b`            double DEFAULT NULL,
-    PRIMARY KEY (`factor_answer_id`),
-    UNIQUE KEY `factor_answer_double_number_UN` (`max_number_a`, `min_number_a`,
-                                                 `max_number_b`, min_number_b,
-                                                 `factor_answer_factor_id`,
-                                                 `factor_answer_id`),
-    KEY `factor_answer_double_number_FK_1` (`factor_answer_id`, `factor_answer_factor_id`),
-    CONSTRAINT `factor_answer_double_number_FK` FOREIGN KEY (`factor_answer_id`) REFERENCES `factor_answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `factor_answer_double_number_FK_1` FOREIGN KEY (`factor_answer_id`, `factor_answer_factor_id`) REFERENCES `factor_answer` (`id`, `factor_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8
-  COLLATE = utf8_bin;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `factor_answer_double_number`
---
-
-LOCK TABLES `factor_answer_double_number` WRITE;
-/*!40000 ALTER TABLE `factor_answer_double_number`
-    DISABLE KEYS */;
-/*!40000 ALTER TABLE `factor_answer_double_number`
-    ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Dumping data for table `factor_type`

@@ -1,7 +1,7 @@
 package com.groenify.api.rest.factor.answer.__model;
 
-import com.groenify.api.database.factor.answer.FactorAnswerDoubleNumber;
-import com.groenify.api.framework.annotation.classes.Pair;
+import com.groenify.api.database.model.factor.answer.FactorAnswerDoubleNumber;
+import com.groenify.api.framework.classes.Pair;
 
 import java.util.List;
 import java.util.stream.Collectors;

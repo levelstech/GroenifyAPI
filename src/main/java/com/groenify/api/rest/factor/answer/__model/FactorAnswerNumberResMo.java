@@ -1,6 +1,6 @@
 package com.groenify.api.rest.factor.answer.__model;
 
-import com.groenify.api.database.factor.answer.FactorAnswerNumber;
+import com.groenify.api.database.model.factor.answer.FactorAnswerNumber;
 
 import java.util.List;
 

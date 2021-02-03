@@ -1,6 +1,6 @@
 package com.groenify.api;
 
-import com.groenify.api.database.IdModel;
+import com.groenify.api.database.model.IdModel;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.util.List;

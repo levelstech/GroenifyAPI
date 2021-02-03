@@ -1,13 +1,13 @@
 package com.groenify.api.rest.factor;
 
 import com.groenify.api.JsonTestUtil;
-import com.groenify.api.database.factor.Factor;
-import com.groenify.api.database.factor.FactorType;
+import com.groenify.api.database.model.factor.Factor;
+import com.groenify.api.database.model.factor.FactorType;
 import com.groenify.api.framework.annotation.resolver.FactorTypeInPathResolver;
-import com.groenify.api.repository.factor.FactorRepository;
-import com.groenify.api.repository.factor.FactorTypeRepository;
+import com.groenify.api.database.repository.factor.FactorRepository;
+import com.groenify.api.database.repository.factor.FactorTypeRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.service.factor.FactorService;
+import com.groenify.api.database.service.factor.FactorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

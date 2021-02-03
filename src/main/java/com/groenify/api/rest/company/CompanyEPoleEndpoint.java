@@ -1,10 +1,10 @@
 package com.groenify.api.rest.company;
 
-import com.groenify.api.database.company.CompanyEPole;
+import com.groenify.api.database.model.company.CompanyEPole;
 import com.groenify.api.framework.annotation.CompanyEPoleInPath;
 import com.groenify.api.rest.company.__model.CompanyEPoleReqMo;
 import com.groenify.api.rest.company.__model.CompanyEPoleResMo;
-import com.groenify.api.service.company.CompanyEPoleService;
+import com.groenify.api.database.service.company.CompanyEPoleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;

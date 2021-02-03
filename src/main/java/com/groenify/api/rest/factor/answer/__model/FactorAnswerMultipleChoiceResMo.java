@@ -1,7 +1,7 @@
 package com.groenify.api.rest.factor.answer.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.groenify.api.database.factor.answer.FactorAnswerMultipleChoice;
+import com.groenify.api.database.model.factor.answer.FactorAnswerMultipleChoice;
 
 public final class FactorAnswerMultipleChoiceResMo extends FactorAnswerResMo {
 

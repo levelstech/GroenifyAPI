@@ -1,10 +1,10 @@
 package com.groenify.api.rest.epole;
 
-import com.groenify.api.database.epole.EPoleBrand;
+import com.groenify.api.database.model.epole.EPoleBrand;
 import com.groenify.api.framework.annotation.resolver.EPoleBrandInPathResolver;
-import com.groenify.api.repository.epole.EPoleBrandRepository;
+import com.groenify.api.database.repository.epole.EPoleBrandRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.service.epole.EPoleBrandService;
+import com.groenify.api.database.service.epole.EPoleBrandService;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

@@ -1,9 +1,9 @@
 package com.groenify.api.framework.annotation.resolver;
 
-import com.groenify.api.database.factor.answer.FactorAnswer;
+import com.groenify.api.database.model.factor.answer.FactorAnswer;
 import com.groenify.api.exceptions.PathException;
 import com.groenify.api.framework.annotation.FactorAnswerInPath;
-import com.groenify.api.repository.factor.answer.FactorAnswerRepository;
+import com.groenify.api.database.repository.factor.answer.FactorAnswerRepository;
 import com.groenify.api.util.ResolverUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.NativeWebRequest;

@@ -1,16 +1,16 @@
 package com.groenify.api;
 
-import com.groenify.api.database.company.Company;
-import com.groenify.api.database.company.CompanyEPole;
-import com.groenify.api.database.epole.EPole;
-import com.groenify.api.database.epole.EPoleBrand;
-import com.groenify.api.database.factor.Factor;
-import com.groenify.api.database.factor.FactorType;
-import com.groenify.api.database.factor.FactorTypeEnum;
-import com.groenify.api.database.factor.answer.FactorAnswer;
-import com.groenify.api.database.factor.answer.FactorAnswerBoolean;
-import com.groenify.api.database.factor.answer.FactorAnswerMultipleChoice;
-import com.groenify.api.database.price.FactorAnswerPrice;
+import com.groenify.api.database.model.company.Company;
+import com.groenify.api.database.model.company.CompanyEPole;
+import com.groenify.api.database.model.epole.EPole;
+import com.groenify.api.database.model.epole.EPoleBrand;
+import com.groenify.api.database.model.factor.Factor;
+import com.groenify.api.database.model.factor.FactorType;
+import com.groenify.api.database.model.factor.FactorTypeEnum;
+import com.groenify.api.database.model.factor.answer.FactorAnswer;
+import com.groenify.api.database.model.factor.answer.FactorAnswerBoolean;
+import com.groenify.api.database.model.factor.answer.FactorAnswerMultipleChoice;
+import com.groenify.api.database.model.price.FactorAnswerPrice;
 
 public final class TestModelCreatorUtil {
     private static int counter = 0;
@@ -70,7 +70,7 @@ public final class TestModelCreatorUtil {
 
         final CompanyEPole companyEPole = newCompanyEPole(price);
         companyEPole.setCompany(company);
-        companyEPole.setePole(ePole);
+        companyEPole.setEPole(ePole);
         return companyEPole;
     }
 

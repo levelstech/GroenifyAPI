@@ -1,11 +1,11 @@
 package com.groenify.api.rest.company;
 
 import com.groenify.api.JsonTestUtil;
-import com.groenify.api.database.company.Company;
+import com.groenify.api.database.model.company.Company;
 import com.groenify.api.framework.annotation.resolver.CompanyInPathResolver;
-import com.groenify.api.repository.company.CompanyRepository;
+import com.groenify.api.database.repository.company.CompanyRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.service.company.CompanyService;
+import com.groenify.api.database.service.company.CompanyService;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;

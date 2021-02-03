@@ -2,9 +2,9 @@ package com.groenify.api.rest.epole;
 
 import com.groenify.api.JsonTestUtil;
 import com.groenify.api.framework.annotation.resolver.EPoleBrandInPathResolver;
-import com.groenify.api.repository.epole.EPoleBrandRepository;
+import com.groenify.api.database.repository.epole.EPoleBrandRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.service.epole.EPoleBrandService;
+import com.groenify.api.database.service.epole.EPoleBrandService;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;

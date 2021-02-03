@@ -1,17 +1,17 @@
 package com.groenify.api.rest.company;
 
 import com.groenify.api.JsonTestUtil;
-import com.groenify.api.database.company.Company;
-import com.groenify.api.database.company.CompanyEPole;
-import com.groenify.api.database.epole.EPole;
-import com.groenify.api.database.epole.EPoleBrand;
+import com.groenify.api.database.model.company.Company;
+import com.groenify.api.database.model.company.CompanyEPole;
+import com.groenify.api.database.model.epole.EPole;
+import com.groenify.api.database.model.epole.EPoleBrand;
 import com.groenify.api.framework.annotation.resolver.CompanyInPathResolver;
 import com.groenify.api.framework.annotation.resolver.EPoleInPathResolver;
-import com.groenify.api.repository.company.CompanyEPoleRepository;
-import com.groenify.api.repository.company.CompanyRepository;
-import com.groenify.api.repository.epole.EPoleRepository;
+import com.groenify.api.database.repository.company.CompanyEPoleRepository;
+import com.groenify.api.database.repository.company.CompanyRepository;
+import com.groenify.api.database.repository.epole.EPoleRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.service.company.CompanyEPoleService;
+import com.groenify.api.database.service.company.CompanyEPoleService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

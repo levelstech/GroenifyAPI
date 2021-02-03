@@ -1,13 +1,13 @@
 package com.groenify.api.rest.price;
 
-import com.groenify.api.config.ApplicationLoader;
-import com.groenify.api.database.factor.answer.FactorAnswerBoolean;
-import com.groenify.api.database.price.FactorAnswerPrice;
+import com.groenify.api.loader.FactorTypeLoader;
+import com.groenify.api.database.model.factor.answer.FactorAnswerBoolean;
+import com.groenify.api.database.model.price.FactorAnswerPrice;
 import com.groenify.api.framework.annotation.resolver.FactorAnswerPriceInPathResolver;
-import com.groenify.api.repository.factor.FactorTypeRepository;
-import com.groenify.api.repository.price.FactorAnswerPriceRepository;
+import com.groenify.api.database.repository.factor.FactorTypeRepository;
+import com.groenify.api.database.repository.price.FactorAnswerPriceRepository;
 import com.groenify.api.rest.EndpointTest;
-import com.groenify.api.service.price.FactorAnswerPriceService;
+import com.groenify.api.database.service.price.FactorAnswerPriceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -73,7 +73,7 @@ abstract class PriceEndpointById extends EndpointTest {
 
     protected final void setUpData() {
 
-        ApplicationLoader.loadFactorTypeEnumerators(typeRepository);
+        FactorTypeLoader.loadFactorTypeEnumerators(typeRepository);
 
         final FactorAnswerBoolean answerBoolean =
                 newFactorAnswerBoolean(true, this);

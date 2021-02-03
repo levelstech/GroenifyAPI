@@ -1,11 +1,11 @@
 package com.groenify.api.rest.factor;
 
-import com.groenify.api.database.factor.Factor;
-import com.groenify.api.database.factor.FactorType;
+import com.groenify.api.database.model.factor.Factor;
+import com.groenify.api.database.model.factor.FactorType;
 import com.groenify.api.framework.annotation.FactorTypeInPath;
 import com.groenify.api.rest.factor.__model.FactorReqMo;
 import com.groenify.api.rest.factor.__model.FactorResMo;
-import com.groenify.api.service.factor.FactorService;
+import com.groenify.api.database.service.factor.FactorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

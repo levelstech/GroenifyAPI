@@ -1,10 +1,10 @@
 package com.groenify.api.rest.company;
 
-import com.groenify.api.database.company.Company;
+import com.groenify.api.database.model.company.Company;
 import com.groenify.api.framework.annotation.CompanyInPath;
 import com.groenify.api.rest.company.__model.CompanyReqMo;
 import com.groenify.api.rest.company.__model.CompanyResMo;
-import com.groenify.api.service.company.CompanyService;
+import com.groenify.api.database.service.company.CompanyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;

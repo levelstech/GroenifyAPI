@@ -1,9 +1,9 @@
 package com.groenify.api.rest.factor.answer.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.groenify.api.database.factor.Factor;
-import com.groenify.api.database.factor.FactorTypeEnum;
-import com.groenify.api.database.factor.answer.FactorAnswer;
+import com.groenify.api.database.model.factor.Factor;
+import com.groenify.api.database.model.factor.FactorTypeEnum;
+import com.groenify.api.database.model.factor.answer.FactorAnswer;
 
 import javax.validation.constraints.NotNull;
 
