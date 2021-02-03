@@ -19,7 +19,8 @@ class FactorAnswerPriceLoadedTest extends FactorPriceAnswerLoaderSuccessTest {
     public void testAll() {
 
         Assertions.assertThat(repository.findAll()).hasSize(9);
-        final List<FactorAnswerPrice> prices = Lists.newArrayList(repository.findAll());
+        final List<FactorAnswerPrice> prices =
+                Lists.newArrayList(repository.findAll());
         assertionsFactorAnswerPriceOne(prices.get(0));
         assertionsFactorAnswerPriceTwo(prices.get(1));
         assertionsFactorAnswerPriceThree(prices.get(2));
@@ -33,56 +34,68 @@ class FactorAnswerPriceLoadedTest extends FactorPriceAnswerLoaderSuccessTest {
 
     static void assertionsFactorAnswerPriceOne(final FactorAnswerPrice price) {
         Assertions.assertThat(price.getPrice()).isEqualTo(172d);
-        FactorAnswerLoadedTest.assertionsFactorAnswerOne(price.getFactorAnswer());
+        FactorAnswerLoadedTest.assertionsFactorAnswerOne(
+                price.getFactorAnswer());
         CompanyEPoleLoadedTest.companyEPoleAssertions(price.getPole());
     }
 
     static void assertionsFactorAnswerPriceTwo(final FactorAnswerPrice price) {
         Assertions.assertThat(price.getPrice()).isEqualTo(0);
-        FactorAnswerLoadedTest.assertionsFactorAnswerTwo(price.getFactorAnswer());
+        FactorAnswerLoadedTest.assertionsFactorAnswerTwo(
+                price.getFactorAnswer());
         CompanyEPoleLoadedTest.companyEPoleAssertions(price.getPole());
     }
 
 
-    static void assertionsFactorAnswerPriceThree(final FactorAnswerPrice price) {
+    static void assertionsFactorAnswerPriceThree(
+            final FactorAnswerPrice price) {
         Assertions.assertThat(price.getPrice()).isEqualTo(10);
-        FactorAnswerLoadedTest.assertionsFactorAnswerThree(price.getFactorAnswer());
+        FactorAnswerLoadedTest.assertionsFactorAnswerThree(
+                price.getFactorAnswer());
         CompanyEPoleLoadedTest.companyEPoleAssertions(price.getPole());
     }
 
     static void assertionsFactorAnswerPriceFour(final FactorAnswerPrice price) {
         Assertions.assertThat(price.getPrice()).isEqualTo(0);
-        FactorAnswerLoadedTest.assertionsFactorAnswerFour(price.getFactorAnswer());
+        FactorAnswerLoadedTest.assertionsFactorAnswerFour(
+                price.getFactorAnswer());
         CompanyEPoleLoadedTest.companyEPoleAssertions(price.getPole());
     }
 
     static void assertionsFactorAnswerPriceFive(final FactorAnswerPrice price) {
         Assertions.assertThat(price.getPrice()).isEqualTo(0);
-        FactorAnswerLoadedTest.assertionsFactorAnswerFive(price.getFactorAnswer());
+        FactorAnswerLoadedTest.assertionsFactorAnswerFive(
+                price.getFactorAnswer());
         CompanyEPoleLoadedTest.companyEPoleAssertions(price.getPole());
     }
 
     static void assertionsFactorAnswerPriceSix(final FactorAnswerPrice price) {
         Assertions.assertThat(price.getPrice()).isEqualTo(10);
-        FactorAnswerLoadedTest.assertionsFactorAnswerSix(price.getFactorAnswer());
+        FactorAnswerLoadedTest.assertionsFactorAnswerSix(
+                price.getFactorAnswer());
         CompanyEPoleLoadedTest.companyEPoleAssertions(price.getPole());
     }
 
-    static void assertionsFactorAnswerPriceSeven(final FactorAnswerPrice price) {
+    static void assertionsFactorAnswerPriceSeven(
+            final FactorAnswerPrice price) {
         Assertions.assertThat(price.getPrice()).isEqualTo(593);
-        FactorAnswerLoadedTest.assertionsFactorAnswerSeven(price.getFactorAnswer());
+        FactorAnswerLoadedTest.assertionsFactorAnswerSeven(
+                price.getFactorAnswer());
         CompanyEPoleLoadedTest.companyEPoleAssertions(price.getPole());
     }
 
-    static void assertionsFactorAnswerPriceEight(final FactorAnswerPrice price) {
+    static void assertionsFactorAnswerPriceEight(
+            final FactorAnswerPrice price) {
         Assertions.assertThat(price.getPrice()).isEqualTo(793);
-        FactorAnswerLoadedTest.assertionsFactorAnswerEight(price.getFactorAnswer());
+        FactorAnswerLoadedTest.assertionsFactorAnswerEight(
+                price.getFactorAnswer());
         CompanyEPoleLoadedTest.companyEPoleAssertions(price.getPole());
     }
 
     static void assertionsFactorAnswerPriceNine(final FactorAnswerPrice price) {
         Assertions.assertThat(price.getPrice()).isEqualTo(893);
-        FactorAnswerLoadedTest.assertionsFactorAnswerNine(price.getFactorAnswer());
+        FactorAnswerLoadedTest.assertionsFactorAnswerNine(
+                price.getFactorAnswer());
         CompanyEPoleLoadedTest.companyEPoleAssertions(price.getPole());
     }
 

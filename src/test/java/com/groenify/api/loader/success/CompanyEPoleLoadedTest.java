@@ -4,7 +4,6 @@ import com.groenify.api.database.model.company.Company;
 import com.groenify.api.database.model.company.CompanyEPole;
 import com.groenify.api.database.model.epole.EPole;
 import com.groenify.api.database.repository.company.CompanyEPoleRepository;
-import com.groenify.api.loader.FactorPriceAnswerLoaderTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,8 @@ class CompanyEPoleLoadedTest extends FactorPriceAnswerLoaderSuccessTest {
     @Override
     public void testAll() {
         Assertions.assertThat(repository.findAll()).hasSize(1);
-        final CompanyEPole companyEPole = repository.findAll().iterator().next();
+        final CompanyEPole companyEPole =
+                repository.findAll().iterator().next();
 
         companyEPoleAssertions(companyEPole);
     }

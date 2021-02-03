@@ -9,9 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 public abstract class FactorPriceAnswerLoaderSuccessTest
         extends FactorPriceAnswerLoaderTest {
 
-    private final static String RESOURCE = "data/test_prices.csv";
+    private static final String RESOURCE = "data/test_prices.csv";
 
-    protected String getResource() {
+    protected final String getResource() {
         return RESOURCE;
     }
 

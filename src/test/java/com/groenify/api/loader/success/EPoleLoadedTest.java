@@ -3,7 +3,6 @@ package com.groenify.api.loader.success;
 import com.groenify.api.database.model.epole.EPole;
 import com.groenify.api.database.model.epole.EPoleBrand;
 import com.groenify.api.database.repository.epole.EPoleRepository;
-import com.groenify.api.loader.FactorPriceAnswerLoaderTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,5 @@
 package com.groenify.api.loader.success;
 
-import com.groenify.api.database.model.factor.FactorTypeEnum;
 import com.groenify.api.database.model.factor.answer.FactorAnswer;
 import com.groenify.api.database.model.factor.answer.FactorAnswerBoolean;
 import com.groenify.api.database.model.factor.answer.FactorAnswerDoubleNumber;
@@ -25,7 +24,8 @@ class FactorAnswerLoadedTest extends FactorPriceAnswerLoaderSuccessTest {
     public void testAll() {
 
         Assertions.assertThat(repository.findAll()).hasSize(9);
-        final List<FactorAnswer> answers = Lists.newArrayList(repository.findAll());
+        final List<FactorAnswer> answers =
+                Lists.newArrayList(repository.findAll());
         assertionsFactorAnswerOne(answers.get(0));
         assertionsFactorAnswerTwo(answers.get(1));
         assertionsFactorAnswerThree(answers.get(2));
@@ -129,5 +129,4 @@ class FactorAnswerLoadedTest extends FactorPriceAnswerLoaderSuccessTest {
                 isEqualTo("[[12.0,15.0],[0.0,0.0]]");
         FactorLoadedTest.factorFourAssertions(answer.getOwnFactor());
     }
-
 }

@@ -13,9 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "`factor`")
+@Table(name = "`factor`",
+        uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Factor implements IdModel {
 
     @Id
@@ -27,8 +29,7 @@ public class Factor implements IdModel {
     @JoinColumn(name = "factor_type", nullable = false)
     private FactorType type;
 
-    @Column(name = "name", nullable = false, columnDefinition = "mediumtext",
-            unique = true)
+    @Column(name = "name", nullable = false, columnDefinition = "mediumtext")
     private String name;
 
     @Column(name = "question",

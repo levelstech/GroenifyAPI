@@ -2,7 +2,6 @@ package com.groenify.api.loader.success;
 
 import com.groenify.api.database.model.company.Company;
 import com.groenify.api.database.repository.company.CompanyRepository;
-import com.groenify.api.loader.FactorPriceAnswerLoaderTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
