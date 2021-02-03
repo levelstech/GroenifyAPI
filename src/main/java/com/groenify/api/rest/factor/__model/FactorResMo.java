@@ -20,6 +20,9 @@ public final class FactorResMo {
     @JsonProperty("question")
     private final String question;
 
+    @JsonProperty("required")
+    private final Boolean required;
+
     @JsonProperty("description")
     private final String description;
 
@@ -28,6 +31,7 @@ public final class FactorResMo {
         this.type = FactorTypeResMo.mapFactorTypeToResMo(factor.getType());
         this.name = factor.getName();
         this.question = factor.getQuestion();
+        this.required = factor.getRequired();
         this.description = factor.getDescription();
     }
 
@@ -56,6 +60,10 @@ public final class FactorResMo {
 
     public String getQuestion() {
         return question;
+    }
+
+    public Boolean getRequired() {
+        return required;
     }
 
     public String getDescription() {

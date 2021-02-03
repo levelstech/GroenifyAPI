@@ -64,6 +64,10 @@ public abstract class FactorAnswer implements IdModel {
 
     public abstract Factor getOwnFactor();
 
+    public Boolean hasTypeEnum(final FactorTypeEnum typeEnum) {
+        return getTypeEnum() == typeEnum;
+    }
+
     public FactorType getType() {
         return type;
     }

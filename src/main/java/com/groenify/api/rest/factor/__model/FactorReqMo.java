@@ -19,6 +19,10 @@ public final class FactorReqMo implements FactorMethods {
     @NotEmpty(message = "'question' cannot be an empty string")
     private String question;
 
+    @JsonProperty("required")
+    @NotNull(message = "'required' is a required field :)")
+    private Boolean required;
+
     @JsonProperty("description")
     private String description;
 
@@ -56,5 +60,15 @@ public final class FactorReqMo implements FactorMethods {
 
     public void setDescription(final String var) {
         this.description = var;
+    }
+
+
+    @Override
+    public Boolean getFactorRequired() {
+        return required;
+    }
+
+    public void setRequired(final Boolean var) {
+        this.required = var;
     }
 }

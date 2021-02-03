@@ -21,9 +21,11 @@ public final class FactorAnswerPriceCSV implements
     private String factorName;
     private String factorQuestion;
     private String factorDescription;
+    private Boolean factorRequired;
     private Long factorType;
     private String factorAnswer;
     private Double factorAnswerPrice;
+
 
     @Override
     public String getCompanyName() {
@@ -126,9 +128,20 @@ public final class FactorAnswerPriceCSV implements
         return factorDescription;
     }
 
+
     @JsonProperty("factor_description")
     public void setFactorDescription(final String var) {
         this.factorDescription = var;
+    }
+
+    @Override
+    public Boolean getFactorRequired() {
+        return factorRequired;
+    }
+
+    @JsonProperty("factor_required")
+    public void setFactorRequired(final Boolean var) {
+        this.factorRequired = var;
     }
 
     @Override

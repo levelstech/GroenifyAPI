@@ -7,4 +7,6 @@ public interface FactorMethods {
     String getFactorQuestion();
 
     String getFactorDescription();
+
+    Boolean getFactorRequired();
 }

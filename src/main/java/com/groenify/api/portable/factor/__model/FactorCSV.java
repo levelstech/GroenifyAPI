@@ -14,6 +14,9 @@ public final class FactorCSV implements FactorMethodsWithType {
     @JsonProperty("description")
     private String description;
 
+    @JsonProperty("required")
+    private Boolean required;
+
     @JsonProperty("type")
     private Long type;
 
@@ -36,6 +39,15 @@ public final class FactorCSV implements FactorMethodsWithType {
     }
 
     @Override
+    public Long getFactorType() {
+        return type;
+    }
+
+    public void setType(final Long var) {
+        this.type = var;
+    }
+
+    @Override
     public String getFactorDescription() {
         return description;
     }
@@ -45,11 +57,12 @@ public final class FactorCSV implements FactorMethodsWithType {
     }
 
     @Override
-    public Long getFactorType() {
-        return type;
+    public Boolean getFactorRequired() {
+        return required;
     }
 
-    public void setType(final Long var) {
-        this.type = var;
+    public void setRequired(final Boolean var) {
+        this.required = var;
     }
+
 }

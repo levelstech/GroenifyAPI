@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,6 +40,17 @@ public final class MapperUtil {
         } catch (JsonProcessingException e) {
             L.error("Writing object to json from '{}'", clazz);
             return "{}";
+        }
+    }
+
+    public static String readStringFromJSONFile(final String fileName) {
+        try {
+            final File file = new ClassPathResource(fileName).getFile();
+            return Files.readString(file.toPath(), Charset.defaultCharset());
+
+        } catch (IOException e) {
+            L.error("Reading string from '{}'", fileName, e);
+            return "";
         }
     }
 

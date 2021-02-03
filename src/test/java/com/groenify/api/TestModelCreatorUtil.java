@@ -11,9 +11,13 @@ import com.groenify.api.database.model.factor.answer.FactorAnswer;
 import com.groenify.api.database.model.factor.answer.FactorAnswerBoolean;
 import com.groenify.api.database.model.factor.answer.FactorAnswerMultipleChoice;
 import com.groenify.api.database.model.price.FactorAnswerPrice;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class TestModelCreatorUtil {
     private static int counter = 0;
+    private static final Logger L =
+            LoggerFactory.getLogger(TestModelCreatorUtil.class);
 
     private TestModelCreatorUtil() {
     }
@@ -107,6 +111,7 @@ public final class TestModelCreatorUtil {
         return Factor.ofJsonObjStr(
                 "{\"id\":1, \"name\":\"" + factorName + "\","
                         + "\"question\":\"Q11?\","
+                        + "\"required\":false,"
                         + "\"description\":\"dd\"}");
     }
 

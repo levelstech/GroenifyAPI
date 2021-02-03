@@ -1,6 +1,8 @@
 package com.groenify.api.rest.factor;
 
 import com.groenify.api.JsonTestUtil;
+import com.groenify.api.rest.TestRestObjectGetterUtil;
+import com.groenify.api.database.model.factor.Factor;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -18,16 +20,15 @@ class FactorEndpointGetByIdTest extends FactorEndpointById {
     @Test
     void getEFromFactorValidateJsonKeyNames() throws Exception {
 
+        final String resObj = TestRestObjectGetterUtil.
+                getJsonResponseObject(Factor.class);
+
         final String resBody = getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        JsonTestUtil.test(resBody, "{\"id\":2,\"type\":"
-                + "{\"id\":2,\"name\":\"Type-Wahid\",\"description\":null},"
-                + "\"name\":\"Factor-Wahid\","
-                + "\"question\":\"Q?\","
-                + "\"description\":\"aa\"}");
+        JsonTestUtil.test(resBody, resObj);
     }
 
     @Test

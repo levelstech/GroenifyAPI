@@ -2,6 +2,7 @@ package com.groenify.api.rest.factor.answer;
 
 import com.groenify.api.JsonTestUtil;
 import com.groenify.api.TestModelCreatorUtil;
+import com.groenify.api.rest.TestRestObjectGetterUtil;
 import com.groenify.api.loader.FactorTypeLoader;
 import com.groenify.api.database.model.factor.answer.FactorAnswer;
 import com.groenify.api.database.model.factor.answer.FactorAnswerBoolean;
@@ -10,6 +11,7 @@ import com.groenify.api.database.repository.factor.FactorTypeRepository;
 import com.groenify.api.database.repository.factor.answer.FactorAnswerRepository;
 import com.groenify.api.rest.EndpointTest;
 import com.groenify.api.database.service.factor.answer.FactorAnswerService;
+import com.groenify.api.rest.factor.answer.__model.FactorAnswerResMo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,30 +81,18 @@ class FactorAnswerEndpointGetAllTest extends EndpointTest {
     @Test
     void getAllFactorAnswerValidateJsonKeyNames() throws Exception {
 
+        final String boolObj = TestRestObjectGetterUtil.
+                getJsonResponseObject(FactorAnswerResMo.class, "1");
+        final String stringObj = TestRestObjectGetterUtil.
+                getJsonResponseObject(FactorAnswerResMo.class, "2");
+
         final String resBody = getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        JsonTestUtil.test(resBody, "[{\"id\":3,"
-                + "\"factor\":"
-                + "{\"id\":2,"
-                + "\"type\":{\"id\":10,\"name\":\"Type-Wahid\","
-                + "\"description\":null},"
-                + "\"name\":\"Factor-Wahid1\","
-                + "\"question\":\"Q11?\","
-                + "\"description\":\"dd\"},"
-                + "\"type\":6,"
-                + "\"answer\":true},"
-                + "{\"id\":4,"
-                + "\"factor\":{\"id\":2,\"type\":{\"id\":10,"
-                + "\"name\":\"Type-Wahid\",\"description\":null},"
-                + "\"name\":\"Factor-Wahid1\",\"question\":\"Q11?\","
-                + "\"description\":\"dd\"},\"type\":6,\"answer\":false},"
-                + "{\"id\":5,\"factor\":{\"id\":2,\"type\":"
-                + "{\"id\":10,\"name\":\"Type-Wahid\",\"description\":null},"
-                + "\"name\":\"Factor-Wahid1\",\"question\":\"Q11?\","
-                + "\"description\":\"dd\"},\"type\":7,\"answer\":\"text\"}]");
+        JsonTestUtil.test(resBody,
+                String.format("[%s, %s, %s]", boolObj, boolObj, stringObj));
     }
 
     @Test

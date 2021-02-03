@@ -1,6 +1,8 @@
 package com.groenify.api.rest.factor;
 
 import com.groenify.api.JsonTestUtil;
+import com.groenify.api.rest.TestRestObjectGetterUtil;
+import com.groenify.api.database.model.factor.Factor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -18,22 +20,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class FactorEndpointUpdateTest extends FactorEndpointById {
 
     @Test
-    void getEFromFactorValidateJsonKeyNames() throws Exception {
+    void updateFactorValidateJsonKeyNames() throws Exception {
+        final String resObj = TestRestObjectGetterUtil.
+                getJsonResponseObject(Factor.class);
 
         final String resBody = getMockMvc()
                 .perform(put(getEndpoint())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{ \"name\":\"Factor-Wahid(1)\","
                                 + "\"question\":\"Q(1)?\","
+                                + "\"required\":true,"
                                 + "\"description\":\"bb\"}"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        JsonTestUtil.test(resBody, "{\"id\":2,\"type\":"
-                + "{\"id\":2,\"name\":\"Type-Wahid\",\"description\":null},"
-                + "\"name\":\"Factor-Wahid(1)\","
-                + "\"question\":\"Q(1)?\","
-                + "\"description\":\"bb\"}");
+        JsonTestUtil.test(resBody, resObj);
 
         Assertions.assertThat(getRepository().existsByNameIgnoreCase(
                 "Factor-Wahid")).isFalse();
@@ -51,10 +52,12 @@ class FactorEndpointUpdateTest extends FactorEndpointById {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{ \"name\":\"" + newName + "\","
                                 + "\"question\":\"Q(1)?\","
+                                + "\"required\":true,"
                                 + "\"description\":\"bb\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPathIdOfModelId("$.id", getTestFactor()))
                 .andExpect(jsonPath("$.name", is("Factor-Wahid(1)")))
+                .andExpect(jsonPath("$.required", is(true)))
                 .andExpect(jsonPath("$.question", is("Q(1)?")))
                 .andExpect(jsonPathIdOfModelId(
                         "$.type.id", getTestFactor().getType()))
