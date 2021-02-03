@@ -218,6 +218,7 @@ CREATE TABLE `factor`
     `question`         mediumtext COLLATE utf8_bin NOT NULL,
     `factor_type`      bigint(20)                  NOT NULL,
     `description`      longtext COLLATE utf8_bin DEFAULT NULL,
+    `required`         tinyint(1)                DEFAULT 0,
     `factor_answer_id` bigint(20)                DEFAULT NULL,
 
     PRIMARY KEY (`id`),
@@ -241,17 +242,17 @@ LOCK TABLES `factor` WRITE;
 /*!40000 ALTER TABLE `factor`
     DISABLE KEYS */;
 INSERT INTO `factor`
-VALUES (1, 'soort_laadpunt', 'Welk soort laadpunt wilt u hebben?', 2, NULL,
+VALUES (1, 'soort_laadpunt', 'Welk soort laadpunt wilt u hebben?', 2, NULL, 1,
         NULL),
-       (2, 'vaste_laadkabel', 'Wilt u een vaste laadkabel?', 1, NULL, NULL),
+       (2, 'vaste_laadkabel', 'Wilt u een vaste laadkabel?', 1, NULL, 0, NULL),
        (3, 'lengte_laadkabel', 'Welke lengte zou u de laadkabel willen?', 3,
-        NULL, NULL),
+        NULL, 0, NULL),
        (4, 'installatie_pakket',
         'Wat is de lengte van uw meterkast tot aan de laadpaal? En hoeveel meter is ondergronds?',
-        4, NULL, NULL),
+        4, NULL, 1, NULL),
        (5, 'dynamic_load_balancing', 'Wilt u Dynamic Load Balancing?', 1,
-        NULL, NULL),
-       (6, 'verzwaren', 'Wilt u de meterkast verzwaren?', 1, NULL, NULL);
+        NULL, 0, NULL),
+       (6, 'verzwaren', 'Wilt u de meterkast verzwaren?', 1, NULL, 0, NULL);
 /*!40000 ALTER TABLE `factor`
     ENABLE KEYS */;
 UNLOCK TABLES;

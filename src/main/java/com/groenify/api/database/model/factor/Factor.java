@@ -12,8 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import java.util.List;
 
 @Entity
 @Table(name = "`factor`",
@@ -39,9 +41,15 @@ public class Factor implements IdModel {
     @Column(name = "description", columnDefinition = "longtext")
     private String description;
 
+    @Column(name = "required")
+    private Boolean required;
+
     @ManyToOne
     @JoinColumn(name = "factor_answer_id")
-    private FactorAnswer factorAnswer;
+    private FactorAnswer dependingAnswer;
+
+    @OneToMany(mappedBy = "factor")
+    private List<FactorAnswer> answerList;
 
 
     public static Factor ofMethods(
@@ -100,12 +108,28 @@ public class Factor implements IdModel {
         this.description = var;
     }
 
-    public FactorAnswer getFactorAnswer() {
-        return factorAnswer;
+    public Boolean getRequired() {
+        return required;
     }
 
-    public void setFactorAnswer(final FactorAnswer var) {
-        this.factorAnswer = var;
+    public void setRequired(final Boolean var) {
+        this.required = var;
+    }
+
+    public FactorAnswer getDependingAnswer() {
+        return dependingAnswer;
+    }
+
+    public void setDependingAnswer(final FactorAnswer var) {
+        this.dependingAnswer = var;
+    }
+
+    public List<FactorAnswer> getAnswerList() {
+        return answerList;
+    }
+
+    public void setAnswerList(final List<FactorAnswer> var) {
+        this.answerList = var;
     }
 
     private Factor update(final FactorType newType, final FactorMethods body) {
@@ -117,6 +141,7 @@ public class Factor implements IdModel {
         this.setName(body.getFactorName());
         this.setQuestion(body.getFactorQuestion());
         this.setDescription(body.getFactorDescription());
+        this.setRequired(body.getFactorRequired());
         return this;
     }
 }
