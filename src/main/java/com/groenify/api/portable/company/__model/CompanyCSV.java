@@ -21,7 +21,7 @@ public final class CompanyCSV implements CompanyMethods {
     }
 
     @Override
-    public String getCompanyDate() {
+    public String getCompanyDateString() {
         return "";
     }
 

@@ -28,9 +28,7 @@ public final class FactorTypePortable {
     public static FactorType determineFactorTypeFromEnum(
             final FactorTypeEnum typeEnum,
             final FactorTypeService service) {
-        final Optional<FactorType> opt =
-                service.getByName(typeEnum.toString());
-        return opt.orElseGet(
-                () -> storeFactorTypeFromEnum(typeEnum, service));
+        final Optional<FactorType> opt = service.getByName(typeEnum.toString());
+        return opt.orElseGet(() -> storeFactorTypeFromEnum(typeEnum, service));
     }
 }

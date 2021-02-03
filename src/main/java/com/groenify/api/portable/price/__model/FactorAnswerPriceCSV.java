@@ -1,16 +1,16 @@
 package com.groenify.api.portable.price.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.groenify.api.database.methods.factor.FactorMethodsWithType;
 import com.groenify.api.database.methods.company.CompanyEPoleMethods;
 import com.groenify.api.database.methods.company.CompanyMethods;
 import com.groenify.api.database.methods.epole.EPoleBrandMethods;
 import com.groenify.api.database.methods.epole.EPoleMethods;
-import com.groenify.api.database.methods.factor.FactorMethods;
 import com.groenify.api.database.methods.price.FactorAnswerPriceMethods;
 
 public final class FactorAnswerPriceCSV implements
         CompanyMethods, EPoleBrandMethods, EPoleMethods,
-        CompanyEPoleMethods, FactorMethods,
+        CompanyEPoleMethods, FactorMethodsWithType,
         FactorAnswerMethods, FactorAnswerPriceMethods {
 
     private String companyName;
@@ -36,7 +36,7 @@ public final class FactorAnswerPriceCSV implements
     }
 
     @Override
-    public String getCompanyDate() {
+    public String getCompanyDateString() {
         return "";
     }
 
@@ -106,6 +106,7 @@ public final class FactorAnswerPriceCSV implements
         this.factorQuestion = var;
     }
 
+    @JsonProperty
     public Long getFactorType() {
         return factorType;
     }
@@ -129,6 +130,7 @@ public final class FactorAnswerPriceCSV implements
     public void setFactorDescription(final String var) {
         this.factorDescription = var;
     }
+
     @Override
     public String getFactorAnswer() {
         return factorAnswer;

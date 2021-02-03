@@ -28,7 +28,8 @@ public class EPoleBrandPortable {
         return service.create(methods);
     }
 
-    public final EPoleBrand determineBrand(final EPoleBrandMethods methods) {
+    public final EPoleBrand getOrCreateBrandFromMethods(
+            final EPoleBrandMethods methods) {
 
         final Optional<EPoleBrand> opt =
                 service.getByName(methods.getBrandName());

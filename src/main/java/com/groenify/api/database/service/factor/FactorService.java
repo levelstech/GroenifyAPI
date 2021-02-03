@@ -1,10 +1,10 @@
 package com.groenify.api.database.service.factor;
 
+import com.groenify.api.database.methods.factor.FactorMethodsWithType;
 import com.groenify.api.database.model.factor.Factor;
 import com.groenify.api.database.methods.factor.FactorMethods;
 import com.groenify.api.database.model.factor.FactorType;
 import com.groenify.api.database.model.factor.FactorTypeEnum;
-import com.groenify.api.portable.factor.__model.FactorCSV;
 import com.groenify.api.database.repository.factor.FactorRepository;
 import com.groenify.api.rest.factor.__model.FactorReqMo;
 import com.groenify.api.util.ListUtil;
@@ -47,9 +47,9 @@ public class FactorService {
         return repository.save(factor);
     }
 
-    public final Factor create(final FactorCSV body) {
+    public final Factor create(final FactorMethodsWithType body) {
         final FactorTypeEnum typeEnum =
-                FactorTypeEnum.valueOfFactorOfId(body.getType());
+                FactorTypeEnum.valueOfFactorOfId(body.getFactorType());
         if (typeEnum == null) return null;
 
         return create(typeEnum.getMappedTo(), body);

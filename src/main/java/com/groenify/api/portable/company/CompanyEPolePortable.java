@@ -1,12 +1,14 @@
 package com.groenify.api.portable.company;
 
 import com.groenify.api.database.methods.company.CompanyEPoleMethods;
+import com.groenify.api.database.methods.company.CompanyMethods;
+import com.groenify.api.database.methods.epole.EPoleBrandMethods;
+import com.groenify.api.database.methods.epole.EPoleMethods;
 import com.groenify.api.database.model.company.Company;
 import com.groenify.api.database.model.company.CompanyEPole;
 import com.groenify.api.database.model.epole.EPole;
 import com.groenify.api.database.service.company.CompanyEPoleService;
 import com.groenify.api.portable.epole.EPolePortable;
-import com.groenify.api.portable.price.__model.FactorAnswerPriceCSV;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -43,15 +45,28 @@ public class CompanyEPolePortable {
         return service.create(company, ePole, methods);
     }
 
-    public final CompanyEPole determineCompanyEPole(
-            final FactorAnswerPriceCSV priceCSV) {
+    public final <T extends CompanyEPoleMethods & CompanyMethods
+            & EPoleMethods & EPoleBrandMethods>
+    CompanyEPole getOrCreateCompanyEPoleFromMethods(final T methods) {
+        return getOrCreateCompanyEPoleFromMethods(
+                methods, methods, methods, methods);
+    }
 
-        final Company company = companyPortable.determineCompany(priceCSV);
-        final EPole ePole = ePolePortable.determineEPole(priceCSV);
+    public final CompanyEPole getOrCreateCompanyEPoleFromMethods(
+            final CompanyEPoleMethods companyEPoleMethods,
+            final CompanyMethods companyMethods,
+            final EPoleMethods ePoleMethods,
+            final EPoleBrandMethods brandMethods) {
+
+        final Company company =
+                companyPortable.getOrCreateCompanyFromMethods(companyMethods);
+        final EPole ePole = ePolePortable.getOrCreateEPoleFromMethods(
+                ePoleMethods, brandMethods);
 
         final Optional<CompanyEPole> opt =
                 service.getAllFromCompanyWithEPole(company, ePole);
-        return opt.orElseGet(() -> storeCompanyEPole(company, ePole, priceCSV));
+        return opt.orElseGet(() ->
+                storeCompanyEPole(company, ePole, companyEPoleMethods));
     }
 
 }

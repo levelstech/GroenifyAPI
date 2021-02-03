@@ -44,16 +44,16 @@ public class FactorAnswerPricePortable {
         return service.create(ePole, answer, methods);
     }
 
-    public final FactorAnswerPrice determineFactorAnswerPrice(
+    public final FactorAnswerPrice getOrCreateFactorAnswerPriceFromCSV(
             final FactorAnswerPriceCSV priceCSV) {
 
-        final CompanyEPole ePole =
-                companyEPolePortable.determineCompanyEPole(priceCSV);
-        final FactorAnswer answer =
-                factorAnswerPortable.determineFactorAnswer(priceCSV);
+        final CompanyEPole ePole = companyEPolePortable.
+                getOrCreateCompanyEPoleFromMethods(priceCSV);
+        final FactorAnswer answer = factorAnswerPortable.
+                getOrCreateFactorAnswerFromMethods(priceCSV);
 
-        final Optional<FactorAnswerPrice> opt =
-                service.getFromCompanyEPoleAndFactorAnswer(ePole, answer);
+        final Optional<FactorAnswerPrice> opt = service.
+                getFromCompanyEPoleAndFactorAnswer(ePole, answer);
         return opt.orElseGet(() ->
                 storeFactorAnswerPrice(ePole, answer, priceCSV));
     }

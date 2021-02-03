@@ -85,7 +85,7 @@ public class Company implements IdModel {
 
     public Company update(final CompanyMethods updated) {
         this.setName(updated.getCompanyName());
-        this.setDate(DateUtil.fromIsoNoMillis(updated.getCompanyDate()));
+        this.setDate(updated.getCompanyDate());
         this.setUrl(updated.getCompanyUrl());
         return this;
     }

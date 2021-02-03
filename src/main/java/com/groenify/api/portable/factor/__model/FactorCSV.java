@@ -1,9 +1,9 @@
 package com.groenify.api.portable.factor.__model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.groenify.api.database.methods.factor.FactorMethods;
+import com.groenify.api.database.methods.factor.FactorMethodsWithType;
 
-public final class FactorCSV implements FactorMethods {
+public final class FactorCSV implements FactorMethodsWithType {
 
     @JsonProperty("name")
     private String name;
@@ -44,7 +44,8 @@ public final class FactorCSV implements FactorMethods {
         this.description = var;
     }
 
-    public Long getType() {
+    @Override
+    public Long getFactorType() {
         return type;
     }
 

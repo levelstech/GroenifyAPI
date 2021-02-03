@@ -1,9 +1,8 @@
 package com.groenify.api.portable.factor;
 
-import com.groenify.api.database.methods.factor.FactorMethods;
+import com.groenify.api.database.methods.factor.FactorMethodsWithType;
 import com.groenify.api.database.model.factor.Factor;
 import com.groenify.api.database.model.factor.FactorTypeEnum;
-import com.groenify.api.portable.factor.__model.FactorCSV;
 import com.groenify.api.database.service.factor.FactorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +22,8 @@ public class FactorPortable {
         this.service = var;
     }
 
-    private Factor storeFactor(
-            final FactorMethods factorCSV,
-            final Long type) {
+    private Factor storeFactor(final FactorMethodsWithType methods) {
+        final Long type = methods.getFactorType();
 
         final FactorTypeEnum typeEnum =
                 FactorTypeEnum.valueOfFactorOfId(type);
@@ -34,18 +32,13 @@ public class FactorPortable {
             return null;
         }
         L.debug("Factor not found with name = {}, storing in database",
-                factorCSV.getFactorName());
-        return service.create(typeEnum.getMappedTo(), factorCSV);
+                methods.getFactorName());
+        return service.create(typeEnum.getMappedTo(), methods);
     }
 
-    public final Factor determineFactor(final FactorCSV factorCSV) {
-        return determineFactor(factorCSV, factorCSV.getType());
-    }
-
-    public final Factor determineFactor(
-            final FactorMethods methods,
-            final Long type) {
+    public final Factor getOrCreateFactorFromMethodsWithType(
+            final FactorMethodsWithType methods) {
         final Optional<Factor> opt = service.getByName(methods.getFactorName());
-        return opt.orElseGet(() -> storeFactor(methods, type));
+        return opt.orElseGet(() -> storeFactor(methods));
     }
 }

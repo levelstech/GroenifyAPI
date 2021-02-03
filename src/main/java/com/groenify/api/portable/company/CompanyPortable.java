@@ -28,7 +28,8 @@ public class CompanyPortable {
         return service.create(methods);
     }
 
-    public final Company determineCompany(final CompanyMethods methods) {
+    public final Company getOrCreateCompanyFromMethods(
+            final CompanyMethods methods) {
         final Optional<Company> opt =
                 service.getByName(methods.getCompanyName());
         return opt.orElseGet(() -> storeCompany(methods));

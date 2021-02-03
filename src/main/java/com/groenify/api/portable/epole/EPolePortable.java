@@ -1,10 +1,10 @@
 package com.groenify.api.portable.epole;
 
+import com.groenify.api.database.methods.epole.EPoleBrandMethods;
 import com.groenify.api.database.methods.epole.EPoleMethods;
 import com.groenify.api.database.model.epole.EPole;
 import com.groenify.api.database.model.epole.EPoleBrand;
 import com.groenify.api.database.service.epole.EPoleService;
-import com.groenify.api.portable.price.__model.FactorAnswerPriceCSV;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -36,13 +36,15 @@ public class EPolePortable {
         return service.create(ePoleBrand, methods);
     }
 
-    public final EPole determineEPole(final FactorAnswerPriceCSV priceCSV) {
+    public final EPole getOrCreateEPoleFromMethods(
+            final EPoleMethods ePoleMethods,
+            final EPoleBrandMethods brandMethods) {
 
         final EPoleBrand brand =
-                ePoleBrandPortable.determineBrand(priceCSV);
+                ePoleBrandPortable.getOrCreateBrandFromMethods(brandMethods);
 
-        final Optional<EPole> opt =
-                service.getAllFromBrandAndType(brand, priceCSV.getEPoleType());
-        return opt.orElseGet(() -> storeEPole(brand, priceCSV));
+        final Optional<EPole> opt = service.
+                getAllFromBrandAndType(brand, ePoleMethods.getEPoleType());
+        return opt.orElseGet(() -> storeEPole(brand, ePoleMethods));
     }
 }

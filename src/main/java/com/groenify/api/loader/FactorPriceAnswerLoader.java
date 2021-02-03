@@ -28,12 +28,11 @@ public class FactorPriceAnswerLoader implements ReadyEventLoader {
     @LoadOrder(3)
     @Override
     public final void loadOnReady() {
-        final List<FactorAnswerPriceCSV> priceCSVS =
-                MapperUtil.readObjectFromCSVFile(
-                        RESOURCE, FactorAnswerPriceCSV.class);
+        final List<FactorAnswerPriceCSV> priceCSVS = MapperUtil.
+                readObjectFromCSVFile(RESOURCE, FactorAnswerPriceCSV.class);
         for (final FactorAnswerPriceCSV priceCSV : priceCSVS) {
-            final FactorAnswerPrice price =
-                    portable.determineFactorAnswerPrice(priceCSV);
+            final FactorAnswerPrice price = portable.
+                    getOrCreateFactorAnswerPriceFromCSV(priceCSV);
             L.trace("FactorAnswerPrice(id={},price={}) created from CSV",
                     price.getId(), price.getPrice());
         }

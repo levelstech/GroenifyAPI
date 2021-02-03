@@ -29,7 +29,7 @@ public final class CompanyReqMo implements CompanyMethods {
     }
 
     @Override
-    public String getCompanyDate() {
+    public String getCompanyDateString() {
         return date;
     }
 

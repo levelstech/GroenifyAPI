@@ -31,7 +31,8 @@ public class FactorLoader implements ReadyEventLoader {
         final List<FactorCSV> factorCSVS =
                 MapperUtil.readObjectFromCSVFile(RESOURCE, FactorCSV.class);
         for (final FactorCSV factorCSV : factorCSVS) {
-            final Factor factor = portable.determineFactor(factorCSV);
+            final Factor factor = portable.
+                    getOrCreateFactorFromMethodsWithType(factorCSV);
             L.trace("Factor(id={},name={}) created from CSV",
                     factor.getId(), factor.getName());
         }
