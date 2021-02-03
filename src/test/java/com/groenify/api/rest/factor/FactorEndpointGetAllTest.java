@@ -1,9 +1,12 @@
 package com.groenify.api.rest.factor;
 
 import com.groenify.api.JsonTestUtil;
+import com.groenify.api.rest.TestRestObjectGetterUtil;
 import com.groenify.api.database.model.factor.Factor;
-import com.groenify.api.database.model.factor.FactorType;
+import com.groenify.api.database.model.factor.FactorTypeEnum;
 import com.groenify.api.database.repository.factor.FactorRepository;
+import com.groenify.api.database.repository.factor.FactorTypeRepository;
+import com.groenify.api.loader.FactorTypeLoader;
 import com.groenify.api.rest.EndpointTest;
 import com.groenify.api.database.service.factor.FactorService;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +19,7 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import java.util.List;
 
+import static com.groenify.api.TestModelCreatorUtil.newFactor;
 import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -28,11 +32,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class FactorEndpointGetAllTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/factors";
-    private FactorType type;
     private static List<Factor> testFactors;
 
     @Autowired
     private FactorRepository repository;
+    @Autowired
+    private FactorTypeRepository typeRepository;
 
     public static void setTestFactors(final List<Factor> var) {
         FactorEndpointGetAllTest.testFactors = var;
@@ -54,22 +59,13 @@ class FactorEndpointGetAllTest extends EndpointTest {
 
     protected void setUpData() {
 
-        final FactorType typeWahid = FactorType.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Type-Wahid\"}");
-        type = storeNew(typeWahid);
-        final FactorType typeThanie = storeNew(FactorType.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Type-Thanie\"}"));
-        final Factor factorWahid = Factor.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Factor-Wahid1\","
-                        + "\"question\":\"Q11?\","
-                        + "\"description\":\"dd\"}");
-        final Factor factorThanie = Factor.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Factor-Thanie2\","
-                        + "\"question\":\"Q22?\","
-                        + "\"description\":\"cc\"}");
-        factorWahid.setType(type);
-        factorThanie.setType(typeThanie);
-        setTestFactors(storeNews(List.of(factorWahid, factorThanie)));
+        FactorTypeLoader.loadFactorTypeEnumerators(typeRepository);
+
+        final Factor factorWahid =
+                newFactor(this, FactorTypeEnum.BOOLEAN_QUESTION);
+        final Factor factorThanie =
+                newFactor(this, FactorTypeEnum.BOOLEAN_QUESTION);
+        setTestFactors(List.of(factorWahid, factorThanie));
     }
 
     @BeforeEach
@@ -80,22 +76,15 @@ class FactorEndpointGetAllTest extends EndpointTest {
 
     @Test
     void getAllFactorTypeValidateJsonKeyNames() throws Exception {
+        final String resObj = TestRestObjectGetterUtil.
+                getJsonResponseObject(Factor.class);
 
         final String resBody = getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        JsonTestUtil.test(resBody, "[{\"id\":2,\"type\":"
-                + "{\"id\":2,\"name\":\"Type-Wahid\",\"description\":null},"
-                + "\"name\":\"Factor-Wahid\","
-                + "\"question\":\"Q?\","
-                + "\"description\":\"aa\"},"
-                + "{\"id\":2,\"type\":"
-                + "{\"id\":2,\"name\":\"Type-Wahid\",\"description\":null},"
-                + "\"name\":\"Factor-Wahid\","
-                + "\"question\":\"Q?\","
-                + "\"description\":\"aa\"}]");
+        JsonTestUtil.test(resBody, String.format("[%s,%s]", resObj, resObj));
     }
 
     @Test
@@ -107,16 +96,21 @@ class FactorEndpointGetAllTest extends EndpointTest {
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(testFactors.size())))
+                .andExpect(jsonPath("$[0].name", is(factorWahid.getName())))
+                .andExpect(jsonPath("$[1].name", is(factorThanie.getName())))
+
                 .andExpect(jsonPathIdOfModelId("$[0].id", factorWahid))
                 .andExpect(jsonPathIdOfModelId("$[1].id", factorThanie))
 
-                .andExpect(jsonPath("$[0].name", is("Factor-Wahid1")))
-                .andExpect(jsonPath("$[1].name", is("Factor-Thanie2")))
 
-                .andExpect(jsonPath("$[0].question", is("Q11?")))
-                .andExpect(jsonPath("$[1].question", is("Q22?")))
+                .andExpect(jsonPath("$[0].question",
+                        is(factorWahid.getQuestion())))
+                .andExpect(jsonPath("$[1].question",
+                        is(factorThanie.getQuestion())))
 
-                .andExpect(jsonPath("$[0].description", is("dd")))
-                .andExpect(jsonPath("$[1].description", is("cc")));
+                .andExpect(jsonPath("$[0].description",
+                        is(factorWahid.getDescription())))
+                .andExpect(jsonPath("$[1].description",
+                        is(factorThanie.getDescription())));
     }
 }

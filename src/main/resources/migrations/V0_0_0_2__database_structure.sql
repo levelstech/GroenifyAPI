@@ -217,9 +217,9 @@ CREATE TABLE `factor`
     `name`             mediumtext COLLATE utf8_bin NOT NULL,
     `question`         mediumtext COLLATE utf8_bin NOT NULL,
     `factor_type`      bigint(20)                  NOT NULL,
-    `description`      longtext COLLATE utf8_bin DEFAULT NULL,
-    `required`         tinyint(1)                DEFAULT 0,
-    `factor_answer_id` bigint(20)                DEFAULT NULL,
+    `description`      longtext COLLATE utf8_bin            DEFAULT NULL,
+    `required`         tinyint(1)                  NOT NULL DEFAULT 0,
+    `factor_answer_id` bigint(20)                           DEFAULT NULL,
 
     PRIMARY KEY (`id`),
     UNIQUE KEY `factor_UN` (`name`) USING HASH,

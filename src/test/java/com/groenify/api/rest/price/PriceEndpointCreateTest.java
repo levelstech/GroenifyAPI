@@ -1,6 +1,7 @@
 package com.groenify.api.rest.price;
 
 import com.groenify.api.JsonTestUtil;
+import com.groenify.api.rest.TestRestObjectGetterUtil;
 import com.groenify.api.loader.FactorTypeLoader;
 import com.groenify.api.database.model.company.CompanyEPole;
 import com.groenify.api.database.model.factor.answer.FactorAnswer;
@@ -12,6 +13,7 @@ import com.groenify.api.database.repository.factor.answer.FactorAnswerRepository
 import com.groenify.api.database.repository.price.FactorAnswerPriceRepository;
 import com.groenify.api.rest.EndpointTest;
 import com.groenify.api.database.service.price.FactorAnswerPriceService;
+import com.groenify.api.rest.price.__model.FactorAnswerPriceResMo;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -97,6 +99,10 @@ class PriceEndpointCreateTest extends EndpointTest {
 
     @Test
     void postFactorTypeCreateValidateJsonKeyNames() throws Exception {
+
+        final String resObj = TestRestObjectGetterUtil.
+                getJsonResponseObject(FactorAnswerPriceResMo.class, "1");
+
         final String resBody = getMockMvc()
                 .perform(post(getEndpoint())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -104,17 +110,7 @@ class PriceEndpointCreateTest extends EndpointTest {
                 .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
 
-        JsonTestUtil.test(resBody, "{\"id\":2,\"price\":100.0,\"factor_answer\""
-                + ":{\"id\":4,\"factor\":{\"id\":4,\"type\":{\"id\":20,"
-                + "\"name\":\"FactorType-19\",\"description\":null},"
-                + "\"name\":\"Factor-20\",\"question\":\"Q11?\","
-                + "\"description\":\"dd\"},\"type\":2,\"answer\":true},"
-                + "\"company_epole\":{\"id\":4,\"company\":{\"id\":4,"
-                + "\"name\":\"Company-16\",\"date\":\"2020-12-28T00:43:32Z\","
-                + "\"url\":\"https://google.de\"},\"base_price\":500.0,"
-                + "\"epole\":{\"id\":4,\"brand\":{\"id\":4,"
-                + "\"name\":\"Brand-17\"},\"type\":\"PoleType-18\","
-                + "\"description\":null}}}");
+        JsonTestUtil.test(resBody, resObj);
         Assertions.assertThat(repository.findAllByPoleAndFactorAnswer(
                 ePole, factorAnswer)).isPresent();
     }

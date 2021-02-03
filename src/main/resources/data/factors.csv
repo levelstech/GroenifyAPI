@@ -1,8 +1,8 @@
 name,question,type,description,required,
-soort_laadpunt,Welk soort laadpunt wilt u hebben?,2,true,
-vaste_laadkabel,Wilt u een vaste laadpaal?,1,false,
-lengte_laadkabel,Welke lengte zou u de laadkabel willen?,3,false,
-installatie_pakket,"Wat is de lengte van uw meterkast tot aan de laadpaal? En hoeveel meter is ondergronds?",4, true
-dynamic_load_balancing,Wilt u Dynamic Load Balancing?,1, false
-verzwaren,Wilt u de meterkast verzwaren?,1, false
-uitbreiding,Wilt u uitbreiden naar 3 fase?,1, false
+soort_laadpunt,Welk soort laadpunt wilt u hebben?,2,,true,
+vaste_laadkabel,Wilt u een vaste laadpaal?,1,,false,
+lengte_laadkabel,Welke lengte zou u de laadkabel willen?,3,,false,
+installatie_pakket,"Wat is de lengte van uw meterkast tot aan de laadpaal? En hoeveel meter is ondergronds?",4,,true,
+dynamic_load_balancing,Wilt u Dynamic Load Balancing?,1,,false,
+verzwaren,Wilt u de meterkast verzwaren?,1,,false,
+uitbreiding,Wilt u uitbreiden naar 3 fase?,1,,false,

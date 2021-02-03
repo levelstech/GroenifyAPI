@@ -83,6 +83,7 @@ class FactorTypeToFactorEndpointCreateTest extends EndpointTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{ \"name\":\"Factor-Wahid\","
                                 + "\"question\":\")?\","
+                                + "\"required\":false,"
                                 + "\"description\":\"bb\"}"))
                 .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
@@ -90,6 +91,7 @@ class FactorTypeToFactorEndpointCreateTest extends EndpointTest {
         JsonTestUtil.test(resBody, "{\"id\":2,\"type\":"
                 + "{\"id\":2,\"name\":\"Factor-Wahid\",\"description\":null},"
                 + "\"name\":\"Factor-Wahid(1)\","
+                + "\"required\":false,"
                 + "\"question\":\"Q(1)?\","
                 + "\"description\":\"bb\"}");
 
@@ -105,10 +107,12 @@ class FactorTypeToFactorEndpointCreateTest extends EndpointTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{ \"name\":\"Factor-Wahid\","
                                 + "\"question\":\"Q?\","
+                                + "\"required\":false,"
                                 + "\"description\":\"bb\"}"))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", is("Factor-Wahid")))
                 .andExpect(jsonPath("$.question", is("Q?")))
+                .andExpect(jsonPath("$.required", is(false)))
                 .andExpect(jsonPathIdOfModelId("$.type.id", testType))
                 .andExpect(jsonPath("$.type.name", is(testType.getName())))
                 .andExpect(jsonPath("$.description", is("bb")));

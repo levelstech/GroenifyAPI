@@ -41,7 +41,7 @@ public class Factor implements IdModel {
     @Column(name = "description", columnDefinition = "longtext")
     private String description;
 
-    @Column(name = "required")
+    @Column(name = "required", nullable = false)
     private Boolean required;
 
     @ManyToOne

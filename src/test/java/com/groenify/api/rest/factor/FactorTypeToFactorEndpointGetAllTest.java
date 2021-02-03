@@ -1,11 +1,13 @@
 package com.groenify.api.rest.factor;
 
 import com.groenify.api.JsonTestUtil;
+import com.groenify.api.rest.TestRestObjectGetterUtil;
 import com.groenify.api.database.model.factor.Factor;
-import com.groenify.api.database.model.factor.FactorType;
+import com.groenify.api.database.model.factor.FactorTypeEnum;
 import com.groenify.api.framework.annotation.resolver.FactorTypeInPathResolver;
 import com.groenify.api.database.repository.factor.FactorRepository;
 import com.groenify.api.database.repository.factor.FactorTypeRepository;
+import com.groenify.api.loader.FactorTypeLoader;
 import com.groenify.api.rest.EndpointTest;
 import com.groenify.api.database.service.factor.FactorService;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +20,7 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import java.util.List;
 
+import static com.groenify.api.TestModelCreatorUtil.newFactor;
 import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -65,20 +68,14 @@ class FactorTypeToFactorEndpointGetAllTest extends EndpointTest {
 
     protected void setUpData() {
 
-        final FactorType typeWahid = storeNew(FactorType.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Type-Wahid\"}"));
-        final Factor factorWahid = Factor.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Factor-Wahid\", "
-                        + "\"question\":\"Q1?\","
-                        + "\"description\":\"aa\"}");
-        final Factor factorThanie = Factor.ofJsonObjStr(
-                "{\"id\":1, \"name\":\"Factor-Thanie\", "
-                        + "\"question\":\"Q2?\","
-                        + "\"description\":\"bb\"}");
-        factorWahid.setType(typeWahid);
-        factorThanie.setType(typeWahid);
-        setTestFactors(storeNews(List.of(factorWahid, factorThanie)));
-        setTypeId(typeWahid.getId());
+        FactorTypeLoader.loadFactorTypeEnumerators(typeRepository);
+
+        final Factor factorWahid =
+                newFactor(this, FactorTypeEnum.BOOLEAN_QUESTION);
+        final Factor factorThanie =
+                newFactor(this, FactorTypeEnum.BOOLEAN_QUESTION);
+        setTestFactors(List.of(factorWahid, factorThanie));
+        setTypeId(factorThanie.getType().getId());
     }
 
     @BeforeEach
@@ -89,22 +86,16 @@ class FactorTypeToFactorEndpointGetAllTest extends EndpointTest {
 
     @Test
     void getAllEFromFactorTypeValidateJsonKeyNames() throws Exception {
+        final String resObj = TestRestObjectGetterUtil.
+                getJsonResponseObject(Factor.class);
+
 
         final String resBody = getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        JsonTestUtil.test(resBody, "[{\"id\":2,\"type\":"
-                + "{\"id\":2,\"name\":\"Type-Wahid\",\"description\":null},"
-                + "\"name\":\"Factor-Wahid\","
-                + "\"question\":\"Q?\","
-                + "\"description\":\"aa\"},"
-                + "{\"id\":2,\"type\":"
-                + "{\"id\":2,\"name\":\"Type-Wahid\",\"description\":null},"
-                + "\"name\":\"Factor-Wahid\","
-                + "\"question\":\"Q?\","
-                + "\"description\":\"aa\"}]");
+        JsonTestUtil.test(resBody, String.format("[%s,%s]", resObj, resObj));
     }
 
     @Test
@@ -119,14 +110,18 @@ class FactorTypeToFactorEndpointGetAllTest extends EndpointTest {
                 .andExpect(jsonPathIdOfModelId("$[0].id", factorWahid))
                 .andExpect(jsonPathIdOfModelId("$[1].id", factorThanie))
 
-                .andExpect(jsonPath("$[0].name", is("Factor-Wahid")))
-                .andExpect(jsonPath("$[1].name", is("Factor-Thanie")))
+                .andExpect(jsonPath("$[0].name", is(factorWahid.getName())))
+                .andExpect(jsonPath("$[1].name", is(factorThanie.getName())))
 
-                .andExpect(jsonPath("$[0].question", is("Q1?")))
-                .andExpect(jsonPath("$[1].question", is("Q2?")))
+                .andExpect(jsonPath("$[0].question",
+                        is(factorWahid.getQuestion())))
+                .andExpect(jsonPath("$[1].question",
+                        is(factorWahid.getQuestion())))
 
-                .andExpect(jsonPath("$[0].description", is("aa")))
-                .andExpect(jsonPath("$[1].description", is("bb")));
+                .andExpect(jsonPath("$[0].description",
+                        is(factorWahid.getDescription())))
+                .andExpect(jsonPath("$[1].description",
+                        is(factorThanie.getDescription())));
     }
 
     @Test

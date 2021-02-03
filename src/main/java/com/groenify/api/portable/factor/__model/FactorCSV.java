@@ -39,6 +39,15 @@ public final class FactorCSV implements FactorMethodsWithType {
     }
 
     @Override
+    public Long getFactorType() {
+        return type;
+    }
+
+    public void setType(final Long var) {
+        this.type = var;
+    }
+
+    @Override
     public String getFactorDescription() {
         return description;
     }
@@ -56,12 +65,4 @@ public final class FactorCSV implements FactorMethodsWithType {
         this.required = var;
     }
 
-    @Override
-    public Long getFactorType() {
-        return type;
-    }
-
-    public void setType(final Long var) {
-        this.type = var;
-    }
 }

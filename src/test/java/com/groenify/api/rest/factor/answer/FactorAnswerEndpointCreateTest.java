@@ -1,6 +1,7 @@
 package com.groenify.api.rest.factor.answer;
 
 import com.groenify.api.JsonTestUtil;
+import com.groenify.api.rest.TestRestObjectGetterUtil;
 import com.groenify.api.loader.FactorTypeLoader;
 import com.groenify.api.database.model.factor.Factor;
 import com.groenify.api.database.model.factor.FactorTypeEnum;
@@ -10,6 +11,7 @@ import com.groenify.api.database.repository.factor.FactorTypeRepository;
 import com.groenify.api.database.repository.factor.answer.FactorAnswerRepository;
 import com.groenify.api.rest.EndpointTest;
 import com.groenify.api.database.service.factor.answer.FactorAnswerService;
+import com.groenify.api.rest.factor.answer.__model.FactorAnswerResMo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class FactorAnswerEndpointCreateTest extends EndpointTest {
 
     private static final String ENDPOINT = "/api/v1/factors";
+
     private static Long factorType;
     private static Long factorId;
     @Autowired
@@ -88,6 +91,8 @@ class FactorAnswerEndpointCreateTest extends EndpointTest {
 
     @Test
     void postFactorTypeCreateValidateJsonKeyNames() throws Exception {
+        final String resObj = TestRestObjectGetterUtil.
+                getJsonResponseObject(FactorAnswerResMo.class, "1");
         final String resBody = getMockMvc()
                 .perform(post(getEndpoint())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -96,16 +101,7 @@ class FactorAnswerEndpointCreateTest extends EndpointTest {
                 .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
 
-        JsonTestUtil.test(resBody, "{\"id\":3,"
-                + "\"factor\":"
-                + "{\"id\":2,"
-                + "\"type\":{\"id\":10,\"name\":\"Type-Wahid\","
-                + "\"description\":null},"
-                + "\"name\":\"Factor-Wahid1\","
-                + "\"question\":\"Q11?\","
-                + "\"description\":\"dd\"},"
-                + "\"type\":6,"
-                + "\"answer\":true}");
+        JsonTestUtil.test(resBody, resObj);
     }
 
     @Test

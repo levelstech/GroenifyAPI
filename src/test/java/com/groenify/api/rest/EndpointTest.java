@@ -1,6 +1,7 @@
 package com.groenify.api.rest;
 
 import com.groenify.api.ModelCreator;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -45,6 +46,11 @@ public abstract class EndpointTest implements ModelCreator {
         getMockMvc().perform(options(getEndpoint()))
                 .andExpect(header()
                         .exists(HttpHeaders.ALLOW));
+    }
+
+    @AfterAll
+    public static void closeTestSuite() {
+        TestRestObjectGetterUtil.tearDown();
     }
 
 }
