@@ -19,5 +19,5 @@ logging:
     com.groenify.api: DEBUG
     com.groenify.api.JsonTestUtil: DEBUG
     org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: WARN
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.springframework: WARN

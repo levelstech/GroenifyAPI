@@ -58,6 +58,7 @@ public abstract class FactorAnswer implements IdModel {
 
     public void setFactor(final Factor var) {
         this.factor = var;
+        factor.getAnswerList().add(this);
     }
 
     public abstract void setOwnFactor(Factor var);

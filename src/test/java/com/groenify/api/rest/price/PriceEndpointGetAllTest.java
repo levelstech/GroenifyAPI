@@ -1,6 +1,7 @@
 package com.groenify.api.rest.price;
 
 import com.groenify.api.JsonTestUtil;
+import com.groenify.api.TestModelCreatorUtil;
 import com.groenify.api.rest.TestRestObjectGetterUtil;
 import com.groenify.api.loader.FactorTypeLoader;
 import com.groenify.api.database.model.company.CompanyEPole;
@@ -10,7 +11,6 @@ import com.groenify.api.database.repository.factor.FactorTypeRepository;
 import com.groenify.api.database.repository.price.FactorAnswerPriceRepository;
 import com.groenify.api.rest.EndpointTest;
 import com.groenify.api.database.service.price.FactorAnswerPriceService;
-import com.groenify.api.rest.price.__model.FactorAnswerPriceResMo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import static com.groenify.api.rest.RestTestUtil.jsonPathIdOfModelId;
 import static com.groenify.api.TestModelCreatorUtil.newCompanyEPole;
 import static com.groenify.api.TestModelCreatorUtil.newFactorAnswerBoolean;
 import static com.groenify.api.TestModelCreatorUtil.newFactorAnswerPrice;
-import static com.groenify.api.TestModelCreatorUtil.newFactorText;
+import static com.groenify.api.TestModelCreatorUtil.newFactorAnswerText;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -74,7 +74,7 @@ class PriceEndpointGetAllTest extends EndpointTest {
         final FactorAnswer answer1 =
                 newFactorAnswerBoolean(true, this);
         final FactorAnswer answer3 = storeNew(
-                newFactorText("text", answer1.getFactor()));
+                newFactorAnswerText("text", answer1.getFactor()));
 
         final FactorAnswerPrice price =
                 newFactorAnswerPrice(100d, answer1, companyEPoleWahid);
@@ -93,9 +93,9 @@ class PriceEndpointGetAllTest extends EndpointTest {
     void getAllFactorTypeValidateJsonKeyNames() throws Exception {
 
         final String boolObj = TestRestObjectGetterUtil.
-                getJsonResponseObject(FactorAnswerPriceResMo.class, "1");
+                getJsonResponseObject(FactorAnswerPrice.class, "1");
         final String stringObj = TestRestObjectGetterUtil.
-                getJsonResponseObject(FactorAnswerPriceResMo.class, "2");
+                getJsonResponseObject(FactorAnswerPrice.class, "2");
         final String resBody = getMockMvc()
                 .perform(get(getEndpoint()))
                 .andExpect(status().isOk())

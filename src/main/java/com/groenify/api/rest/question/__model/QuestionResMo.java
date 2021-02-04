@@ -33,7 +33,8 @@ public final class QuestionResMo {
 
     private static List<Object> parseAnswerObjects(
             final List<FactorAnswer> answers) {
-        return answers.stream().filter(QuestionResMo::matchingAnswerShower)
+        return answers.stream()
+                .filter(QuestionResMo::matchingAnswerShower)
                 .map(FactorAnswer::getAnswer)
                 .collect(Collectors.toList());
     }
@@ -50,7 +51,7 @@ public final class QuestionResMo {
         return id;
     }
 
-    @JsonProperty("text")
+    @JsonProperty("question")
     public String getQuestionText() {
         return questionText;
     }
@@ -65,7 +66,7 @@ public final class QuestionResMo {
         return type;
     }
 
-    @JsonProperty("answer")
+    @JsonProperty("answers")
     public List<Object> getAnswers() {
         return answers;
     }

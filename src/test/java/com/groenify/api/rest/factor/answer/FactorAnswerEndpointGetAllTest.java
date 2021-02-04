@@ -67,7 +67,7 @@ class FactorAnswerEndpointGetAllTest extends EndpointTest {
         final FactorAnswerBoolean answer2 =
                 TestModelCreatorUtil.newFactorAnswerBoolean(false, this);
         final FactorAnswerMultipleChoice answer3 =
-                TestModelCreatorUtil.newFactorText("text", this);
+                TestModelCreatorUtil.newFactorAnswerText("text", this);
 
         setTestAnswers(List.of(answer1, answer2, answer3));
     }

@@ -2,6 +2,7 @@ package com.groenify.api.database.model.factor;
 
 import com.groenify.api.database.methods.factor.FactorMethods;
 import com.groenify.api.database.model.IdModel;
+import com.groenify.api.database.model.ModelMethods;
 import com.groenify.api.database.model.factor.answer.FactorAnswer;
 import com.groenify.api.util.MapperUtil;
 
@@ -125,7 +126,7 @@ public class Factor implements IdModel {
     }
 
     public List<FactorAnswer> getAnswerList() {
-        return answerList;
+        return ModelMethods.saveGetList(answerList, this::setAnswerList);
     }
 
     public void setAnswerList(final List<FactorAnswer> var) {
