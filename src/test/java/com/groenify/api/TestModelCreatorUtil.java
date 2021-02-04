@@ -9,7 +9,9 @@ import com.groenify.api.database.model.factor.FactorType;
 import com.groenify.api.database.model.factor.FactorTypeEnum;
 import com.groenify.api.database.model.factor.answer.FactorAnswer;
 import com.groenify.api.database.model.factor.answer.FactorAnswerBoolean;
+import com.groenify.api.database.model.factor.answer.FactorAnswerDoubleNumber;
 import com.groenify.api.database.model.factor.answer.FactorAnswerMultipleChoice;
+import com.groenify.api.database.model.factor.answer.FactorAnswerNumber;
 import com.groenify.api.database.model.price.FactorAnswerPrice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -152,26 +154,78 @@ public final class TestModelCreatorUtil {
         return creator.storeNew(answer);
     }
 
-    public static FactorAnswerMultipleChoice newFactorText(final String text) {
+    public static FactorAnswerMultipleChoice newFactorAnswerText(
+            final String text) {
         return FactorAnswerMultipleChoice.ofJsonObjStr(
                 "{\"id\":1, \"answer_multiple\":\"" + text + "\"}");
     }
 
-    public static FactorAnswerMultipleChoice newFactorText(
+    public static FactorAnswerMultipleChoice newFactorAnswerText(
             final String text, final Factor factor) {
-        final FactorAnswerMultipleChoice answer = newFactorText(text);
+        final FactorAnswerMultipleChoice answer = newFactorAnswerText(text);
         answer.setOwnFactor(factor);
         return answer;
     }
 
-    public static FactorAnswerMultipleChoice newFactorText(
+    public static FactorAnswerMultipleChoice newFactorAnswerText(
             final String text, final ModelCreator creator) {
         final Factor factor = newFactor(
                 creator, FactorTypeEnum.MULTIPLE_CHOICE);
-        final FactorAnswerMultipleChoice answer = newFactorText(text, factor);
+        final FactorAnswerMultipleChoice answer =
+                newFactorAnswerText(text, factor);
         return creator.storeNew(answer);
     }
 
+
+    public static FactorAnswerNumber newFactorAnswerNumber(
+            final Double min, final Double max) {
+        return FactorAnswerNumber.ofJsonObjStr(
+                "{\"id\":1, \"min_number\":" + min + ","
+                        + " \"max_number\":" + max + "}");
+    }
+
+    public static FactorAnswerNumber newFactorAnswerNumber(
+            final Double min, final Double max, final Factor factor) {
+        final FactorAnswerNumber answer = newFactorAnswerNumber(min, max);
+        answer.setOwnFactor(factor);
+        return answer;
+    }
+
+    public static FactorAnswerNumber newFactorAnswerNumber(
+            final Double min, final Double max, final ModelCreator creator) {
+        final Factor factor = newFactor(creator, FactorTypeEnum.NUMBER);
+        final FactorAnswerNumber answer =
+                newFactorAnswerNumber(min, max, factor);
+        return creator.storeNew(answer);
+    }
+
+    public static FactorAnswerDoubleNumber newFactorAnswerDoubleNumber(
+            final Double minA, final Double maxA,
+            final Double minB, final Double maxB) {
+        return FactorAnswerDoubleNumber.ofJsonObjStr(
+                "{\"id\":1, \"min_number_a\":" + minA + ","
+                        + " \"max_number_a\":" + maxA + ","
+                        + " \"min_number_b\":" + minB + ","
+                        + " \"max_number_b\":" + maxB + "}");
+    }
+
+    public static FactorAnswerDoubleNumber newFactorAnswerDoubleNumber(
+            final Double minA, final Double maxA,
+            final Double minB, final Double maxB, final Factor factor) {
+        final FactorAnswerDoubleNumber answer =
+                newFactorAnswerDoubleNumber(minA, maxA, minB, maxB);
+        answer.setOwnFactor(factor);
+        return answer;
+    }
+
+    public static FactorAnswerDoubleNumber newFactorAnswerDoubleNumber(
+            final Double minA, final Double maxA,
+            final Double minB, final Double maxB, final ModelCreator creator) {
+        final Factor factor = newFactor(creator, FactorTypeEnum.DOUBLE_NUMBER);
+        final FactorAnswerDoubleNumber answer =
+                newFactorAnswerDoubleNumber(minA, maxA, minB, maxB, factor);
+        return creator.storeNew(answer);
+    }
 
     public static FactorAnswerPrice newFactorAnswerPrice(final Double price) {
         return FactorAnswerPrice.ofJsonObjSr("{\"price\":" + price + "}");

@@ -73,18 +73,21 @@ const factor_answer_price_boolean = {
     "factor_answer": factor_answer_boolean,
     "company_epole": company_e_pole
 }
+
 const factor_answer_price_string = {
     "id": 2,
     "price": 100.0,
     "factor_answer": factor_answer_string,
     "company_epole": company_e_pole
 }
+
 const factor_answer_price_number = {
     "id": 2,
     "price": 100.0,
     "factor_answer": factor_answer_number,
     "company_epole": company_e_pole
 }
+
 const factor_answer_price_double_number = {
     "id": 2,
     "price": 100.0,
@@ -92,6 +95,63 @@ const factor_answer_price_double_number = {
     "company_epole": company_e_pole
 }
 
+const question_boolean = {
+    "id": 1,
+    "question": "Question text...?",
+    "required": false,
+    "type": 1,
+    "answers": [true, false],
+    "description": "Description..,"
+}
+
+const question_string = {
+    "id": 1,
+    "question": "Question text...?",
+    "required": false,
+    "type": 2,
+    "answers": ["test 1", "test 2"],
+    "description": "Description..,"
+}
+
+const question_number = {
+    "id": 1,
+    "question": "Question text...?",
+    "required": false,
+    "type": 2,
+    "answers": [],
+    "description": "Description..,"
+}
+
+const question_double_number = {
+    "id": 1,
+    "question": "Question text...?",
+    "required": false,
+    "type": 4,
+    "answers": [],
+    "description": "Description..,"
+}
+
+
+function getQuestionResponse(type) {
+    switch (parseInt(type)) {
+        case 4:
+            return question_double_number;
+        case 3:
+            return question_number;
+        case 2:
+            return question_string;
+        case 1:
+        default:
+            return question_boolean;
+    }
+}
+
+function getQuestion(type, answer_type) {
+    switch (type) {
+        default:
+            return getQuestionResponse(answer_type);
+    }
+}
 
 function getFactorTypeResponse() {
     return factor_type;
@@ -163,6 +223,8 @@ function findTerm(term, check) {
 
 function getObject(objectName, type, extra) {
     switch (objectName) {
+        case findTerm(objectName, "Question"):
+            return getQuestion(type, extra);
         case findTerm(objectName, "FactorAnswerPrice"):
             return getFactorAnswerPrice(type, extra);
         case findTerm(objectName, "FactorAnswer"):
@@ -172,7 +234,6 @@ function getObject(objectName, type, extra) {
         case findTerm(objectName, "Factor"):
         default:
             return getFactor(type);
-
     }
 }
 
