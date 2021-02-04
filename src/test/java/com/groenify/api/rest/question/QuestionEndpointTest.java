@@ -1,7 +1,6 @@
 package com.groenify.api.rest.question;
 
 import com.groenify.api.JsonTestUtil;
-import com.groenify.api.TestModelCreatorUtil;
 import com.groenify.api.database.model.factor.Factor;
 import com.groenify.api.database.model.factor.FactorTypeEnum;
 import com.groenify.api.database.repository.factor.FactorRepository;
@@ -70,13 +69,22 @@ class QuestionEndpointTest extends EndpointTest {
 
         FactorTypeLoader.loadFactorTypeEnumerators(typeRepository);
 
-
-        final Factor factor1 = newFactorAnswerBoolean(true, this).getFactor();
-        storeNew(newFactorAnswerBoolean(false, factor1));
-        final Factor factor2 = newFactorAnswerText("Answer_1", this).getFactor();
-        storeNew(newFactorAnswerText("Answer_2", factor2));
-        final Factor factor3 = newFactorAnswerNumber(1d, 10d, this).getFactor();
-        final Factor factor4 = newFactorAnswerDoubleNumber(1d, 10d, 3d, 5d, this).getFactor();
+        final Factor factor1 = newFactor(this, FactorTypeEnum.BOOLEAN_QUESTION);
+        factor1.addAnswerToList(
+                storeNew(newFactorAnswerBoolean(true, factor1)));
+        factor1.addAnswerToList(
+                storeNew(newFactorAnswerBoolean(false, factor1)));
+        final Factor factor2 = newFactor(this, FactorTypeEnum.MULTIPLE_CHOICE);
+        factor2.addAnswerToList(
+                storeNew(newFactorAnswerText("Answer_1", factor2)));
+        factor2.addAnswerToList(
+                storeNew(newFactorAnswerText("Answer_2", factor2)));
+        final Factor factor3 = newFactor(this, FactorTypeEnum.NUMBER);
+        factor3.addAnswerToList(
+                storeNew(newFactorAnswerNumber(1d, 10d, factor3)));
+        final Factor factor4 = newFactor(this, FactorTypeEnum.DOUBLE_NUMBER);
+        factor4.addAnswerToList(storeNew(
+                newFactorAnswerDoubleNumber(1d, 10d, 3d, 5d, factor3)));
         setTestFactors(List.of(factor1, factor2, factor3, factor4));
     }
 
@@ -90,9 +98,12 @@ class QuestionEndpointTest extends EndpointTest {
     void getAllFactorTypeValidateJsonKeyNames() throws Exception {
 
         final String boolObj = getJsonResponseObject(QuestionResMo.class, "1");
-        final String stringObj = getJsonResponseObject(QuestionResMo.class, "2");
-        final String numberObj = getJsonResponseObject(QuestionResMo.class, "3");
-        final String dNumberObj = getJsonResponseObject(QuestionResMo.class, "4");
+        final String stringObj =
+                getJsonResponseObject(QuestionResMo.class, "2");
+        final String numberObj =
+                getJsonResponseObject(QuestionResMo.class, "3");
+        final String dNumberObj =
+                getJsonResponseObject(QuestionResMo.class, "4");
 
         final String resBody = getMockMvc()
                 .perform(get(getEndpoint()))

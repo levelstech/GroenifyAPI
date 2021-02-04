@@ -1,7 +1,6 @@
 package com.groenify.api.rest.price;
 
 import com.groenify.api.JsonTestUtil;
-import com.groenify.api.TestModelCreatorUtil;
 import com.groenify.api.rest.TestRestObjectGetterUtil;
 import com.groenify.api.loader.FactorTypeLoader;
 import com.groenify.api.database.model.company.CompanyEPole;

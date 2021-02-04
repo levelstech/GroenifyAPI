@@ -125,6 +125,11 @@ public class Factor implements IdModel {
         this.dependingAnswer = var;
     }
 
+    public void addAnswerToList(final FactorAnswer var) {
+        final List<FactorAnswer> list = getAnswerList();
+        if (!list.contains(var)) list.add(var);
+    }
+
     public List<FactorAnswer> getAnswerList() {
         return ModelMethods.saveGetList(answerList, this::setAnswerList);
     }

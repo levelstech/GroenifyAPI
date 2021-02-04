@@ -15,7 +15,6 @@ import com.groenify.api.database.model.factor.answer.FactorAnswerNumber;
 import com.groenify.api.database.model.price.FactorAnswerPrice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.util.Pair;
 
 public final class TestModelCreatorUtil {
     private static int counter = 0;
@@ -155,7 +154,8 @@ public final class TestModelCreatorUtil {
         return creator.storeNew(answer);
     }
 
-    public static FactorAnswerMultipleChoice newFactorAnswerText(final String text) {
+    public static FactorAnswerMultipleChoice newFactorAnswerText(
+            final String text) {
         return FactorAnswerMultipleChoice.ofJsonObjStr(
                 "{\"id\":1, \"answer_multiple\":\"" + text + "\"}");
     }
@@ -171,7 +171,8 @@ public final class TestModelCreatorUtil {
             final String text, final ModelCreator creator) {
         final Factor factor = newFactor(
                 creator, FactorTypeEnum.MULTIPLE_CHOICE);
-        final FactorAnswerMultipleChoice answer = newFactorAnswerText(text, factor);
+        final FactorAnswerMultipleChoice answer =
+                newFactorAnswerText(text, factor);
         return creator.storeNew(answer);
     }
 

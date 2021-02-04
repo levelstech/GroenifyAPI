@@ -1,7 +1,5 @@
 package com.groenify.api.database.model;
 
-import com.groenify.api.database.model.factor.answer.FactorAnswer;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,12 +17,12 @@ public final class ModelMethods {
     }
 
     public static <T> List<T> saveGetList(
-            List<T> answerList,
-            final Consumer<List<T>> setAnswerList) {
-        if (answerList == null) {
-            answerList = new ArrayList<>();
-            setAnswerList.accept(answerList);
+            final List<T> var, final Consumer<List<T>> setter) {
+        List<T> temp = var;
+        if (temp == null) {
+            temp = new ArrayList<>();
+            setter.accept(temp);
         }
-        return answerList;
+        return temp;
     }
 }
